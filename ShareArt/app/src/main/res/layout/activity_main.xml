@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:background="@drawable/rectangulo_login"
             android:orientation="vertical"
             android:padding="20dp">
@@ -107,11 +106,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Ez daukazu kontu bat?"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/erregistratu_linka"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
