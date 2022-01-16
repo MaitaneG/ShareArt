@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="HASI SAIOA"
+                android:text="@string/hasi_saioa_tituloa"
                 android:textSize="26sp"
                 android:textStyle="bold" />
 
@@ -59,7 +59,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Sartu korreo elektronikoa"
+                        android:hint="@string/korreo_elektronikoa_hint"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -86,7 +86,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Sartu pasahitza"
+                        android:hint="@string/pasahitza_hint"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -108,7 +108,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="Ez daukazu kontu bat?"
+            android:text="@string/ez_daukazu_kontu_bat"
             android:textSize="16sp" />
 
         <TextView
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="ERREGISTRATU HEMEN"
+            android:text="@string/erregistratu_linka"
             android:textSize="20sp"
             android:textStyle="bold" />
 
