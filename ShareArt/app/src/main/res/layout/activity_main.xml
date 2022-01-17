@@ -5,27 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@drawable/login_fondoa"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login_fondoa"
         android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:src="@drawable/logo" />
 
+        <!-- Login -->
         <LinearLayout
             android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/rectangulo_login"
             android:orientation="vertical"
             android:padding="20dp">
@@ -33,6 +34,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:gravity="center"
                 android:text="@string/hasi_saioa_tituloa"
                 android:textSize="26sp"
@@ -49,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/karta"/>
+                    android:src="@drawable/karta_ikono"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -76,7 +78,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/kandado"/>
+                    android:src="@drawable/kandado_ikono"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -98,7 +100,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/kolorea"
-                android:src="@drawable/hasi_saioa" />
+                android:src="@drawable/hasi_saioa_botoia" />
 
         </LinearLayout>
 

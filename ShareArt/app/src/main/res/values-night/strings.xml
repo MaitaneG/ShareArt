@@ -2,8 +2,9 @@
 <resources>
     <string name="app_name">ShareArt</string>
     <string name="hasi_saioa_tituloa">HASI SAIOA</string>
-    <string name="korreo_elektronikoa_hint">Sartu korreo elektronikoa</string>
-    <string name="pasahitza_hint">Sartu pasahitza</string>
+    <string name="korreo_elektronikoa_hint">Korreo elektronikoa</string>
+    <string name="pasahitza_hint">Pasahitza</string>
+    <string name="baieztatu_pasahitza_hint">Baieztatu pasahitza</string>
     <string name="ez_daukazu_kontu_bat">Ez daukazu kontu bat?</string>
     <string name="erregistratu_linka">ERREGISTRATU HEMEN</string>
 </resources>
