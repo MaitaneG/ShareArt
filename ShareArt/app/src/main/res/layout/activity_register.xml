@@ -15,14 +15,13 @@
         android:id="@+id/atzera_botoia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/atzera_ikonoa"
         android:backgroundTint="@color/kolorea"
+        android:src="@drawable/atzera_ikonoa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <TextView
         android:id="@+id/textView2"
@@ -86,9 +85,10 @@
                 android:theme="@style/EditTextWhite">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TextInputEditTextErabiltzaileaErregistratu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/korreo_elektronikoa_hint"
+                    android:hint="@string/erabiltzailea_hint"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -112,6 +112,7 @@
                 android:theme="@style/EditTextWhite">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TextInputEditTextEmailErregistratu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/korreo_elektronikoa_hint"
@@ -139,6 +140,7 @@
                 android:theme="@style/EditTextWhite">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TextInputEditTextPasahitzaErregistratu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/pasahitza_hint"
@@ -166,6 +168,7 @@
                 android:theme="@style/EditTextWhite">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TextInputEditTextBaieztatuPasahitzaErregistratu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/baieztatu_pasahitza_hint"
@@ -175,6 +178,7 @@
 
         <!-- Hasi saioa -->
         <ImageButton
+            android:id="@+id/ImageButtonErregistratu"
             android:layout_width="147dp"
             android:layout_height="45dp"
             android:layout_gravity="center"

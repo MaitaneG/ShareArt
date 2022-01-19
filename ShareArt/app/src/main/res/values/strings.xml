@@ -6,4 +6,5 @@
     <string name="baieztatu_pasahitza_hint">Baieztatu pasahitza</string>
     <string name="ez_daukazu_kontu_bat">Ez daukazu kontu bat?</string>
     <string name="erregistratu_linka">ERREGISTRATU HEMEN</string>
+    <string name="erabiltzailea_hint">Erabiltzailea</string>
 </resources>
