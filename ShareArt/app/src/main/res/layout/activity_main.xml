@@ -66,6 +66,7 @@
                 android:theme="@style/EditTextWhite">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/korreo_elektronikoa_hint"
@@ -93,6 +94,7 @@
                 android:theme="@style/EditTextWhite">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextPasahitza"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/pasahitza_hint"
@@ -102,6 +104,7 @@
 
         <!-- Hasi saioa -->
         <ImageButton
+            android:id="@+id/ImageButtonHasiSaioa"
             android:layout_width="147dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
