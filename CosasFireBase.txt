@@ -1,3 +1,15 @@
+PARA ENCONTRAR EL SHA1
+
+keytool -exportcert -alias androiddebugkey -keystore C:\Users\USAURIO\.android\debug.keystore -list -v
+
+keytool -keystore C:\Users\USAURIO\.android\debug.keystore -list -v
+
+
+C:\Users\USAURIO\.android\debug.keystore
+
+
+BUILD.GRADLE
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
@@ -10,6 +22,13 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        // Check that you have the following line (if not, add it):
+        google()  // Google's Maven repository
     }
 }
 

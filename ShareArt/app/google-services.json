@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "701358991762",
+    "project_id": "shareart-6aaec",
+    "storage_bucket": "shareart-6aaec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701358991762:android:e0c870dc9a08560c52394b",
+        "android_client_info": {
+          "package_name": "com.example.shareart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701358991762-doqqgkfo09u14ki3vteqovgb2j7lvl7b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shareart",
+            "certificate_hash": "de44c96b9249e6a2f886a30989f77dee9cbb5f41"
+          }
+        },
+        {
+          "client_id": "701358991762-2ip5fobsactab0fa5cl4gjrejpcj39j6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChAwKYJhZe12L48Xdf1VhygVrWQ3nmmX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701358991762-2ip5fobsactab0fa5cl4gjrejpcj39j6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
