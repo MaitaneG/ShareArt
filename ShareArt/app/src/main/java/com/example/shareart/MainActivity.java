@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     startActivity(intent);
+                    //finish();
                     Toast.makeText(MainActivity.this, "Sesioa ondo hasi da", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Arazo bat egon da sesioa hastean", Toast.LENGTH_SHORT).show();
