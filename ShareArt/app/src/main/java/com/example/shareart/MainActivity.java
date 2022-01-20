@@ -130,27 +130,28 @@ public class MainActivity extends AppCompatActivity {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(intent);
 
                 try {
-                    GoogleSignInAccount account =task.getResult(ApiException.class);
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
 
-                    assert account!=null;
+                    assert account != null;
 
-                }catch (ApiException e){
+                    firebaseAuthWithGoogle(account.getIdToken());
+                } catch (ApiException e) {
 
                 }
             }
         }
     });
 
-    private void firebaseAuthWithGoogle(String idToken){
-        AuthCredential credential= GoogleAuthProvider.getCredential(idToken,null);
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     startActivity(intent);
                     Toast.makeText(MainActivity.this, "Sesioa ondo hasi da", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(MainActivity.this, "Arazo bat egon da sesioa hastean", Toast.LENGTH_SHORT).show();
                 }
             }
