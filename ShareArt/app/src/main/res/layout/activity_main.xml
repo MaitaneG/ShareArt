@@ -10,7 +10,6 @@
 
 
     <!-- Login -->
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -41,7 +40,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="@string/hasi_saioa_tituloa"
             android:textSize="26sp"
@@ -112,6 +111,12 @@
             android:backgroundTint="@color/kolorea"
             android:src="@drawable/hasi_saioa_botoia" />
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/ButtonHasiSaioaGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="35dp"/>
     </LinearLayout>
 
     <TextView
