@@ -110,8 +110,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(intent);
+                        eremuakGarbitu();
                     } else {
                         Toast.makeText(MainActivity.this, "Emaila edo pasahitza gaizki daude", Toast.LENGTH_SHORT).show();
                     }
@@ -119,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
-
 
     ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -158,6 +159,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private void eremuakGarbitu() {
+        emailEditText.setText("");
+        pasahitzaEditText.setText("");
+    }
+
 
     /*@Override
     protected void onStart() {
