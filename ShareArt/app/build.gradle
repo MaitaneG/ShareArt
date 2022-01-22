@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore' // Datu basea
     implementation 'com.google.android.gms:play-services-auth:19.2.0' // Google Play Services
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

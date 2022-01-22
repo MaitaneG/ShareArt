@@ -7,4 +7,6 @@
     <string name="ez_daukazu_kontu_bat">Ez daukazu kontu bat?</string>
     <string name="erregistratu_linka">ERREGISTRATU HEMEN</string>
     <string name="erabiltzailea_hint">Erabiltzailea</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
