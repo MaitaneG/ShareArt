@@ -3,12 +3,17 @@ package com.example.shareart.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.shareart.R;
+import com.example.shareart.models.User;
+import com.example.shareart.providers.AuthProvider;
+import com.example.shareart.providers.UserProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,8 +34,9 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText emailEditText;
     private TextInputEditText pasahitzaEditText;
     private TextInputEditText pasahitzaBaieztatuEditText;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore firebaseFirestore;
+    private AuthProvider authProvider;
+    private UserProvider userProvider;
+    private ProgressBar progressBar;
 
     /**
      * Activity-a sortzen denean
@@ -57,8 +63,11 @@ public class RegisterActivity extends AppCompatActivity {
         pasahitzaEditText = findViewById(R.id.TextInputEditTextPasahitzaErregistratu);
         pasahitzaBaieztatuEditText = findViewById(R.id.TextInputEditTextBaieztatuPasahitzaErregistratu);
         // FireBase
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        authProvider = new AuthProvider();
+        userProvider = new UserProvider();
+        // ProgressBar
+        progressBar = (ProgressBar) findViewById(R.id.indeterminateBar);
+        progressBar.setVisibility(View.INVISIBLE);
         // OnClickListener
         atzeraBotoia.setOnClickListener(this::atzeraJoan);
         erregistratuBotoia.setOnClickListener(this::erregistratu);
@@ -100,23 +109,31 @@ public class RegisterActivity extends AppCompatActivity {
      * @param pasahitza
      */
     private void sortuErabiltzailea(String erabiltzailea, String email, String pasahitza) {
-        firebaseAuth.createUserWithEmailAndPassword(email, pasahitza).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        progressBar.setVisibility(View.VISIBLE);
+        authProvider.erregistratu(email, pasahitza).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    String id = firebaseAuth.getCurrentUser().getUid();
+
+                    String id = authProvider.getUid();
                     Map<String, Object> map = new HashMap<>();
                     map.put("erabiltzailea", erabiltzailea);
                     map.put("email", email);
+                    User user = new User(id,erabiltzailea,email);
+
+                    userProvider.create(user);
                     Toast.makeText(RegisterActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();
-                    firebaseFirestore.collection("Users").document(id).set(map);
+
+                    Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(RegisterActivity.this, "Arazo bat egon da, erabiltzailea sortzean", Toast.LENGTH_SHORT).show();
                 }
+
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
-
-        finish();
     }
 
     /**
