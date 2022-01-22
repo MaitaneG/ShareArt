@@ -1,8 +1,10 @@
-package com.example.shareart;
+package com.example.shareart.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.shareart.R;
 
 public class HomeActivity extends AppCompatActivity {
 

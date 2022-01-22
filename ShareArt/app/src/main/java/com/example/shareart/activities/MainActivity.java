@@ -1,4 +1,4 @@
-package com.example.shareart;
+package com.example.shareart.activities;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shareart.R;
+import com.example.shareart.providers.AuthProvider;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -35,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText emailEditText;
     private TextInputEditText pasahitzaEditText;
     private ImageButton hasiSaioBotoia;
-    private FirebaseAuth firebaseAuth;
+
+    //private FirebaseAuth firebaseAuth;
+    AuthProvider authProvider;
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton hasiSaioaGooglekinBotoia;
 
@@ -59,13 +63,13 @@ public class MainActivity extends AppCompatActivity {
         // TextView
         erregistroLinka = findViewById(R.id.erregistratu_linka);
         // EditText
-        emailEditText = findViewById(R.id.textInputEditTextEmail);
-        pasahitzaEditText = findViewById(R.id.textInputEditTextPasahitza);
+        emailEditText = findViewById(R.id.textInputEditTextEmailLogin);
+        pasahitzaEditText = findViewById(R.id.textInputEditTextPasahitzaLogin);
         // ImageButton
         hasiSaioBotoia = findViewById(R.id.ImageButtonHasiSaioa);
         hasiSaioaGooglekinBotoia = findViewById(R.id.ButtonHasiSaioaGoogle);
-        //FireBase
-        firebaseAuth = FirebaseAuth.getInstance();
+        //FireBase AuthProviderS
+        authProvider = new AuthProvider();
         // Login Google-ekin
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("701358991762-doqqgkfo09u14ki3vteqovgb2j7lvl7b.apps.googleusercontent.com")
@@ -106,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         if (email.isEmpty() || pasahitza.isEmpty()) {
             Toast.makeText(MainActivity.this, "Gakoa guztiak bete behar dira", Toast.LENGTH_SHORT).show();
         } else {
-            firebaseAuth.signInWithEmailAndPassword(email, pasahitza).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            authProvider.sesioaHasiEmailEtaPasahitzarekin(email, pasahitza).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -132,9 +136,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     GoogleSignInAccount account = task.getResult(ApiException.class);
 
-                    assert account != null;
+                    //assert account != null;
 
-                    firebaseAuthWithGoogle(account.getIdToken());
+                    firebaseAuthWithGoogle(account);
                 } catch (ApiException e) {
 
                 }
@@ -142,9 +146,8 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        authProvider.sesioaHasiGooglerekin(account).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {

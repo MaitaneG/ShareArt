@@ -1,4 +1,4 @@
-package com.example.shareart;
+package com.example.shareart.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.shareart.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -75,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
         String pasahitzaBaeieztatu = pasahitzaBaieztatuEditText.getText().toString().trim();
 
         if (erabiltzailea.isEmpty() || email.isEmpty() || pasahitza.isEmpty() || pasahitzaBaeieztatu.isEmpty()) {
-            Toast.makeText(RegisterActivity.this, "Gako guztiak bete behar dira.", Toast.LENGTH_SHORT);
+            Toast.makeText(RegisterActivity.this, "Gako guztiak bete behar dira.", Toast.LENGTH_SHORT).show();
         } else if (!emailaKonprobatu(email)) {
             Toast.makeText(RegisterActivity.this, "Emailaren formatua gaizki dago.", Toast.LENGTH_SHORT).show();
         } else {
