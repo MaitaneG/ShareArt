@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/plus_botoia"
+        android:backgroundTint="@color/turquesa"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"

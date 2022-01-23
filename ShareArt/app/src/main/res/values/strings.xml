@@ -9,4 +9,7 @@
     <string name="erabiltzailea_hint">Erabiltzailea</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="deskripzioa_hint">Deskripzioa</string>
+    <string name="titulua_argitaratu">ARGITARATU ZURE MARRAZKIA</string>
+    <string name="kategoria_titulua">KATEGORIA</string>
 </resources>
