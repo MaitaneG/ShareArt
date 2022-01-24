@@ -1,4 +1,4 @@
-package com.example.shareart.Fragments;
+package com.example.shareart.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;

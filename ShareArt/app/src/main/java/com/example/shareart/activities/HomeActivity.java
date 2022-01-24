@@ -8,12 +8,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.shareart.Fragments.FiltroakFragment;
-import com.example.shareart.Fragments.HomeFragment;
-import com.example.shareart.Fragments.PerfilaFragment;
+import com.example.shareart.fragments.FiltroakFragment;
+import com.example.shareart.fragments.HomeFragment;
+import com.example.shareart.fragments.PerfilaFragment;
 import com.example.shareart.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
 

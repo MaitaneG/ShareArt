@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="50dp"
     android:background="@drawable/fondo_txuria"
-    tools:context=".Fragments.HomeFragment">
+    tools:context=".fragments.HomeFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonArgitalpen"

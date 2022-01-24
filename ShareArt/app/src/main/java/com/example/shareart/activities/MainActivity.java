@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
     private AuthProvider authProvider;
     private ProgressBar progressBar;
 
-    /**private GoogleSignInClient mGoogleSignInClient;
-     private SignInButton hasiSaioaGooglekinBotoia;
-     private UserProvider userProvider;**/
+    private GoogleSignInClient mGoogleSignInClient;
+    private SignInButton hasiSaioaGooglekinBotoia;
+    private UserProvider userProvider;
 
     /**
      * Activity-a sortzen denean
@@ -70,27 +70,28 @@ public class MainActivity extends AppCompatActivity {
         pasahitzaEditText = findViewById(R.id.textInputEditTextPasahitzaLogin);
         // ImageButton
         hasiSaioBotoia = findViewById(R.id.ImageButtonHasiSaioa);
-        /**hasiSaioaGooglekinBotoia = findViewById(R.id.ButtonHasiSaioaGoogle);**/
+        hasiSaioaGooglekinBotoia = findViewById(R.id.ButtonHasiSaioaGoogle);
         //FireBase AuthProviderS
         authProvider = new AuthProvider();
         // ProgressBar
         progressBar = (ProgressBar) findViewById(R.id.indeterminateBar);
         progressBar.setVisibility(View.INVISIBLE);
         // Login Google-ekin
-        /**GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-         .requestIdToken("701358991762-doqqgkfo09u14ki3vteqovgb2j7lvl7b.apps.googleusercontent.com")
-         .requestEmail()
-         .build();
-         mGoogleSignInClient = GoogleSignIn.getClient(MainActivity.this, googleSignInOptions);**/
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("701358991762-doqqgkfo09u14ki3vteqovgb2j7lvl7b.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(MainActivity.this, googleSignInOptions);
 
         // OnClickListener
         erregistroLinka.setOnClickListener(this::erregistroraJoan);
         hasiSaioBotoia.setOnClickListener(this::hasiSaioaKorreoaEtaPasahitzarekin);
-        /**hasiSaioaGooglekinBotoia.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(View view) {
-        resultLauncher.launch(new Intent(mGoogleSignInClient.getSignInIntent()));
-        }
-        });**/
+        hasiSaioaGooglekinBotoia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resultLauncher.launch(new Intent(mGoogleSignInClient.getSignInIntent()));
+            }
+        });
     }
 
     /**
@@ -133,46 +134,48 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-    @Override public void onActivityResult(ActivityResult result) {
-    if (result.getResultCode() == Activity.RESULT_OK) {
-    Intent intent = result.getData();
+    ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent intent = result.getData();
 
-    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(intent);
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(intent);
 
-    try {
-    GoogleSignInAccount account = task.getResult(ApiException.class);
+                try {
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
 
-    //assert account != null;
+                    //assert account != null;
 
-    firebaseAuthWithGoogle(account);
-    } catch (ApiException e) {
+                    firebaseAuthWithGoogle(account);
+                } catch (ApiException e) {
 
+                }
+            }
+        }
+    });
+
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        progressBar.setVisibility(View.VISIBLE);
+        authProvider.sesioaHasiGooglerekin(account).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    //finish();
+                    Toast.makeText(MainActivity.this, "Sesioa ondo hasi da", Toast.LENGTH_SHORT).show();
+                } else {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(MainActivity.this, "Arazo bat egon da sesioa hastean", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
-    }
-    }
-    });**/
 
-    /**
-     * private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-     * progressBar.setVisibility(View.VISIBLE);
-     * authProvider.sesioaHasiGooglerekin(account).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-     *
-     * @Override public void onComplete(@NonNull Task<AuthResult> task) {
-     * if (task.isSuccessful()) {
-     * progressBar.setVisibility(View.INVISIBLE);
-     * Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-     * startActivity(intent);
-     * //finish();
-     * Toast.makeText(MainActivity.this, "Sesioa ondo hasi da", Toast.LENGTH_SHORT).show();
-     * } else {
-     * progressBar.setVisibility(View.INVISIBLE);
-     * Toast.makeText(MainActivity.this, "Arazo bat egon da sesioa hastean", Toast.LENGTH_SHORT).show();
-     * }
-     * }
-     * });
-     * }
-     **/
 
     private void eremuakGarbitu() {
         emailEditText.setText("");
