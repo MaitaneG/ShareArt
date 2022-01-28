@@ -9,13 +9,8 @@
         android:id="@+id/ToolBar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/turquesa_claro">
+        android:background="@drawable/toolbar_home">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:text="SuperNaaahi"/>
     </androidx.appcompat.widget.Toolbar>
 
 </com.google.android.material.appbar.AppBarLayout>
