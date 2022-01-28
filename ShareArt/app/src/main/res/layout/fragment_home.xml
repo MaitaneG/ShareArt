@@ -8,6 +8,9 @@
     android:background="@drawable/fondo_txuria"
     tools:context=".fragments.HomeFragment">
 
+    <include layout="@layout/action_bar_toolbar"/>
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonArgitalpen"
         android:layout_width="wrap_content"

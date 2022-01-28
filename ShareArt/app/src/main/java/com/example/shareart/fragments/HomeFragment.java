@@ -3,6 +3,7 @@ package com.example.shareart.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ public class HomeFragment extends Fragment {
 
     private View view;
     private FloatingActionButton floatingActionButton;
+    private Toolbar toolbar;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -28,6 +30,10 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
         floatingActionButton=view.findViewById(R.id.floatingButtonArgitalpen);
+        toolbar=view.findViewById(R.id.ToolBar);
+
+        //((AppCompactActivity) getActivity().set)
+
         floatingActionButton.setOnClickListener(this::argitaratuArgazkiBat);
         return view;
     }

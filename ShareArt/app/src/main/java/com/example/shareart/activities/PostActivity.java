@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -40,7 +41,8 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void galeriaZabaldu(View view) {
-        Intent galeriaIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        //Intent galeriaIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        Intent galeriaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         galeriaIntent.setType("image/");
         someActivityResultLauncher.launch(galeriaIntent);
     }
