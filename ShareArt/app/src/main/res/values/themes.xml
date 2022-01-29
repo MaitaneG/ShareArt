@@ -20,4 +20,9 @@
         <item name="android:colorControlNormal">@color/turquesa_oscuro</item>
         <item name="android:colorControlActivated">@color/turquesa_oscuro</item>
     </style>
+
+    <style name="ToolbarName" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
 </resources>

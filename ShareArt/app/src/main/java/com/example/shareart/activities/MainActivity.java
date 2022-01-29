@@ -183,12 +183,14 @@ public class MainActivity extends AppCompatActivity {
         pasahitzaEditText.clearFocus();
     }
 
-    /**@Override protected void onStart() {
-    super.onStart();
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-    if(firebaseAuth.getCurrentUser()!=null){
-    Intent intent = new Intent(MainActivity.this,HomeActivity.class);
-    startActivity(intent);
+        if (authProvider.getUserSession() != null) {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
-    }**/
 }

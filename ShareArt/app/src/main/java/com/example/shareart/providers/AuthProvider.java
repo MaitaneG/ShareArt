@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 /**
@@ -37,6 +38,7 @@ public class AuthProvider {
 
     /**
      * Momentu horretako erabiltzailearen id-a lortzeko
+     *
      * @return
      */
     public String getUid() {
@@ -44,6 +46,28 @@ public class AuthProvider {
             return firebaseAuth.getCurrentUser().getUid();
         } else {
             return null;
+        }
+    }
+
+    /**
+     * Momentu horretako erabiltzailea lortzeko
+     *
+     * @return
+     */
+    public FirebaseUser getUserSession() {
+        if (firebaseAuth.getCurrentUser() != null) {
+            return firebaseAuth.getCurrentUser();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Momentu horretako erabiltzailea itxi
+     */
+    public void saioaItxi() {
+        if (firebaseAuth != null) {
+            firebaseAuth.signOut();
         }
     }
 
