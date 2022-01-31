@@ -2,22 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shareart">
 
-    <uses-feature android:name="android.hardware.camera2"
-        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <!--<provider
-        android:authorities="com.example.shareart"
-        android:name="androidx.core.content.FileProvider"
-        android:exported="false"
-        android:grantUriPermissions="true" >
-
-    <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/file_paths" />
-    </provider>-->
 
     <application
         android:allowBackup="true"

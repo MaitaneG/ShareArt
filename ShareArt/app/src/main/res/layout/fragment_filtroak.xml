@@ -7,9 +7,89 @@
     android:background="@drawable/fondo_txuria"
     tools:context=".fragments.FiltroakFragment">
 
-    <TextView
+    <include layout="@layout/action_bar_toolbar"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Filtroak Fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+
+        <!-- Layout bertikala ezkerra -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- Natura -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/natura_kategoria_handia" />
+
+            <!-- Hiperrealismo -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/hiperrealismo_kategoria_handia"/>
+
+            <!-- Erretratoak -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/erretratoak_kategoria_handia" />
+
+            <!-- Grafitiak -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/graffitiak_kategoria_handia" />
+        </LinearLayout>
+
+        <!-- Layout bertikala eskuma -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- Komikia -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/komikia_kategoria_handia" />
+
+            <!-- Ilustrazioa -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ilustrazioa_kategoria_handia" />
+
+            <!-- Karikatura -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/karikatura_kategoria_handia" />
+
+            <!-- Natura hila -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/natura_hila_kategoria_handia" />
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>
