@@ -35,7 +35,7 @@ public class FiltroakFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_filtroak, container, false);
         // Tresna-barra
-        toolbar = (Toolbar) view.findViewById(R.id.ToolBar);
+        toolbar = (Toolbar) view.findViewById(R.id.ToolBarBilatuEtaAtzera);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
         // Sesioak kudeatzeko
@@ -45,7 +45,7 @@ public class FiltroakFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu,menu);
+        inflater.inflate(R.menu.sesioa_itxi_menu,menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

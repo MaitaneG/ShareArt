@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
         // Argitalpen bat egiteko botoia
         floatingActionButton = view.findViewById(R.id.floatingButtonArgitalpen);
         // Tresna-barra
-        toolbar = (Toolbar) view.findViewById(R.id.ToolBar);
+        toolbar = (Toolbar) view.findViewById(R.id.ToolBarBilatuEtaAtzera);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
         // Sesioak kudeatzeko
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu,menu);
+        inflater.inflate(R.menu.bilatzailea_eta_sesioa_itxi_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

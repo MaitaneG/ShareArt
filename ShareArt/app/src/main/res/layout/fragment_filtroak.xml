@@ -7,7 +7,7 @@
     android:background="@drawable/fondo_txuria"
     tools:context=".fragments.FiltroakFragment">
 
-    <include layout="@layout/action_bar_toolbar"/>
+    <include layout="@layout/toolbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
