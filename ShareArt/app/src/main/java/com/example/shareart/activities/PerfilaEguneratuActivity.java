@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.shareart.R;
@@ -21,7 +19,7 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfila_eguneratu);
 
         // Tresna-barra
-        toolbar = (Toolbar) findViewById(R.id.ToolBarBilatuEtaAtzera);
+        toolbar = (Toolbar) findViewById(R.id.ToolBar);
 
         setSupportActionBar(toolbar);
         //toolbar.inflateMenu(R.menu.bilatzailea_eta_sesioa_itxi_menu);

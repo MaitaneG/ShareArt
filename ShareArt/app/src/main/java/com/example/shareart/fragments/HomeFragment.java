@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
         // Argitalpen bat egiteko botoia
         floatingActionButton = view.findViewById(R.id.floatingButtonArgitalpen);
         // Tresna-barra
-        toolbar = (Toolbar) view.findViewById(R.id.ToolBarBilatuEtaAtzera);
+        toolbar = (Toolbar) view.findViewById(R.id.ToolBar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
         // Sesioak kudeatzeko

@@ -2,6 +2,7 @@ package com.example.shareart.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -14,6 +15,9 @@ import com.example.shareart.fragments.PerfilaFragment;
 import com.example.shareart.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * Fragmentuak dituen activity
+ */
 public class HomeActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
