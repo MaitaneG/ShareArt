@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.shareart.R;
@@ -25,6 +26,7 @@ public class PostActivity extends AppCompatActivity {
 
     private ImageView argazkiaIgoBotoia;
     private File argazkiaFitxeroa;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,10 @@ public class PostActivity extends AppCompatActivity {
 
     private void hasieratu() {
         argazkiaIgoBotoia = findViewById(R.id.ImageViewArgazkiaIgo);
+
+        // ProgressBar
+        progressBar = findViewById(R.id.indeterminateBarPost);
+        progressBar.setVisibility(View.INVISIBLE);
 
         argazkiaIgoBotoia.setOnClickListener(this::galeriaZabaldu);
     }
@@ -58,6 +64,7 @@ public class PostActivity extends AppCompatActivity {
                             Uri imageUri = data.getData();
                             argazkiaFitxeroa = FileUtil.from(PostActivity.this, imageUri);
                             argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
+                            argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
                         } catch (Exception ex) {
                             Toast.makeText(PostActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
                         }

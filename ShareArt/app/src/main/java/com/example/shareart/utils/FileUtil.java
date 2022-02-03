@@ -28,6 +28,7 @@ public class FileUtil {
     }
 
     public static File from(Context context, Uri uri) throws IOException {
+        // Lortu fitxeroa
         InputStream inputStream = context.getContentResolver().openInputStream(uri);
         String fileName = getFileName(context, uri);
         String[] splitName = splitFileName(fileName);
@@ -51,6 +52,11 @@ public class FileUtil {
         return tempFile;
     }
 
+    /**
+     *
+     * @param fileName
+     * @return
+     */
     private static String[] splitFileName(String fileName) {
         String name = fileName;
         String extension = "";

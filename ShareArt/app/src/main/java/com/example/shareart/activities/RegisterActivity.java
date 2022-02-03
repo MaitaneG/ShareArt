@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         authProvider = new AuthProvider();
         userProvider = new UserProvider();
         // ProgressBar
-        progressBar = (ProgressBar) findViewById(R.id.indeterminateBar);
+        progressBar = (ProgressBar) findViewById(R.id.indeterminateBarRegister);
         progressBar.setVisibility(View.INVISIBLE);
         // OnClickListener
         atzeraBotoia.setOnClickListener(this::atzeraJoan);

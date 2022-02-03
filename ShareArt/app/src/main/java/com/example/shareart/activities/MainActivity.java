@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         //FireBase AuthProviderS
         authProvider = new AuthProvider();
         // ProgressBar
-        progressBar = (ProgressBar) findViewById(R.id.indeterminateBar);
+        progressBar = findViewById(R.id.indeterminateBarLogin);
         progressBar.setVisibility(View.INVISIBLE);
         // Login Google-ekin
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
