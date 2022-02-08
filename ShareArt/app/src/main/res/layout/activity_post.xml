@@ -186,7 +186,7 @@
             android:layout_marginBottom="5dp"/>
 
         <ImageButton
-            android:id="@+id/ImageButtonHasiSaioa"
+            android:id="@+id/ImageButtonArgitaratu"
             android:layout_width="147dp"
             android:layout_height="45dp"
             android:layout_gravity="center"

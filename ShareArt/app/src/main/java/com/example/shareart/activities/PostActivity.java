@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -13,20 +14,28 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.shareart.R;
+import com.example.shareart.providers.ImageProvider;
 import com.example.shareart.utils.FileUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
 public class PostActivity extends AppCompatActivity {
 
     private ImageView argazkiaIgoBotoia;
+    private ImageButton argitaratuBotoia;
     private File argazkiaFitxeroa;
     private ProgressBar progressBar;
+
+    private ImageProvider imageProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +46,32 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void hasieratu() {
+        // ImageButton
         argazkiaIgoBotoia = findViewById(R.id.ImageViewArgazkiaIgo);
+        argitaratuBotoia = findViewById(R.id.ImageButtonArgitaratu);
 
         // ProgressBar
         progressBar = findViewById(R.id.indeterminateBarPost);
         progressBar.setVisibility(View.INVISIBLE);
 
+        // OnClickListener
         argazkiaIgoBotoia.setOnClickListener(this::galeriaZabaldu);
+        argitaratuBotoia.setOnClickListener(this::argitaratu);
+
+        imageProvider = new ImageProvider();
+    }
+
+    private void argitaratu(View view) {
+        imageProvider.save(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(PostActivity.this, "Ondo igo da argazkia", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PostActivity.this, "Errore bat egon da argazkia igotzean", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void galeriaZabaldu(View view) {

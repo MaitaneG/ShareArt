@@ -22,6 +22,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
 
+    /**
+     * HomeActivity-a sortzen denean
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +35,24 @@ public class HomeActivity extends AppCompatActivity {
         hasieratu();
     }
 
+    /**
+     * Konponenteak hasieratzen dira
+     */
     private void hasieratu() {
+        // NavigationMenu
         bottomNavigation = findViewById(R.id.bottom_navigation);
-
+        // OnItemSelectedListener
         bottomNavigation.setOnItemSelectedListener(this::nabigatu);
         // Fragmentu lehenetsia
         openFragment(new HomeFragment());
     }
 
+    /**
+     * Fragmentuen arteko nabigazioa egiteko
+     *
+     * @param menuItem
+     * @return
+     */
     private boolean nabigatu(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             // Home fragmentua
@@ -55,6 +70,12 @@ public class HomeActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    /**
+     * Fragmentua zabaltzeko
+     *
+     * @param fragment
+     */
     public void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
@@ -62,6 +83,9 @@ public class HomeActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    /**
+     * Atzerako botoia klikatzean
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
