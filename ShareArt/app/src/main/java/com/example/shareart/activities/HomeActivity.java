@@ -3,11 +3,15 @@ package com.example.shareart.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.example.shareart.fragments.FiltroakFragment;
 import com.example.shareart.fragments.HomeFragment;
@@ -21,6 +25,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
+    private SwipeListener swipeListener;
+    private CoordinatorLayout coordinatorLayout;
 
     /**
      * HomeActivity-a sortzen denean
@@ -45,6 +51,8 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigation.setOnItemSelectedListener(this::nabigatu);
         // Fragmentu lehenetsia
         openFragment(new HomeFragment());
+        coordinatorLayout = findViewById(R.id.coordinator);
+        SwipeListener swipeListener = new SwipeListener(coordinatorLayout);
     }
 
     /**
@@ -90,5 +98,55 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finishAffinity();
+    }
+
+    private class SwipeListener implements View.OnTouchListener {
+
+        GestureDetector gestureDetector;
+
+        SwipeListener(View view) {
+            int threshold = 100;
+            int velocity_threshold = 100;
+
+            GestureDetector.SimpleOnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onDown(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                    // X eta Y-ren desberdintasuna
+                    float xDiff = e2.getX() - e1.getX();
+                    float yDiff = e2.getY() - e1.getY();
+
+                    try {
+                        // X-ren diferentzia handiago denean y-rena baino
+                        if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                            // X-ren diferentzia handiagoa denean guk zehaztutakoa baino
+                            // Abiadura handiagoa bada guk zehaztutakoa baino
+                            if (Math.abs(xDiff) > threshold && Math.abs(velocityX) > velocity_threshold) {
+                                if (xDiff > 0) {
+                                    openFragment(new HomeFragment());
+                                } else {
+                                    openFragment(new FiltroakFragment());
+                                }
+                                return true;
+                            }
+                        }
+                    } catch (Exception ex) {
+                        ex.getStackTrace();
+                    }
+                    return false;
+                }
+            };
+            gestureDetector = new GestureDetector(listener);
+            view.setOnTouchListener(this);
+        }
+
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return gestureDetector.onTouchEvent(motionEvent);
+        }
     }
 }
