@@ -156,7 +156,7 @@ public class PostActivity extends AppCompatActivity {
             if (deskripzioa.isEmpty() || kategoria.isEmpty()) {
                 Toast.makeText(this, "Deskripzoa eta kategoria zehaztu behar duzu.", Toast.LENGTH_SHORT).show();
             } else {
-                gordeArgazkia(deskripzioa,kategoria);
+                gordeArgazkia(deskripzioa, kategoria);
                 Intent intent = new Intent(PostActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -178,7 +178,7 @@ public class PostActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
 
-                            Argitarapena argitarapena= new Argitarapena();
+                            Argitarapena argitarapena = new Argitarapena();
                             argitarapena.setUrl_argazkia(url);
                             argitarapena.setDeskribapena(deskripzioa);
                             argitarapena.setKategoria(kategoria);
@@ -186,9 +186,9 @@ public class PostActivity extends AppCompatActivity {
                             postProvider.gordeArgitarapenarenInformazioa(argitarapena).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> taskGorde) {
-                                    if(taskGorde.isSuccessful()){
+                                    if (taskGorde.isSuccessful()) {
                                         Toast.makeText(PostActivity.this, "Argazkia ondo igo da", Toast.LENGTH_SHORT).show();
-                                    }else{
+                                    } else {
                                         Toast.makeText(PostActivity.this, "Arazo bat egon da argazkia igotzen", Toast.LENGTH_SHORT).show();
                                     }
                                 }
