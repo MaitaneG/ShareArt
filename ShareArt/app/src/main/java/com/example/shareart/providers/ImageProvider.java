@@ -18,10 +18,14 @@ public class ImageProvider {
         storageReference= FirebaseStorage.getInstance().getReference();
     }
 
-    public UploadTask save(Context context, File file){
+    public UploadTask gordeFirebasen(Context context, File file){
         byte[] imageByte = CompressorBitmapImage.getImage(context,file.getPath(), 500, 500);
         StorageReference storage = storageReference.child(new Date()+".jpg");
         UploadTask task = storage.putBytes(imageByte);
         return task;
+    }
+
+    public StorageReference lortuArgazkiarenKokapena(){
+        return storageReference;
     }
 }

@@ -21,9 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shareart.R;
+import com.example.shareart.models.Argitarapena;
+import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.ImageProvider;
+import com.example.shareart.providers.PostProvider;
 import com.example.shareart.utils.FileUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.UploadTask;
@@ -48,7 +52,14 @@ public class PostActivity extends AppCompatActivity {
     private ImageView imageViewNaturaHila;
 
     private ImageProvider imageProvider;
+    private PostProvider postProvider;
+    private AuthProvider authProvider;
 
+    /**
+     * PostActivity-a sortzen denean
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +68,9 @@ public class PostActivity extends AppCompatActivity {
         hasieratu();
     }
 
+    /**
+     * Konponenteak hasieratzen dira
+     */
     private void hasieratu() {
         // ImageButton
         argazkiaIgoBotoia = findViewById(R.id.ImageViewArgazkiaIgo);
@@ -90,8 +104,14 @@ public class PostActivity extends AppCompatActivity {
         imageViewNaturaHila.setOnClickListener(this::kategoriaAldatu);
         // ImageProvider
         imageProvider = new ImageProvider();
+        postProvider = new PostProvider();
     }
 
+    /**
+     * Argazkiaren kategoria aldatzeko, baldin eta zer botoi klikatzen den
+     *
+     * @param view
+     */
     private void kategoriaAldatu(View view) {
         switch (view.getId()) {
             case R.id.imageViewNatura:
@@ -121,17 +141,60 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Argazkia argitaratzeko
+     *
+     * @param view
+     */
     private void argitaratu(View view) {
         String deskripzioa = editTextDeskripzioa.getText().toString();
         String kategoria = textViewKategoria.getText().toString();
 
+        if (argazkiaFitxeroa == null) {
+            Toast.makeText(this, "Argazkia aukeratu behar duzu", Toast.LENGTH_SHORT).show();
+        } else {
+            if (deskripzioa.isEmpty() || kategoria.isEmpty()) {
+                Toast.makeText(this, "Deskripzoa eta kategoria zehaztu behar duzu.", Toast.LENGTH_SHORT).show();
+            } else {
+                gordeArgazkia(deskripzioa,kategoria);
+                Intent intent = new Intent(PostActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }
     }
 
-    private void gordeArgazkia() {
-        imageProvider.save(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+    /**
+     * Argazkia gordetzeko Firestore-en
+     * eta bere informazioa ere gordetzeko
+     */
+    private void gordeArgazkia(String deskripzioa, String kategoria) {
+        imageProvider.gordeFirebasen(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
+                    imageProvider.lortuArgazkiarenKokapena().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = uri.toString();
+
+                            Argitarapena argitarapena= new Argitarapena();
+                            argitarapena.setUrl_argazkia(url);
+                            argitarapena.setDeskribapena(deskripzioa);
+                            argitarapena.setKategoria(kategoria);
+                            argitarapena.setId_user(authProvider.getUid());
+                            postProvider.gordeArgitarapenarenInformazioa(argitarapena).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> taskGorde) {
+                                    if(taskGorde.isSuccessful()){
+                                        Toast.makeText(PostActivity.this, "Argazkia ondo igo da", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(PostActivity.this, "Arazo bat egon da argazkia igotzen", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    });
                     Toast.makeText(PostActivity.this, "Ondo igo da argazkia", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(PostActivity.this, "Errore bat egon da argazkia igotzean", Toast.LENGTH_SHORT).show();
@@ -140,6 +203,11 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Mugikorraren galeria zabaltzeko
+     *
+     * @param view
+     */
     private void galeriaZabaldu(View view) {
         //Intent galeriaIntent = new Intent(Intent.ACTION_GET_CONTENT);
         Intent galeriaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -147,6 +215,9 @@ public class PostActivity extends AppCompatActivity {
         someActivityResultLauncher.launch(galeriaIntent);
     }
 
+    /**
+     * Argazkia aukeratzeko galeriatik
+     */
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {

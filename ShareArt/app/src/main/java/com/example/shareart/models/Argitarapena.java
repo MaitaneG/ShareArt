@@ -3,18 +3,20 @@ package com.example.shareart.models;
 public class Argitarapena {
 
     private String id;
+    private String id_user;
     private String deskribapena;
     private String url_argazkia;
     private String kategoria;
 
-    public Argitarapena(String id, String deskribapena, String url_argazkia, String kategoria) {
+    public Argitarapena() {
+    }
+
+    public Argitarapena(String id, String id_user, String deskribapena, String url_argazkia, String kategoria) {
         this.id = id;
+        this.id_user = id_user;
         this.deskribapena = deskribapena;
         this.url_argazkia = url_argazkia;
         this.kategoria = kategoria;
-    }
-
-    public Argitarapena() {
     }
 
     public String getId() {
@@ -23,6 +25,14 @@ public class Argitarapena {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(String id_user) {
+        this.id_user = id_user;
     }
 
     public String getDeskribapena() {
