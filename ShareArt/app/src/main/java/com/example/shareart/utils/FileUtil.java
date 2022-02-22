@@ -70,6 +70,7 @@ public class FileUtil {
     }
 
 
+    @SuppressLint("Range")
     private static String getFileName(Context context, Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
