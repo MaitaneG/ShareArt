@@ -11,7 +11,7 @@ public class UserProvider {
     private CollectionReference collectionReference;
 
     public UserProvider() {
-        collectionReference = FirebaseFirestore.getInstance().collection("Users");
+        collectionReference = FirebaseFirestore.getInstance().collection("User");
     }
 
     /**

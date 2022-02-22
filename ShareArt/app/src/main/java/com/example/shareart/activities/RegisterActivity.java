@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Arazo bat egon da, erabiltzailea sortzean", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Arazo bat egon da erabiltzailea sortzean", Toast.LENGTH_SHORT).show();
                 }
 
                 progressBar.setVisibility(View.INVISIBLE);
