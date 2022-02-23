@@ -1,5 +1,6 @@
 package com.example.shareart.fragments;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,15 +21,24 @@ import android.view.ViewGroup;
 import com.example.shareart.R;
 import com.example.shareart.activities.MainActivity;
 import com.example.shareart.activities.PostActivity;
+import com.example.shareart.adapters.PostAdapter;
+import com.example.shareart.models.Argitarapena;
 import com.example.shareart.providers.AuthProvider;
+import com.example.shareart.providers.PostProvider;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.Query;
 
 public class HomeFragment extends Fragment {
 
     private View view;
     private FloatingActionButton floatingActionButton;
     private Toolbar toolbar;
+    private RecyclerView recyclerView;
+
     private AuthProvider authProvider;
+    private PostProvider postProvider;
+    private PostAdapter postAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -53,6 +65,12 @@ public class HomeFragment extends Fragment {
         setHasOptionsMenu(true);
         // Sesioak kudeatzeko
         authProvider = new AuthProvider();
+        // PostProvider
+        postProvider = new PostProvider();
+        // RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerViewArgitarapenak);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
         // OnClickListenerrak
         floatingActionButton.setOnClickListener(this::argitaratuArgazkiBat);
         return view;
@@ -87,4 +105,24 @@ public class HomeFragment extends Fragment {
         startActivity(intent);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Query query = postProvider.getArgitarapenGuztiak();
+        FirestoreRecyclerOptions<Argitarapena> options =
+                new FirestoreRecyclerOptions.Builder<Argitarapena>()
+                        .setQuery(query, Argitarapena.class)
+                        .build();
+
+        // PostAdapter
+        postAdapter=new PostAdapter(options,getContext());
+        recyclerView.setAdapter(postAdapter);
+        postAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        postAdapter.stopListening();
+    }
 }

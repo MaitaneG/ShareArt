@@ -13,6 +13,7 @@ import java.util.Date;
 public class ImageProvider {
 
     private StorageReference storageReference;
+    private String childRefernce="";
 
     public ImageProvider(){
         storageReference= FirebaseStorage.getInstance().getReference();
@@ -20,12 +21,13 @@ public class ImageProvider {
 
     public UploadTask gordeFirebasen(Context context, File file){
         byte[] imageByte = CompressorBitmapImage.getImage(context,file.getPath(), 500, 500);
-        StorageReference storage = storageReference.child(new Date()+".jpg");
+        childRefernce= "argitarapena "+ new Date()+".jpg";
+        StorageReference storage = storageReference.child(childRefernce);
         UploadTask task = storage.putBytes(imageByte);
         return task;
     }
 
     public StorageReference lortuArgazkiarenKokapena(){
-        return storageReference;
+        return storageReference.child(childRefernce);
     }
 }

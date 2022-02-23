@@ -105,6 +105,7 @@ public class PostActivity extends AppCompatActivity {
         // ImageProvider
         imageProvider = new ImageProvider();
         postProvider = new PostProvider();
+        authProvider=new AuthProvider();
     }
 
     /**
