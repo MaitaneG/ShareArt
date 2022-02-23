@@ -11,15 +11,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.shareart.R;
-import com.example.shareart.models.User;
+import com.example.shareart.models.Erabiltzailea;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.UserProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,12 +77,12 @@ public class RegisterActivity extends AppCompatActivity {
      * @param view
      */
     private void erregistratu(View view) {
-        String erabiltzailea = erabiltzaileaEditText.getText().toString().trim();
+        String erabiltzaileIzena = erabiltzaileaEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
         String pasahitza = pasahitzaEditText.getText().toString().trim();
         String pasahitzaBaeieztatu = pasahitzaBaieztatuEditText.getText().toString().trim();
 
-        if (erabiltzailea.isEmpty() || email.isEmpty() || pasahitza.isEmpty() || pasahitzaBaeieztatu.isEmpty()) {
+        if (erabiltzaileIzena.isEmpty() || email.isEmpty() || pasahitza.isEmpty() || pasahitzaBaeieztatu.isEmpty()) {
             Toast.makeText(RegisterActivity.this, "Gako guztiak bete behar dira.", Toast.LENGTH_SHORT).show();
         } else if (!emailaKonprobatu(email)) {
             Toast.makeText(RegisterActivity.this, "Emailaren formatua gaizki dago.", Toast.LENGTH_SHORT).show();
@@ -95,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (pasahitza.length() < 8) {
                     Toast.makeText(RegisterActivity.this, "Pasahitza oso motza da. Gutxienez 8 karaketere izan behar ditu.", Toast.LENGTH_SHORT).show();
                 } else {
-                    sortuErabiltzailea(erabiltzailea, email, pasahitza);
+                    sortuErabiltzailea(erabiltzaileIzena, email, pasahitza);
                 }
             }
         }
@@ -104,11 +102,11 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * Erabiltzailea sortzen du FireBase Authentification-en eta Firebaseko datubasean
      *
-     * @param erabiltzailea
+     * @param erabiltzaileIzena
      * @param email
      * @param pasahitza
      */
-    private void sortuErabiltzailea(String erabiltzailea, String email, String pasahitza) {
+    private void sortuErabiltzailea(String erabiltzaileIzena, String email, String pasahitza) {
         progressBar.setVisibility(View.VISIBLE);
         authProvider.erregistratu(email, pasahitza).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -117,11 +115,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                     String id = authProvider.getUid();
                     Map<String, Object> map = new HashMap<>();
-                    map.put("erabiltzailea", erabiltzailea);
+                    map.put("erabiltzaileIzena", erabiltzaileIzena);
                     map.put("email", email);
-                    User user = new User(id,erabiltzailea,email);
+                    Erabiltzailea erabiltzailea = new Erabiltzailea(id,erabiltzaileIzena,email);
 
-                    userProvider.create(user);
+                    userProvider.create(erabiltzailea);
                     Toast.makeText(RegisterActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);

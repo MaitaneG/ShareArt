@@ -1,6 +1,6 @@
 package com.example.shareart.providers;
 
-import com.example.shareart.models.User;
+import com.example.shareart.models.Erabiltzailea;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -11,7 +11,7 @@ public class UserProvider {
     private CollectionReference collectionReference;
 
     public UserProvider() {
-        collectionReference = FirebaseFirestore.getInstance().collection("User");
+        collectionReference = FirebaseFirestore.getInstance().collection("Erabiltzailea");
     }
 
     /**
@@ -20,7 +20,7 @@ public class UserProvider {
      * @param id
      * @return
      */
-    public Task<DocumentSnapshot> getUser(String id) {
+    public Task<DocumentSnapshot> getErabiltzailea(String id) {
         return collectionReference.document(id).get();
     }
 
@@ -31,7 +31,7 @@ public class UserProvider {
      *
      * @return
      */
-    public Task<Void> create(User user) {
-        return collectionReference.document(user.getId()).set(user);
+    public Task<Void> create(Erabiltzailea erabiltzailea) {
+        return collectionReference.document(erabiltzailea.getId()).set(erabiltzailea);
     }
 }

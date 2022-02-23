@@ -1,26 +1,26 @@
 package com.example.shareart.models;
 
-public class User {
+public class Erabiltzailea {
     private String id;
-    private String erabiltzailea;
+    private String erabiltzaileIzena;
     private String email;
     private String pasahitza;
 
-    public User() {
+    public Erabiltzailea() {
 
     }
 
-    public User(String id, String erabiltzailea, String email) {
+    public Erabiltzailea(String id, String erabiltzaileIzena, String email) {
         this.id = id;
-        this.erabiltzailea = erabiltzailea;
+        this.erabiltzaileIzena = erabiltzaileIzena;
         this.email = email;
     }
 
 
 
-    public User(String id, String erabiltzailea, String email, String pasahitza) {
+    public Erabiltzailea(String id, String erabiltzaileIzena, String email, String pasahitza) {
         this.id = id;
-        this.erabiltzailea = erabiltzailea;
+        this.erabiltzaileIzena = erabiltzaileIzena;
         this.email = email;
         this.pasahitza = pasahitza;
     }
@@ -33,12 +33,12 @@ public class User {
         this.id = id;
     }
 
-    public String getErabiltzailea() {
-        return erabiltzailea;
+    public String getErabiltzaileIzena() {
+        return erabiltzaileIzena;
     }
 
-    public void setErabiltzailea(String erabiltzailea) {
-        this.erabiltzailea = erabiltzailea;
+    public void setErabiltzaileIzena(String erabiltzaileIzena) {
+        this.erabiltzaileIzena = erabiltzaileIzena;
     }
 
     public String getEmail() {

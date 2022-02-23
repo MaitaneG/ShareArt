@@ -20,6 +20,7 @@ public class PostProvider {
     }
 
     public Query getArgitarapenGuztiak(){
-        return collectionReference.orderBy("deskripzioa", Query.Direction.DESCENDING);
+        return collectionReference.orderBy("deskribapena", Query.Direction.DESCENDING);
+
     }
 }
