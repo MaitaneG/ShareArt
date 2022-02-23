@@ -6,12 +6,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
@@ -33,13 +37,15 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 
 public class PostActivity extends AppCompatActivity {
 
     private ImageView argazkiaIgoBotoia;
     private ImageButton argitaratuBotoia;
-    private File argazkiaFitxeroa;
     private ProgressBar progressBar;
+    private AlertDialog.Builder alertDialog;
     private TextInputEditText editTextDeskripzioa;
     private TextView textViewKategoria;
     private ImageView imageViewNatura;
@@ -51,9 +57,17 @@ public class PostActivity extends AppCompatActivity {
     private ImageView imageViewKarikatura;
     private ImageView imageViewNaturaHila;
 
+    private File argazkiaFitxeroa;
+
     private ImageProvider imageProvider;
     private PostProvider postProvider;
     private AuthProvider authProvider;
+
+    private CharSequence options[];
+
+    private String absolutePhotoPath;
+    private String photoPath;
+    private File ateraArgazkiaFitxeroa;
 
     /**
      * PostActivity-a sortzen denean
@@ -91,8 +105,11 @@ public class PostActivity extends AppCompatActivity {
         // ProgressBar
         progressBar = findViewById(R.id.indeterminateBarPost);
         progressBar.setVisibility(View.INVISIBLE);
+        // AlertDialog
+        alertDialog = new AlertDialog.Builder(this).setTitle("Hautatu aukera bat");
+        options = new CharSequence[]{"Galeriako argazki bat", "Argazkia atera"};
         // OnClickListener
-        argazkiaIgoBotoia.setOnClickListener(this::galeriaZabaldu);
+        argazkiaIgoBotoia.setOnClickListener(this::argakiaAukeratzekoMetodoa);
         argitaratuBotoia.setOnClickListener(this::argitaratu);
         imageViewNatura.setOnClickListener(this::kategoriaAldatu);
         imageViewHiperrealismoa.setOnClickListener(this::kategoriaAldatu);
@@ -105,7 +122,7 @@ public class PostActivity extends AppCompatActivity {
         // ImageProvider
         imageProvider = new ImageProvider();
         postProvider = new PostProvider();
-        authProvider=new AuthProvider();
+        authProvider = new AuthProvider();
     }
 
     /**
@@ -142,6 +159,125 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
+    private void argakiaAukeratzekoMetodoa(View view) {
+        alertDialog.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0) {
+                    galeriaZabaldu();
+                } else if (i == 1) {
+                    argazkiaAtera();
+                }
+            }
+        }).show();
+    }
+
+    private void argazkiaAtera() {
+        Intent argazkiaAteraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (argazkiaAteraintent.resolveActivity(getPackageManager()) != null) {
+            try {
+                File argazkiaFile = null;
+                argazkiaFile = argazkiaAteraEtaKargatu();
+
+                if (argazkiaFile != null) {
+                    Uri argazkiUri = FileProvider.getUriForFile(PostActivity.this, "com.example.shareart", argazkiaFile);
+                    argazkiaAteraintent.putExtra(MediaStore.EXTRA_OUTPUT, argazkiUri);
+                    someActivityResultLauncher.launch(argazkiaAteraintent);
+                }
+            } catch (Exception ex) {
+                Toast.makeText(this, "Fitxategiarekin arazo bat egon da. " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private File argazkiaAteraEtaKargatu() {
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File ateraArgazkiaFitxero = null;
+        try {
+            ateraArgazkiaFitxero = File.createTempFile(new Date() + "_photo", ".jpg", storageDir);
+            photoPath = "file:" + ateraArgazkiaFitxero.getAbsolutePath();
+            absolutePhotoPath = ateraArgazkiaFitxero.getAbsolutePath();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ateraArgazkiaFitxero;
+    }
+
+    /**
+     * Mugikorraren galeria zabaltzeko
+     */
+    private void galeriaZabaldu() {
+        //Intent galeriaIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        Intent galeriaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galeriaIntent.setType("image/");
+        someActivityResultLauncher.launch(galeriaIntent);
+    }
+
+    /**
+     * Argazkia aukeratzeko galeriatik
+     */
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    /**
+                     * Galeriatik argazkia aukeratu
+                     */
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        try {
+                            Intent data = result.getData();
+                            Uri imageUri = data.getData();
+                            argazkiaFitxeroa = FileUtil.from(PostActivity.this, imageUri);
+                            argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
+                            argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
+                        } catch (Exception ex) {
+                            Toast.makeText(PostActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
+
+    /**
+     * Argazkia gordetzeko Firestore-en
+     * eta bere informazioa ere gordetzeko
+     */
+    private void gordeArgazkia(String deskripzioa, String kategoria) {
+        progressBar.setVisibility(View.VISIBLE);
+        imageProvider.gordeFirebasen(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    imageProvider.lortuArgazkiarenKokapena().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = uri.toString();
+
+                            Argitarapena argitarapena = new Argitarapena();
+                            argitarapena.setUrl_argazkia(url);
+                            argitarapena.setDeskribapena(deskripzioa);
+                            argitarapena.setKategoria(kategoria);
+                            argitarapena.setId_user(authProvider.getUid());
+                            postProvider.gordeArgitarapenarenInformazioa(argitarapena).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> taskGorde) {
+                                    if (taskGorde.isSuccessful()) {
+                                        Toast.makeText(PostActivity.this, "Argazkia ondo argitaratu da", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(PostActivity.this, "Arazo bat egon da argazkia argitaratzean", Toast.LENGTH_SHORT).show();
+                                    }
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+
     /**
      * Argazkia argitaratzeko
      *
@@ -164,77 +300,4 @@ public class PostActivity extends AppCompatActivity {
             }
         }
     }
-
-    /**
-     * Argazkia gordetzeko Firestore-en
-     * eta bere informazioa ere gordetzeko
-     */
-    private void gordeArgazkia(String deskripzioa, String kategoria) {
-        imageProvider.gordeFirebasen(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()) {
-                    imageProvider.lortuArgazkiarenKokapena().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String url = uri.toString();
-
-                            Argitarapena argitarapena = new Argitarapena();
-                            argitarapena.setUrl_argazkia(url);
-                            argitarapena.setDeskribapena(deskripzioa);
-                            argitarapena.setKategoria(kategoria);
-                            argitarapena.setId_user(authProvider.getUid());
-                            postProvider.gordeArgitarapenarenInformazioa(argitarapena).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> taskGorde) {
-                                    if (taskGorde.isSuccessful()) {
-                                        Toast.makeText(PostActivity.this, "Argazkia ondo igo da", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(PostActivity.this, "Arazo bat egon da argazkia igotzen", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        }
-                    });
-                    Toast.makeText(PostActivity.this, "Ondo igo da argazkia", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(PostActivity.this, "Errore bat egon da argazkia igotzean", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    /**
-     * Mugikorraren galeria zabaltzeko
-     *
-     * @param view
-     */
-    private void galeriaZabaldu(View view) {
-        //Intent galeriaIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        Intent galeriaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galeriaIntent.setType("image/");
-        someActivityResultLauncher.launch(galeriaIntent);
-    }
-
-    /**
-     * Argazkia aukeratzeko galeriatik
-     */
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        try {
-                            Intent data = result.getData();
-                            Uri imageUri = data.getData();
-                            argazkiaFitxeroa = FileUtil.from(PostActivity.this, imageUri);
-                            argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
-                            argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
-                        } catch (Exception ex) {
-                            Toast.makeText(PostActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            });
 }
