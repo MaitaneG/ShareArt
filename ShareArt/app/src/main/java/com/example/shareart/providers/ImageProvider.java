@@ -21,7 +21,7 @@ public class ImageProvider {
 
     public UploadTask gordeFirebasen(Context context, File file){
         byte[] imageByte = CompressorBitmapImage.getImage(context,file.getPath(), 500, 500);
-        childRefernce= "argitarapena "+ new Date()+".jpg";
+        childRefernce= "Argitarapena "+ new Date()+".jpg";
         StorageReference storage = storageReference.child(childRefernce);
         UploadTask task = storage.putBytes(imageByte);
         return task;
