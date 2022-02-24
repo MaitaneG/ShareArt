@@ -5,24 +5,26 @@ public class Erabiltzailea {
     private String erabiltzaileIzena;
     private String email;
     private String pasahitza;
+    private long sortzeData;
 
     public Erabiltzailea() {
 
     }
 
-    public Erabiltzailea(String id, String erabiltzaileIzena, String email) {
+    public Erabiltzailea(String id, String erabiltzaileIzena, String email, long sortzeData) {
         this.id = id;
         this.erabiltzaileIzena = erabiltzaileIzena;
         this.email = email;
+        this.sortzeData = sortzeData;
     }
 
 
-
-    public Erabiltzailea(String id, String erabiltzaileIzena, String email, String pasahitza) {
+    public Erabiltzailea(String id, String erabiltzaileIzena, String email, String pasahitza, long sortzeData) {
         this.id = id;
         this.erabiltzaileIzena = erabiltzaileIzena;
         this.email = email;
         this.pasahitza = pasahitza;
+        this.sortzeData = sortzeData;
     }
 
     public String getId() {
@@ -55,5 +57,13 @@ public class Erabiltzailea {
 
     public void setPasahitza(String pasahitza) {
         this.pasahitza = pasahitza;
+    }
+
+    public long getSortzeData() {
+        return sortzeData;
+    }
+
+    public void setSortzeData(long sortzeData) {
+        this.sortzeData = sortzeData;
     }
 }

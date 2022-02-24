@@ -7,16 +7,18 @@ public class Argitarapena {
     private String deskribapena;
     private String url_argazkia;
     private String kategoria;
+    private long data;
 
     public Argitarapena() {
     }
 
-    public Argitarapena(String id, String id_user, String deskribapena, String url_argazkia, String kategoria) {
+    public Argitarapena(String id, String id_user, String deskribapena, String url_argazkia, String kategoria,long data) {
         this.id = id;
         this.id_user = id_user;
         this.deskribapena = deskribapena;
         this.url_argazkia = url_argazkia;
         this.kategoria = kategoria;
+        this.data=data;
     }
 
     public String getId() {
@@ -57,5 +59,13 @@ public class Argitarapena {
 
     public void setKategoria(String kategoria) {
         this.kategoria = kategoria;
+    }
+
+    public long getData() {
+        return data;
+    }
+
+    public void setData(long data) {
+        this.data = data;
     }
 }

@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -117,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Map<String, Object> map = new HashMap<>();
                     map.put("erabiltzaileIzena", erabiltzaileIzena);
                     map.put("email", email);
-                    Erabiltzailea erabiltzailea = new Erabiltzailea(id,erabiltzaileIzena,email);
+                    Erabiltzailea erabiltzailea = new Erabiltzailea(id,erabiltzaileIzena,email,new Date().getTime());
 
                     userProvider.create(erabiltzailea);
                     Toast.makeText(RegisterActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();

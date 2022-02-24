@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     // Login-a ondo egin bada
                     if (task.isSuccessful()) {
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         eremuakGarbitu();
                     } else {
