@@ -19,6 +19,7 @@ import com.example.shareart.providers.PostProvider;
 import com.example.shareart.providers.UserProvider;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -29,6 +30,7 @@ public class PerfilaFragment extends Fragment {
     private LinearLayout linearLayout;
     private TextView erabiltzaileIzenaTextView;
     private TextView korreoaTextView;
+    private TextView argitalpenKopurua;
     private CircleImageView perfilekoArgazkia;
 
     private AuthProvider authProvider;
@@ -47,6 +49,7 @@ public class PerfilaFragment extends Fragment {
         // TextView
         erabiltzaileIzenaTextView = view.findViewById(R.id.textInputEditTextErabiltzaileIzena);
         korreoaTextView = view.findViewById(R.id.textInputEditTextKorreoa);
+        argitalpenKopurua = view.findViewById(R.id.argitarapenZenbakia);
         // LinearLayout
         linearLayout = view.findViewById(R.id.perfilaEditatuLink);
         // CircleImageView
@@ -59,6 +62,7 @@ public class PerfilaFragment extends Fragment {
         postProvider = new PostProvider();
         // Erabiltzailea hasieratu
         hasieratu();
+        getArgitalpenKopurua();
 
         return view;
     }
@@ -91,7 +95,13 @@ public class PerfilaFragment extends Fragment {
     }
 
     private void getArgitalpenKopurua() {
-
+        postProvider.getErabiltzaileBakoitzekoArgitalpenak(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                int zenbat = queryDocumentSnapshots.size();
+                argitalpenKopurua.setText(zenbat+"");
+            }
+        });
     }
 
     private void perfilaEditaturaJoan(View view) {
