@@ -3,6 +3,8 @@ package com.example.shareart.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -73,6 +75,19 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
+     * Email-a ondo idatzita dagoen konprobatzen du
+     *
+     * @param email
+     * @return
+     */
+    private boolean emailaKonprobatu(String email) {
+        String expression = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    /**
      * Errgistratzen da
      *
      * @param view
@@ -118,13 +133,13 @@ public class RegisterActivity extends AppCompatActivity {
                     Map<String, Object> map = new HashMap<>();
                     map.put("erabiltzaileIzena", erabiltzaileIzena);
                     map.put("email", email);
-                    Erabiltzailea erabiltzailea = new Erabiltzailea(id,erabiltzaileIzena,email,new Date().getTime());
+                    Erabiltzailea erabiltzailea = new Erabiltzailea(id, erabiltzaileIzena, email, new Date().getTime());
 
                     userProvider.create(erabiltzailea);
                     Toast.makeText(RegisterActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
                     Toast.makeText(RegisterActivity.this, "Arazo bat egon da erabiltzailea sortzean", Toast.LENGTH_SHORT).show();
@@ -135,25 +150,32 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void atzeraAlertDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Erregistro pantailatik irteten")
+                .setMessage("Ziur zaude irten nahi zarela pantaila honetatik erregistratu gabe?")
+                .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Ez", null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
     /**
      * Hasierako menura joateko
      *
      * @param view
      */
     private void atzeraJoan(View view) {
-        finish();
+        atzeraAlertDialog();
     }
 
-    /**
-     * Email-a ondo idatzita dagoen konprobatzen du
-     *
-     * @param email
-     * @return
-     */
-    private boolean emailaKonprobatu(String email) {
-        String expression = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+    @Override
+    public void onBackPressed() {
+        atzeraAlertDialog();
     }
 }

@@ -12,4 +12,5 @@
     <string name="deskripzioa_hint">Deskripzioa</string>
     <string name="titulua_argitaratu">ARGITARATU ZURE MARRAZKIA</string>
     <string name="kategoria_titulua">KATEGORIA</string>
+    <string name="transtionname_picture">transitionnamepicture</string>
 </resources>

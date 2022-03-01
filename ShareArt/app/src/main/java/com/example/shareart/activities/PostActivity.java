@@ -278,7 +278,6 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
-
     /**
      * Argazkia argitaratzeko
      *
@@ -300,5 +299,21 @@ public class PostActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Argitarapen pantailatik irteten")
+                .setMessage("Ziur zaude irten nahi zarela pantaila honetatik argitaratu gabe?")
+                .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Ez", null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }
