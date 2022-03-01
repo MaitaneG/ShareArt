@@ -282,7 +282,7 @@ public class PostActivity extends AppCompatActivity {
                             argitarapena.setKategoria(kategoria);
                             argitarapena.setId_user(authProvider.getUid());
                             argitarapena.setData(new Date().getTime());
-                            postProvider.gordeArgitarapenarenInformazioa(argitarapena).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            postProvider.gordeArgitalpenarenInformazioa(argitarapena).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> taskGorde) {
                                     if (taskGorde.isSuccessful()) {

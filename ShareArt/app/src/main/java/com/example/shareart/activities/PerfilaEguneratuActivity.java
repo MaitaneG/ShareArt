@@ -53,7 +53,7 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
     private ImageProvider imageProvider;
     private UserProvider userProvider;
     private AuthProvider authProvider;
-    
+
     private String argazkiZaharraUrl;
 
     @Override
@@ -92,9 +92,19 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    editTextErabiltzailea.setText(documentSnapshot.getString("erabiltzaileIzena"));
-                    argazkiZaharraUrl = documentSnapshot.getString("argazkiaProfila");
-                    Picasso.with(PerfilaEguneratuActivity.this).load(argazkiZaharraUrl).into(perfilaArgazkiaAldatu);
+                    if (documentSnapshot.contains("erabiltzaileIzena")) {
+                        editTextErabiltzailea.setText(documentSnapshot.getString("erabiltzaileIzena"));
+                    }
+
+                    if (documentSnapshot.contains("sortzeData")) {
+                        argazkiZaharraUrl = documentSnapshot.getString("argazkiaProfila");
+
+                        if (argazkiZaharraUrl != null) {
+                            if (!argazkiZaharraUrl.isEmpty()) {
+                                Picasso.with(PerfilaEguneratuActivity.this).load(argazkiZaharraUrl).into(perfilaArgazkiaAldatu);
+                            }
+                        }
+                    }
                 }
             }
         });

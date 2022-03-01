@@ -15,6 +15,7 @@ import com.example.shareart.R;
 import com.example.shareart.activities.HomeActivity;
 import com.example.shareart.activities.PerfilaEguneratuActivity;
 import com.example.shareart.providers.AuthProvider;
+import com.example.shareart.providers.PostProvider;
 import com.example.shareart.providers.UserProvider;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,6 +33,7 @@ public class PerfilaFragment extends Fragment {
 
     private AuthProvider authProvider;
     private UserProvider userProvider;
+    private PostProvider postProvider;
 
     public PerfilaFragment() {
         // Required empty public constructor
@@ -48,12 +50,13 @@ public class PerfilaFragment extends Fragment {
         // LinearLayout
         linearLayout = view.findViewById(R.id.perfilaEditatuLink);
         // CircleImageView
-        perfilekoArgazkia= view.findViewById(R.id.perfilaArgazkia);
+        perfilekoArgazkia = view.findViewById(R.id.perfilaArgazkia);
         // OnClickListener
         linearLayout.setOnClickListener(this::perfilaEditaturaJoan);
         // Providers
         authProvider = new AuthProvider();
         userProvider = new UserProvider();
+        postProvider = new PostProvider();
         // Erabiltzailea hasieratu
         hasieratu();
 
@@ -65,16 +68,31 @@ public class PerfilaFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    erabiltzaileIzenaTextView.setText(documentSnapshot.getString("erabiltzaileIzena"));
-                    korreoaTextView.setText(documentSnapshot.getString("email"));
+                    if (documentSnapshot.contains("erabiltzaileIzena")) {
+                        erabiltzaileIzenaTextView.setText(documentSnapshot.getString("erabiltzaileIzena"));
+                    }
 
-                    String argazkiaUrl = documentSnapshot.getString("argazkiaProfila");
-                    Picasso.with(getContext()).load(argazkiaUrl).into(perfilekoArgazkia);
+                    if (documentSnapshot.contains("email")) {
+                        korreoaTextView.setText(documentSnapshot.getString("email"));
+                    }
+
+                    if (documentSnapshot.contains("argazkiaProfila")) {
+                        String argazkiaUrl = documentSnapshot.getString("argazkiaProfila");
+
+                        if (argazkiaUrl != null) {
+                            if (!argazkiaUrl.isEmpty()) {
+                                Picasso.with(getContext()).load(argazkiaUrl).into(perfilekoArgazkia);
+                            }
+                        }
+                    }
                 }
             }
         });
     }
 
+    private void getArgitalpenKopurua() {
+
+    }
 
     private void perfilaEditaturaJoan(View view) {
         Intent intent = new Intent(getContext(), PerfilaEguneratuActivity.class);

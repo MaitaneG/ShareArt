@@ -15,12 +15,15 @@ public class PostProvider {
         collectionReference= FirebaseFirestore.getInstance().collection("Argitarapena");
     }
 
-    public Task<Void> gordeArgitarapenarenInformazioa(Argitarapena argitarapena){
+    public Task<Void> gordeArgitalpenarenInformazioa(Argitarapena argitarapena){
         return collectionReference.document().set(argitarapena);
     }
 
-    public Query getArgitarapenGuztiak(){
+    public Query getArgitalpenGuztiak(){
         return collectionReference.orderBy("deskribapena", Query.Direction.DESCENDING);
+    }
 
+    public Query getErabiltzaileBakoitzekoArgitalpenak(String id){
+        return collectionReference.whereEqualTo("id_user",id);
     }
 }

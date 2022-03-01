@@ -1,6 +1,5 @@
 package com.example.shareart.fragments;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -108,7 +107,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Query query = postProvider.getArgitarapenGuztiak();
+        Query query = postProvider.getArgitalpenGuztiak();
         FirestoreRecyclerOptions<Argitarapena> options =
                 new FirestoreRecyclerOptions.Builder<Argitarapena>()
                         .setQuery(query, Argitarapena.class)
