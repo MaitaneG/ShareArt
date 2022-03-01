@@ -30,7 +30,7 @@
                     android:orientation="vertical">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/perfilaArgazkiaAldatu"
+                        android:id="@+id/perfilaArgazkia"
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
                         android:layout_gravity="center_horizontal"
@@ -96,17 +96,17 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textInputEditTextErabiltzaileIzena"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Maitane77"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/textInputEditTextKorreoa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="maitanegallas@gmail.com"
                         android:textSize="16sp" />
 
                 </LinearLayout>

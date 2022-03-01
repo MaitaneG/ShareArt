@@ -24,14 +24,15 @@ import com.example.shareart.R;
 import com.example.shareart.models.Erabiltzailea;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.ImageProvider;
-import com.example.shareart.providers.PostProvider;
 import com.example.shareart.providers.UserProvider;
 import com.example.shareart.utils.FileUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -52,6 +53,8 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
     private ImageProvider imageProvider;
     private UserProvider userProvider;
     private AuthProvider authProvider;
+    
+    private String argazkiZaharraUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +80,24 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
         imageProvider = new ImageProvider();
         userProvider = new UserProvider();
         authProvider = new AuthProvider();
+        // Erabiltzailea hasieratu
+        erabiltzaileaLortu();
         // Progress bar
         progressBar = findViewById(R.id.indeterminateBarProfila);
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void erabiltzaileaLortu() {
+        userProvider.getErabiltzailea(authProvider.getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    editTextErabiltzailea.setText(documentSnapshot.getString("erabiltzaileIzena"));
+                    argazkiZaharraUrl = documentSnapshot.getString("argazkiaProfila");
+                    Picasso.with(PerfilaEguneratuActivity.this).load(argazkiZaharraUrl).into(perfilaArgazkiaAldatu);
+                }
+            }
+        });
     }
 
     private void argakiaAukeratzekoMetodoa(View view) {
@@ -135,25 +153,44 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
     private void perfilaAldatu(View view) {
         String erabiltzailea = editTextErabiltzailea.getText().toString();
 
-        if (argazkiaFitxeroa == null) {
-            Toast.makeText(this, "Argazkia aukeratu behar duzu", Toast.LENGTH_SHORT).show();
+        if (erabiltzailea.isEmpty()) {
+            Toast.makeText(this, "Erabiltzaile izena jarri behar duzu", Toast.LENGTH_SHORT).show();
         } else {
-            if (erabiltzailea.isEmpty()) {
-                Toast.makeText(this, "Erabiltzaile izena jarri behar duzu", Toast.LENGTH_SHORT).show();
+            if (argazkiaFitxeroa == null) {
+                eguneratuInformazioa(erabiltzailea);
             } else {
-                gordeArgazkia(erabiltzailea);
-                Intent intent = new Intent(PerfilaEguneratuActivity.this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                argazkiaEguneratu(erabiltzailea);
             }
+            Intent intent = new Intent(PerfilaEguneratuActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
 
-        if (erabiltzailea.isEmpty()) {
-            Toast.makeText(this, "Erabiltzailea bete behar duzu", Toast.LENGTH_SHORT).show();
-        }
     }
 
-    private void gordeArgazkia(String erabiltzaileIzena) {
+    private void eguneratuInformazioa(String erabiltzaileIzena) {
+        progressBar.setVisibility(View.VISIBLE);
+
+        Erabiltzailea erabiltzailea = new Erabiltzailea();
+        erabiltzailea.setId(authProvider.getUid());
+        erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
+        erabiltzailea.setArgazkiaProfilaUrl(argazkiZaharraUrl);
+
+        userProvider.update(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(PerfilaEguneratuActivity.this, "Erabiltzailea ondo eguneratu da", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(PerfilaEguneratuActivity.this, "Errore bat egon da profila eguneratzerakoan", Toast.LENGTH_SHORT).show();
+                }
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    private void argazkiaEguneratu(String erabiltzaileIzena) {
         progressBar.setVisibility(View.VISIBLE);
         imageProvider.gordeProfilArgazkiaFirebasen(PerfilaEguneratuActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -163,11 +200,10 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
-
                             Erabiltzailea erabiltzailea = new Erabiltzailea();
-                            erabiltzailea.setId(authProvider.getUid());
-                            erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
                             erabiltzailea.setArgazkiaProfilaUrl(url);
+                            erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
+                            erabiltzailea.setId(authProvider.getUid());
 
                             userProvider.update(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
