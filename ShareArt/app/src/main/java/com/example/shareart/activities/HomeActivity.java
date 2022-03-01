@@ -25,7 +25,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
-    private SwipeListener swipeListener;
     private CoordinatorLayout coordinatorLayout;
 
     /**
@@ -100,20 +99,43 @@ public class HomeActivity extends AppCompatActivity {
         finishAffinity();
     }
 
+    /**
+     * Klase honek irristatzeaz arduratzen da
+     */
     private class SwipeListener implements View.OnTouchListener {
-
         GestureDetector gestureDetector;
 
+        /**
+         * Klasearen konstruktorea
+         *
+         * @param view
+         */
         SwipeListener(View view) {
             int threshold = 100;
             int velocity_threshold = 100;
 
+            /**
+             * Irristapenaren listenerra
+             */
             GestureDetector.SimpleOnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {
+                /**
+                 * Klikatzerakoan
+                 * @param e
+                 * @return
+                 */
                 @Override
                 public boolean onDown(MotionEvent e) {
                     return true;
                 }
 
+                /**
+                 * Irristatzerakoan
+                 * @param e1
+                 * @param e2
+                 * @param velocityX
+                 * @param velocityY
+                 * @return
+                 */
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                     // X eta Y-ren desberdintasuna
@@ -144,6 +166,13 @@ public class HomeActivity extends AppCompatActivity {
             view.setOnTouchListener(this);
         }
 
+        /**
+         * Ikutzerakoan
+         *
+         * @param view
+         * @param motionEvent
+         * @return
+         */
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             return gestureDetector.onTouchEvent(motionEvent);

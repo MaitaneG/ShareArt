@@ -40,6 +40,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * Argitalen pantailaren Activity-a
+ */
 public class PostActivity extends AppCompatActivity {
 
     private ImageView argazkiaIgoBotoia;
@@ -159,6 +162,11 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Argazkia lortzeko metodoa bistaratu
+     *
+     * @param view
+     */
     private void argakiaAukeratzekoMetodoa(View view) {
         alertDialog.setItems(options, new DialogInterface.OnClickListener() {
             @Override
@@ -172,6 +180,9 @@ public class PostActivity extends AppCompatActivity {
         }).show();
     }
 
+    /**
+     * Mugikorraren galeria zabaltzeko
+     */
     private void argazkiaAtera() {
         Intent argazkiaAteraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (argazkiaAteraintent.resolveActivity(getPackageManager()) != null) {
@@ -300,7 +311,9 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Atzera botoia ematean alerta bat agertzea
+     */
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)

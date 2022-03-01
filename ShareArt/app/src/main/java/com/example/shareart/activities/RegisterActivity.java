@@ -27,6 +27,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Erregistro pantailaren Activity-a
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private ImageButton atzeraBotoia;
@@ -155,6 +158,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Alerta bat agertzea atzera joatean
+     */
     private void atzeraAlertDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Erregistro pantailatik irteten")
@@ -171,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * Hasierako menura joateko
+     * Hasierako menura joateko botoia klikatzean
      *
      * @param view
      */
@@ -179,6 +185,9 @@ public class RegisterActivity extends AppCompatActivity {
         atzeraAlertDialog();
     }
 
+    /**
+     * Atzera botoia ematean alerta bat agertzea
+     */
     @Override
     public void onBackPressed() {
         atzeraAlertDialog();

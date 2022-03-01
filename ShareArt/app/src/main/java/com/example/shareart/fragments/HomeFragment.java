@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment {
                         .build();
 
         // PostAdapter
-        postAdapter=new PostAdapter(options,getContext());
+        postAdapter = new PostAdapter(options, getContext());
         recyclerView.setAdapter(postAdapter);
         postAdapter.startListening();
     }

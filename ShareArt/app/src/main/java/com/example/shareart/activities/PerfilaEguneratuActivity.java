@@ -38,6 +38,9 @@ import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * Perfila eguneratzeko pantailaren Activity-a
+ */
 public class PerfilaEguneratuActivity extends AppCompatActivity {
 
     private CircleImageView perfilaArgazkiaAldatu;
@@ -56,6 +59,11 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
 
     private String argazkiZaharraUrl;
 
+    /**
+     * Activity-a sortzen denean
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +71,9 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
         hasieratu();
     }
 
+    /**
+     * Konponenteak hasieratzen dira
+     */
     private void hasieratu() {
         // ImageView
         perfilaArgazkiaAldatu = findViewById(R.id.perfilaArgazkiaAldatu);
@@ -87,6 +98,9 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Momentuko erabiltzailearen informazioa lortu
+     */
     private void erabiltzaileaLortu() {
         userProvider.getErabiltzailea(authProvider.getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -110,6 +124,11 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Argazkia lortzeko metodoa bistaratu
+     *
+     * @param view
+     */
     private void argakiaAukeratzekoMetodoa(View view) {
         alertDialog.setItems(options, new DialogInterface.OnClickListener() {
             @Override
@@ -156,10 +175,18 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
                 }
             });
 
+    /**
+     * Argazkia momentuan atera
+     */
     private void argazkiaAtera() {
 
     }
 
+    /**
+     * Perfila aldatu, informazioa bakarrik edo informazioa eta argazkia
+     *
+     * @param view
+     */
     private void perfilaAldatu(View view) {
         String erabiltzailea = editTextErabiltzailea.getText().toString();
 
@@ -178,6 +205,11 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Informazioa bakarrik eguneratu (argazkia ez)
+     *
+     * @param erabiltzaileIzena
+     */
     private void eguneratuInformazioa(String erabiltzaileIzena) {
         progressBar.setVisibility(View.VISIBLE);
 
@@ -200,6 +232,11 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Argazkia eta informazioa eguneratu
+     *
+     * @param erabiltzaileIzena
+     */
     private void argazkiaEguneratu(String erabiltzaileIzena) {
         progressBar.setVisibility(View.VISIBLE);
         imageProvider.gordeProfilArgazkiaFirebasen(PerfilaEguneratuActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -234,6 +271,9 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Atzera botoia ematean alerta bat agertzea
+     */
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)

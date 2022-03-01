@@ -13,18 +13,65 @@
         <ImageView
             android:id="@+id/imageViewArgitarapenaCard"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:scaleType="centerInside"
             android:src="@drawable/kamara_argazkia_igotzeko"
             android:background="@color/turquesa_claro"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/erabiltzaile_argitalpena"/>
+
+            <TextView
+                android:id="@+id/textViewErabiltzaileIzenaCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="10dp"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textViewLikeCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/imageViewLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/like_ikonoa"/>
+            </LinearLayout>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/textViewDeskriptionCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Deskribapena: "
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="15dp"
             android:textSize="16sp"/>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
