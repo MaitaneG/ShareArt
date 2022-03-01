@@ -37,6 +37,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     // Para bordeados guapos
     implementation 'com.github.florent37:shapeofview:1.4.7'
+    // CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
     // Argazkiak konprimitzeko
     implementation 'id.zelory:compressor:2.1.1'
     // Argazkiak bistaratzeko
