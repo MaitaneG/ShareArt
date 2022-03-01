@@ -34,19 +34,22 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout3">
+        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.541">
 
         <LinearLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:src="@drawable/user_ikono_txikia" />
 
@@ -69,9 +72,16 @@
             android:layout_width="147dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:backgroundTint="@color/kolorea"
             android:src="@drawable/eguneratu_botoia"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <ProgressBar
+            android:id="@+id/indeterminateBarProfila"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

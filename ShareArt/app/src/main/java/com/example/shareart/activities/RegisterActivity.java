@@ -133,7 +133,12 @@ public class RegisterActivity extends AppCompatActivity {
                     Map<String, Object> map = new HashMap<>();
                     map.put("erabiltzaileIzena", erabiltzaileIzena);
                     map.put("email", email);
-                    Erabiltzailea erabiltzailea = new Erabiltzailea(id, erabiltzaileIzena, email, new Date().getTime());
+
+                    Erabiltzailea erabiltzailea = new Erabiltzailea();
+                    erabiltzailea.setId(id);
+                    erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
+                    erabiltzailea.setEmail(email);
+                    erabiltzailea.setSortzeData(new Date().getTime());
 
                     userProvider.create(erabiltzailea);
                     Toast.makeText(RegisterActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();

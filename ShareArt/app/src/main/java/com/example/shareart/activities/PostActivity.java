@@ -239,12 +239,35 @@ public class PostActivity extends AppCompatActivity {
             });
 
     /**
+     * Argazkia argitaratzeko
+     *
+     * @param view
+     */
+    private void argitaratu(View view) {
+        String deskripzioa = editTextDeskripzioa.getText().toString();
+        String kategoria = textViewKategoria.getText().toString();
+
+        if (argazkiaFitxeroa == null) {
+            Toast.makeText(this, "Argazkia aukeratu behar duzu", Toast.LENGTH_SHORT).show();
+        } else {
+            if (deskripzioa.isEmpty() || kategoria.isEmpty()) {
+                Toast.makeText(this, "Deskripzoa eta kategoria zehaztu behar duzu.", Toast.LENGTH_SHORT).show();
+            } else {
+                gordeArgazkia(deskripzioa, kategoria);
+                Intent intent = new Intent(PostActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }
+    }
+
+    /**
      * Argazkia gordetzeko Firestore-en
      * eta bere informazioa ere gordetzeko
      */
     private void gordeArgazkia(String deskripzioa, String kategoria) {
         progressBar.setVisibility(View.VISIBLE);
-        imageProvider.gordeFirebasen(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        imageProvider.gordeArgitalpenaFirebasen(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -277,28 +300,6 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Argazkia argitaratzeko
-     *
-     * @param view
-     */
-    private void argitaratu(View view) {
-        String deskripzioa = editTextDeskripzioa.getText().toString();
-        String kategoria = textViewKategoria.getText().toString();
-
-        if (argazkiaFitxeroa == null) {
-            Toast.makeText(this, "Argazkia aukeratu behar duzu", Toast.LENGTH_SHORT).show();
-        } else {
-            if (deskripzioa.isEmpty() || kategoria.isEmpty()) {
-                Toast.makeText(this, "Deskripzoa eta kategoria zehaztu behar duzu.", Toast.LENGTH_SHORT).show();
-            } else {
-                gordeArgazkia(deskripzioa, kategoria);
-                Intent intent = new Intent(PostActivity.this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        }
-    }
 
     @Override
     public void onBackPressed() {

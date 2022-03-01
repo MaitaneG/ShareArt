@@ -5,25 +5,19 @@ public class Erabiltzailea {
     private String erabiltzaileIzena;
     private String email;
     private String pasahitza;
+    private String argazkiaProfilaUrl;
     private long sortzeData;
 
     public Erabiltzailea() {
 
     }
 
-    public Erabiltzailea(String id, String erabiltzaileIzena, String email, long sortzeData) {
-        this.id = id;
-        this.erabiltzaileIzena = erabiltzaileIzena;
-        this.email = email;
-        this.sortzeData = sortzeData;
-    }
-
-
-    public Erabiltzailea(String id, String erabiltzaileIzena, String email, String pasahitza, long sortzeData) {
+    public Erabiltzailea(String id, String erabiltzaileIzena, String email, String pasahitza, String argazkiaProfilaUrl, long sortzeData) {
         this.id = id;
         this.erabiltzaileIzena = erabiltzaileIzena;
         this.email = email;
         this.pasahitza = pasahitza;
+        this.argazkiaProfilaUrl = argazkiaProfilaUrl;
         this.sortzeData = sortzeData;
     }
 
@@ -57,6 +51,14 @@ public class Erabiltzailea {
 
     public void setPasahitza(String pasahitza) {
         this.pasahitza = pasahitza;
+    }
+
+    public String getArgazkiaProfilaUrl() {
+        return argazkiaProfilaUrl;
+    }
+
+    public void setArgazkiaProfilaUrl(String argazkiaProfilaUrl) {
+        this.argazkiaProfilaUrl = argazkiaProfilaUrl;
     }
 
     public long getSortzeData() {

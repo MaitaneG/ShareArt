@@ -6,6 +6,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class UserProvider {
 
     private CollectionReference collectionReference;
@@ -33,5 +36,14 @@ public class UserProvider {
      */
     public Task<Void> create(Erabiltzailea erabiltzailea) {
         return collectionReference.document(erabiltzailea.getId()).set(erabiltzailea);
+    }
+
+    public Task<Void> update(Erabiltzailea erabiltzailea) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("erabiltzaileIzena", erabiltzailea.getErabiltzaileIzena());
+        map.put("sortzeData",erabiltzailea.getSortzeData());
+        map.put("argazkiaProfila",erabiltzailea.getArgazkiaProfilaUrl());
+
+        return collectionReference.document(erabiltzailea.getId()).update(map);
     }
 }

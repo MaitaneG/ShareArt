@@ -19,9 +19,17 @@ public class ImageProvider {
         storageReference= FirebaseStorage.getInstance().getReference();
     }
 
-    public UploadTask gordeFirebasen(Context context, File file){
+    public UploadTask gordeArgitalpenaFirebasen(Context context, File file){
         byte[] imageByte = CompressorBitmapImage.getImage(context,file.getPath(), 500, 500);
         childRefernce= "Argitarapena "+ new Date()+".jpg";
+        StorageReference storage = storageReference.child(childRefernce);
+        UploadTask task = storage.putBytes(imageByte);
+        return task;
+    }
+
+    public UploadTask gordeProfilArgazkiaFirebasen(Context context, File file){
+        byte[] imageByte = CompressorBitmapImage.getImage(context,file.getPath(), 500, 500);
+        childRefernce= "Profila "+ new Date()+".jpg";
         StorageReference storage = storageReference.child(childRefernce);
         UploadTask task = storage.putBytes(imageByte);
         return task;
