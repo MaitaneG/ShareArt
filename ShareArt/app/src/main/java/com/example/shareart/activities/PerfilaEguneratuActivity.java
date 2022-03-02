@@ -218,7 +218,7 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
         erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
         erabiltzailea.setArgazkiaProfilaUrl(argazkiZaharraUrl);
 
-        userProvider.update(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
+        userProvider.updateErabiltzailea(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -239,11 +239,11 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
      */
     private void argazkiaEguneratu(String erabiltzaileIzena) {
         progressBar.setVisibility(View.VISIBLE);
-        imageProvider.gordeProfilArgazkiaFirebasen(PerfilaEguneratuActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        imageProvider.saveProfilArgazkiaFirebasen(PerfilaEguneratuActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
-                    imageProvider.lortuArgazkiarenKokapena().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    imageProvider.getArgazkiarenKokapena().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
@@ -252,7 +252,7 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
                             erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
                             erabiltzailea.setId(authProvider.getUid());
 
-                            userProvider.update(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            userProvider.updateErabiltzailea(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {

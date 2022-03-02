@@ -39,7 +39,6 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -280,11 +279,11 @@ public class PostActivity extends AppCompatActivity {
      */
     private void gordeArgazkia(String deskripzioa, String kategoria) {
         progressBar.setVisibility(View.VISIBLE);
-        imageProvider.gordeArgitalpenaFirebasen(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        imageProvider.saveArgitalpenaFirebasen(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
-                    imageProvider.lortuArgazkiarenKokapena().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    imageProvider.getArgazkiarenKokapena().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
@@ -297,7 +296,7 @@ public class PostActivity extends AppCompatActivity {
 
                             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                             argitalpena.setData(format.format(new Date()));
-                            postProvider.gordeArgitalpenarenInformazioa(argitalpena).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            postProvider.createArgitalpena(argitalpena).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> taskGorde) {
                                     if (taskGorde.isSuccessful()) {

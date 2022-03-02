@@ -13,6 +13,9 @@ public class UserProvider {
 
     private CollectionReference collectionReference;
 
+    /**
+     * Konstruktorea
+     */
     public UserProvider() {
         collectionReference = FirebaseFirestore.getInstance().collection("Erabiltzailea");
     }
@@ -34,14 +37,20 @@ public class UserProvider {
      *
      * @return
      */
-    public Task<Void> create(Erabiltzailea erabiltzailea) {
+    public Task<Void> createErabiltzailea(Erabiltzailea erabiltzailea) {
         return collectionReference.document(erabiltzailea.getId()).set(erabiltzailea);
     }
 
-    public Task<Void> update(Erabiltzailea erabiltzailea) {
+    /**
+     * Erabiltzailea eguneratzeko
+     *
+     * @param erabiltzailea
+     * @return
+     */
+    public Task<Void> updateErabiltzailea(Erabiltzailea erabiltzailea) {
         Map<String, Object> map = new HashMap<>();
         map.put("erabiltzaileIzena", erabiltzailea.getErabiltzaileIzena());
-        map.put("argazkiaProfilaUrl",erabiltzailea.getArgazkiaProfilaUrl());
+        map.put("argazkiaProfilaUrl", erabiltzailea.getArgazkiaProfilaUrl());
 
         return collectionReference.document(erabiltzailea.getId()).update(map);
     }

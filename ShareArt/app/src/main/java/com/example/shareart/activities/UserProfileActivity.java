@@ -91,7 +91,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void getArgitalpenKopurua() {
-        postProvider.getErabiltzaileBakoitzekoArgitalpenak(extraErabiltzaileId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        postProvider.getArgitalpenakByErabiltzailea(extraErabiltzaileId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 int zenbat = queryDocumentSnapshots.size();

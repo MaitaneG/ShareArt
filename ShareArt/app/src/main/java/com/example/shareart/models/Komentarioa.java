@@ -8,12 +8,12 @@ public class Komentarioa {
     private String mezua;
     private String idErabiltzailea;
     private String idArgitalpen;
-    private Date data;
+    private String data;
 
     public Komentarioa() {
     }
 
-    public Komentarioa(int id, String mezua, String idErabiltzailea, String idArgitalpen, Date data) {
+    public Komentarioa(int id, String mezua, String idErabiltzailea, String idArgitalpen, String data) {
         this.id = id;
         this.mezua = mezua;
         this.idErabiltzailea = idErabiltzailea;
@@ -53,11 +53,11 @@ public class Komentarioa {
         this.idArgitalpen = idArgitalpen;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 }

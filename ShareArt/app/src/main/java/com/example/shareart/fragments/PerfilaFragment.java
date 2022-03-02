@@ -100,7 +100,7 @@ public class PerfilaFragment extends Fragment {
     }
 
     private void getArgitalpenKopurua() {
-        postProvider.getErabiltzaileBakoitzekoArgitalpenak(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        postProvider.getArgitalpenakByErabiltzailea(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 int zenbat = queryDocumentSnapshots.size();
