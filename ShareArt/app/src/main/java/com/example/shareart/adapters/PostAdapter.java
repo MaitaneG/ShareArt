@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
+import com.example.shareart.activities.KomentarioakActivity;
 import com.example.shareart.activities.UserProfileActivity;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.UserProvider;
@@ -81,32 +82,9 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         holder.imageViewKomentatu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText editText = new EditText(context);
-                editText.setHint("Jarri komentario bat");
-                editText.setPadding(20 ,35,25,35);
 
-                // EditText-en marginak zehazteko
-                LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(36,36,36,0);
-
-                editText.setLayoutParams(layoutParams);
-                RelativeLayout container =new RelativeLayout(context);
-                RelativeLayout.LayoutParams relativeParams= new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-                container.setLayoutParams(relativeParams);
-
-                container.addView(editText);
-                new AlertDialog.Builder(context)
-                        .setView(container)
-                        .setPositiveButton("Komentatu", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                String komentarioa = editText.getText().toString();
-                            }
-                        })
-                        .setNegativeButton("Itxi", null)
-                        .show();
-
+                Intent intent = new Intent(context, KomentarioakActivity.class);
+                context.startActivity(intent);
             }
         });
     }

@@ -92,7 +92,7 @@ public class PerfilaFragment extends Fragment {
                     }
 
                     if (documentSnapshot.contains("sortzeData")){
-                        dataTextView.setText(documentSnapshot.getString("sortzeData")+"-an sartu zen");
+                        dataTextView.setText(documentSnapshot.getString("sortzeData")+"-an sartu zinen");
                     }
                 }
             }
