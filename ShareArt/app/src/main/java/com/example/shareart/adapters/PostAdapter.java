@@ -31,7 +31,9 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdap
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Argitarapena model) {
         // Deskripzioa bistaratu
-        holder.textViewDeskribapena.setText(holder.textViewDeskribapena.getText().toString() + " " + model.getDeskribapena());
+        holder.textViewDeskribapena.setText(model.getDeskribapena());
+        // Kategoria
+        holder.textViewKategoria.setText(holder.textViewKategoria.getText().toString() + " " + model.getKategoria());
         // Erabiltzailea bistaratu
         userProvider = new UserProvider();
         userProvider.getErabiltzailea(model.getId_user()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -59,6 +61,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdap
         TextView textViewDeskribapena;
         TextView textViewErabiltzaileIzena;
         TextView textViewLikeKopurua;
+        TextView textViewKategoria;
         ImageView imageViewArgitarapena;
         ImageView imageViewLike;
 
@@ -70,6 +73,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdap
             textViewLikeKopurua = view.findViewById(R.id.textViewLikeCard);
             imageViewArgitarapena = view.findViewById(R.id.imageViewArgitarapenaCard);
             imageViewLike = view.findViewById(R.id.imageViewLike);
+            textViewKategoria = view.findViewById(R.id.textViewKategoriaCard);
 
             imageViewLike.setOnClickListener(this);
         }
