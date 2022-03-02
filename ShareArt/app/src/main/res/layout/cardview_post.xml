@@ -64,6 +64,7 @@
                     android:src="@drawable/like_ikonoa" />
 
                 <ImageView
+                    android:id="@+id/imageViewKomentatu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"

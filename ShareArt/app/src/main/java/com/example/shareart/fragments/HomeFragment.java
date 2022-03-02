@@ -21,7 +21,7 @@ import com.example.shareart.R;
 import com.example.shareart.activities.MainActivity;
 import com.example.shareart.activities.PostActivity;
 import com.example.shareart.adapters.PostAdapter;
-import com.example.shareart.models.Argitarapena;
+import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.PostProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -108,9 +108,9 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Query query = postProvider.getArgitalpenGuztiak();
-        FirestoreRecyclerOptions<Argitarapena> options =
-                new FirestoreRecyclerOptions.Builder<Argitarapena>()
-                        .setQuery(query, Argitarapena.class)
+        FirestoreRecyclerOptions<Argitalpena> options =
+                new FirestoreRecyclerOptions.Builder<Argitalpena>()
+                        .setQuery(query, Argitalpena.class)
                         .build();
 
         // PostAdapter

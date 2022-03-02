@@ -25,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shareart.R;
-import com.example.shareart.models.Argitarapena;
+import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.ImageProvider;
 import com.example.shareart.providers.PostProvider;
@@ -287,13 +287,13 @@ public class PostActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
 
-                            Argitarapena argitarapena = new Argitarapena();
-                            argitarapena.setUrl_argazkia(url);
-                            argitarapena.setDeskribapena(deskripzioa);
-                            argitarapena.setKategoria(kategoria);
-                            argitarapena.setId_user(authProvider.getUid());
-                            argitarapena.setData(new Date().getTime());
-                            postProvider.gordeArgitalpenarenInformazioa(argitarapena).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            Argitalpena argitalpena = new Argitalpena();
+                            argitalpena.setUrl_argazkia(url);
+                            argitalpena.setDeskribapena(deskripzioa);
+                            argitalpena.setKategoria(kategoria);
+                            argitalpena.setId_user(authProvider.getUid());
+                            argitalpena.setData(new Date().getTime());
+                            postProvider.gordeArgitalpenarenInformazioa(argitalpena).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> taskGorde) {
                                     if (taskGorde.isSuccessful()) {

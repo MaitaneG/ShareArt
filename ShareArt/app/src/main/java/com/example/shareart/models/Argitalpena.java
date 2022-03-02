@@ -1,6 +1,6 @@
 package com.example.shareart.models;
 
-public class Argitarapena {
+public class Argitalpena {
 
     private String id;
     private String id_user;
@@ -9,10 +9,10 @@ public class Argitarapena {
     private String kategoria;
     private long data;
 
-    public Argitarapena() {
+    public Argitalpena() {
     }
 
-    public Argitarapena(String id, String id_user, String deskribapena, String url_argazkia, String kategoria,long data) {
+    public Argitalpena(String id, String id_user, String deskribapena, String url_argazkia, String kategoria, long data) {
         this.id = id;
         this.id_user = id_user;
         this.deskribapena = deskribapena;

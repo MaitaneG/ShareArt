@@ -1,11 +1,16 @@
 package com.example.shareart.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
 import com.example.shareart.activities.UserProfileActivity;
-import com.example.shareart.models.Argitarapena;
+import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.UserProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -22,17 +27,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdapter.ViewHolder> {
+public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapter.ViewHolder> {
     private Context context;
     private UserProvider userProvider;
 
-    public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitarapena> options, Context context) {
+    public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
         this.context = context;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Argitarapena model) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Argitalpena model) {
         // Deskripzioa bistaratu
         holder.textViewDeskribapena.setText(model.getDeskribapena());
         // Kategoria
@@ -58,18 +63,50 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdap
         }
         // Momentuko dokumentua
         DocumentSnapshot document = getSnapshots().getSnapshot(position);
-        String user_id=document.getString("id_user");
+        String user_id = document.getString("id_user");
         // OnClickListener
         holder.textViewErabiltzaileIzena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!user_id.equals("")){
+                if (!user_id.equals("")) {
                     Intent intent = new Intent(context, UserProfileActivity.class);
-                    intent.putExtra("erabiltzaileId",user_id);
+                    intent.putExtra("erabiltzaileId", user_id);
                     context.startActivity(intent);
-                }else{
+                } else {
                     Toast.makeText(context, "Itxaron mesedez...", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        holder.imageViewKomentatu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText editText = new EditText(context);
+                editText.setHint("Jarri komentario bat");
+                editText.setPadding(20 ,35,25,35);
+
+                // EditText-en marginak zehazteko
+                LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(36,36,36,0);
+
+                editText.setLayoutParams(layoutParams);
+                RelativeLayout container =new RelativeLayout(context);
+                RelativeLayout.LayoutParams relativeParams= new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+                container.setLayoutParams(relativeParams);
+
+                container.addView(editText);
+                new AlertDialog.Builder(context)
+                        .setView(container)
+                        .setPositiveButton("Komentatu", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String komentarioa = editText.getText().toString();
+                            }
+                        })
+                        .setNegativeButton("Itxi", null)
+                        .show();
+
             }
         });
     }
@@ -89,6 +126,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdap
         TextView textViewKategoria;
         ImageView imageViewArgitarapena;
         ImageView imageViewLike;
+        ImageView imageViewKomentatu;
 
 
         public ViewHolder(View view) {
@@ -96,9 +134,10 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdap
             textViewDeskribapena = view.findViewById(R.id.textViewDeskriptionCard);
             textViewErabiltzaileIzena = view.findViewById(R.id.textViewErabiltzaileIzenaCard);
             textViewLikeKopurua = view.findViewById(R.id.textViewLikeCard);
+            textViewKategoria = view.findViewById(R.id.textViewKategoriaCard);
             imageViewArgitarapena = view.findViewById(R.id.imageViewArgitarapenaCard);
             imageViewLike = view.findViewById(R.id.imageViewLike);
-            textViewKategoria = view.findViewById(R.id.textViewKategoriaCard);
+            imageViewKomentatu = view.findViewById(R.id.imageViewKomentatu);
 
             imageViewLike.setOnClickListener(this);
         }
