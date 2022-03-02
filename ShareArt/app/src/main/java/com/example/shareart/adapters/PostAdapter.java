@@ -1,16 +1,19 @@
 package com.example.shareart.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
+import com.example.shareart.activities.UserProfileActivity;
 import com.example.shareart.models.Argitarapena;
 import com.example.shareart.providers.UserProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -39,7 +42,12 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdap
         userProvider.getErabiltzailea(model.getId_user()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                holder.textViewErabiltzaileIzena.setText(documentSnapshot.get("erabiltzaileIzena").toString());
+                if (documentSnapshot.exists()) {
+                    if (documentSnapshot.contains("erabiltzaileIzena")) {
+                        holder.textViewErabiltzaileIzena.setText(documentSnapshot.get("erabiltzaileIzena").toString());
+                    }
+
+                }
             }
         });
         // Argazkia bistaratu
@@ -48,6 +56,22 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdap
                 Picasso.with(context).load(model.getUrl_argazkia()).into(holder.imageViewArgitarapena);
             }
         }
+        // Momentuko dokumentua
+        DocumentSnapshot document = getSnapshots().getSnapshot(position);
+        String user_id=document.getString("id_user");
+        // OnClickListener
+        holder.textViewErabiltzaileIzena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!user_id.equals("")){
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.putExtra("erabiltzaileId",user_id);
+                    context.startActivity(intent);
+                }else{
+                    Toast.makeText(context, "Itxaron mesedez...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @NonNull
@@ -58,6 +82,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitarapena, PostAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         TextView textViewDeskribapena;
         TextView textViewErabiltzaileIzena;
         TextView textViewLikeKopurua;

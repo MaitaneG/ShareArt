@@ -110,7 +110,7 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
                         editTextErabiltzailea.setText(documentSnapshot.getString("erabiltzaileIzena"));
                     }
 
-                    if (documentSnapshot.contains("sortzeData")) {
+                    if (documentSnapshot.contains("argazkiaProfila")) {
                         argazkiZaharraUrl = documentSnapshot.getString("argazkiaProfila");
 
                         if (argazkiZaharraUrl != null) {
