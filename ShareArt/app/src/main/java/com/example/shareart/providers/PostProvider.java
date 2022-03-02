@@ -11,7 +11,7 @@ public class PostProvider {
     private CollectionReference collectionReference;
 
     public PostProvider() {
-        collectionReference= FirebaseFirestore.getInstance().collection("Argitarapena");
+        collectionReference= FirebaseFirestore.getInstance().collection("Argitalpena");
     }
 
     public Task<Void> gordeArgitalpenarenInformazioa(Argitalpena argitalpena){

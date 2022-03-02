@@ -38,6 +38,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -292,7 +294,9 @@ public class PostActivity extends AppCompatActivity {
                             argitalpena.setDeskribapena(deskripzioa);
                             argitalpena.setKategoria(kategoria);
                             argitalpena.setId_user(authProvider.getUid());
-                            argitalpena.setData(new Date().getTime());
+
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                            argitalpena.setData(format.format(new Date()));
                             postProvider.gordeArgitalpenarenInformazioa(argitalpena).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> taskGorde) {

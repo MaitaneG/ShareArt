@@ -41,8 +41,7 @@ public class UserProvider {
     public Task<Void> update(Erabiltzailea erabiltzailea) {
         Map<String, Object> map = new HashMap<>();
         map.put("erabiltzaileIzena", erabiltzailea.getErabiltzaileIzena());
-        map.put("sortzeData",erabiltzailea.getSortzeData());
-        map.put("argazkiaProfila",erabiltzailea.getArgazkiaProfilaUrl());
+        map.put("argazkiaProfilaUrl",erabiltzailea.getArgazkiaProfilaUrl());
 
         return collectionReference.document(erabiltzailea.getId()).update(map);
     }

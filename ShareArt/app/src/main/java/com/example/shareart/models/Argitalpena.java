@@ -1,5 +1,7 @@
 package com.example.shareart.models;
 
+import java.util.Date;
+
 public class Argitalpena {
 
     private String id;
@@ -7,12 +9,12 @@ public class Argitalpena {
     private String deskribapena;
     private String url_argazkia;
     private String kategoria;
-    private long data;
+    private String data;
 
     public Argitalpena() {
     }
 
-    public Argitalpena(String id, String id_user, String deskribapena, String url_argazkia, String kategoria, long data) {
+    public Argitalpena(String id, String id_user, String deskribapena, String url_argazkia, String kategoria, String data) {
         this.id = id;
         this.id_user = id_user;
         this.deskribapena = deskribapena;
@@ -61,11 +63,11 @@ public class Argitalpena {
         this.kategoria = kategoria;
     }
 
-    public long getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(long data) {
+    public void setData(String data) {
         this.data = data;
     }
 }

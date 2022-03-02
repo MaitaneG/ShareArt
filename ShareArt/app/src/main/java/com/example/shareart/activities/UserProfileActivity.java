@@ -20,7 +20,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private TextView erabiltzaileIzenaTextView;
     private TextView korreoaTextView;
-    private TextView argitalpenKopurua;
+    private TextView argitalpenKopuruaTextView;
+    private TextView dataTextView;
     private CircleImageView perfilekoArgazkia;
 
     private AuthProvider authProvider;
@@ -36,7 +37,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         hasieratu();
 
-        extraErabiltzaileId=getIntent().getStringExtra("erabiltzaileId");
+        extraErabiltzaileId = getIntent().getStringExtra("erabiltzaileId");
 
         // Erabiltzailea hasieratu
         getErabiltzailearenInformazioa();
@@ -45,9 +46,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void hasieratu() {
         // TextView
-        erabiltzaileIzenaTextView = findViewById(R.id.textInputEditTextErabiltzaileIzenaBesteErabiltzaile);
-        korreoaTextView = findViewById(R.id.textInputEditTextKorreoaBesteErabiltzaile);
-        argitalpenKopurua = findViewById(R.id.argitarapenZenbakiaBesteErabiltzaile);
+        erabiltzaileIzenaTextView = findViewById(R.id.textViewErabiltzaileIzenaBesteErabiltzaile);
+        korreoaTextView = findViewById(R.id.textViewKorreoaBesteErabiltzaile);
+        argitalpenKopuruaTextView = findViewById(R.id.argitarapenZenbakiaBesteErabiltzaile);
+        dataTextView = findViewById(R.id.textViewDataBesteErabiltzaile);
         // CircleImageView
         perfilekoArgazkia = findViewById(R.id.perfilaArgazkiaBesteErabiltzaile);
         // Providers
@@ -69,8 +71,8 @@ public class UserProfileActivity extends AppCompatActivity {
                         korreoaTextView.setText(documentSnapshot.getString("email"));
                     }
 
-                    if (documentSnapshot.contains("argazkiaProfila")) {
-                        String argazkiaUrl = documentSnapshot.getString("argazkiaProfila");
+                    if (documentSnapshot.contains("argazkiaProfilaUrl")) {
+                        String argazkiaUrl = documentSnapshot.getString("argazkiaProfilaUrl");
 
                         if (argazkiaUrl != null) {
                             if (!argazkiaUrl.isEmpty()) {
@@ -78,6 +80,11 @@ public class UserProfileActivity extends AppCompatActivity {
                             }
                         }
                     }
+
+                    if (documentSnapshot.contains("sortzeData")) {
+                        dataTextView.setText(documentSnapshot.getString("sortzeData") + "-an sartu zen");
+                    }
+
                 }
             }
         });
@@ -88,7 +95,7 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 int zenbat = queryDocumentSnapshots.size();
-                argitalpenKopurua.setText(zenbat+"");
+                argitalpenKopuruaTextView.setText(zenbat + "");
             }
         });
     }

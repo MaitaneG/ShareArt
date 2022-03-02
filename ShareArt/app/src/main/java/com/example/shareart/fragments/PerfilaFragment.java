@@ -30,6 +30,7 @@ public class PerfilaFragment extends Fragment {
     private TextView erabiltzaileIzenaTextView;
     private TextView korreoaTextView;
     private TextView argitalpenKopurua;
+    private TextView dataTextView;
     private CircleImageView perfilekoArgazkia;
 
     private AuthProvider authProvider;
@@ -46,9 +47,10 @@ public class PerfilaFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_perfila, container, false);
         // TextView
-        erabiltzaileIzenaTextView = view.findViewById(R.id.textInputEditTextErabiltzaileIzena);
-        korreoaTextView = view.findViewById(R.id.textInputEditTextKorreoa);
+        erabiltzaileIzenaTextView = view.findViewById(R.id.textViewErabiltzaileIzena);
+        korreoaTextView = view.findViewById(R.id.textViewKorreoa);
         argitalpenKopurua = view.findViewById(R.id.argitarapenZenbakia);
+        dataTextView=view.findViewById(R.id.textViewData);
         // LinearLayout
         linearLayout = view.findViewById(R.id.perfilaEditatuLink);
         // CircleImageView
@@ -79,14 +81,18 @@ public class PerfilaFragment extends Fragment {
                         korreoaTextView.setText(documentSnapshot.getString("email"));
                     }
 
-                    if (documentSnapshot.contains("argazkiaProfila")) {
-                        String argazkiaUrl = documentSnapshot.getString("argazkiaProfila");
+                    if (documentSnapshot.contains("argazkiaProfilaUrl")) {
+                        String argazkiaUrl = documentSnapshot.getString("argazkiaProfilaUrl");
 
                         if (argazkiaUrl != null) {
                             if (!argazkiaUrl.isEmpty()) {
                                 Picasso.with(getContext()).load(argazkiaUrl).into(perfilekoArgazkia);
                             }
                         }
+                    }
+
+                    if (documentSnapshot.contains("sortzeData")){
+                        dataTextView.setText(documentSnapshot.getString("sortzeData")+"-an sartu zen");
                     }
                 }
             }

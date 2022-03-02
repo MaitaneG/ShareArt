@@ -1,18 +1,20 @@
 package com.example.shareart.models;
 
+import java.util.Date;
+
 public class Erabiltzailea {
     private String id;
     private String erabiltzaileIzena;
     private String email;
     private String pasahitza;
     private String argazkiaProfilaUrl;
-    private long sortzeData;
+    private String sortzeData;
 
     public Erabiltzailea() {
 
     }
 
-    public Erabiltzailea(String id, String erabiltzaileIzena, String email, String pasahitza, String argazkiaProfilaUrl, long sortzeData) {
+    public Erabiltzailea(String id, String erabiltzaileIzena, String email, String pasahitza, String argazkiaProfilaUrl, String sortzeData) {
         this.id = id;
         this.erabiltzaileIzena = erabiltzaileIzena;
         this.email = email;
@@ -61,11 +63,11 @@ public class Erabiltzailea {
         this.argazkiaProfilaUrl = argazkiaProfilaUrl;
     }
 
-    public long getSortzeData() {
+    public String getSortzeData() {
         return sortzeData;
     }
 
-    public void setSortzeData(long sortzeData) {
+    public void setSortzeData(String sortzeData) {
         this.sortzeData = sortzeData;
     }
 }

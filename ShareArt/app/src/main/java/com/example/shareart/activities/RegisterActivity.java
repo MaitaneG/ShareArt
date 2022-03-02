@@ -21,6 +21,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -141,7 +143,9 @@ public class RegisterActivity extends AppCompatActivity {
                     erabiltzailea.setId(id);
                     erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
                     erabiltzailea.setEmail(email);
-                    erabiltzailea.setSortzeData(new Date().getTime());
+
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    erabiltzailea.setSortzeData(format.format(new Date()));
 
                     userProvider.create(erabiltzailea);
                     Toast.makeText(RegisterActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();

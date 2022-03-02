@@ -1,18 +1,19 @@
 package com.example.shareart.models;
 
-import java.time.LocalDateTime;
+
+import java.util.Date;
 
 public class Komentarioa {
     private int id;
     private String mezua;
     private String idErabiltzailea;
     private String idArgitalpen;
-    private LocalDateTime data;
+    private Date data;
 
     public Komentarioa() {
     }
 
-    public Komentarioa(int id, String mezua, String idErabiltzailea, String idArgitalpen, LocalDateTime data) {
+    public Komentarioa(int id, String mezua, String idErabiltzailea, String idArgitalpen, Date data) {
         this.id = id;
         this.mezua = mezua;
         this.idErabiltzailea = idErabiltzailea;
@@ -52,11 +53,11 @@ public class Komentarioa {
         this.idArgitalpen = idArgitalpen;
     }
 
-    public LocalDateTime getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(Date data) {
         this.data = data;
     }
 }
