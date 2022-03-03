@@ -4,7 +4,7 @@ package com.example.shareart.models;
 import java.util.Date;
 
 public class Komentarioa {
-    private int id;
+    private String id;
     private String mezua;
     private String idErabiltzailea;
     private String idArgitalpen;
@@ -13,7 +13,7 @@ public class Komentarioa {
     public Komentarioa() {
     }
 
-    public Komentarioa(int id, String mezua, String idErabiltzailea, String idArgitalpen, String data) {
+    public Komentarioa(String id, String mezua, String idErabiltzailea, String idArgitalpen, String data) {
         this.id = id;
         this.mezua = mezua;
         this.idErabiltzailea = idErabiltzailea;
@@ -21,11 +21,11 @@ public class Komentarioa {
         this.data = data;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

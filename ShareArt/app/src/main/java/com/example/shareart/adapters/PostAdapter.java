@@ -65,6 +65,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         // Momentuko dokumentua
         DocumentSnapshot document = getSnapshots().getSnapshot(position);
         String user_id = document.getString("id_user");
+        String post_id=document.getId();
         // OnClickListener
         holder.textViewErabiltzaileIzena.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +85,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, KomentarioakActivity.class);
+                intent.putExtra("postId",post_id);
                 context.startActivity(intent);
             }
         });
