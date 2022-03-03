@@ -35,6 +35,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
         this.context = context;
+        userProvider = new UserProvider();
     }
 
     @Override
@@ -44,7 +45,6 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         // Kategoria
         holder.textViewKategoria.setText(holder.textViewKategoria.getText().toString() + model.getKategoria());
         // Erabiltzailea bistaratu
-        userProvider = new UserProvider();
         userProvider.getErabiltzailea(model.getId_user()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

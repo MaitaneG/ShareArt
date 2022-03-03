@@ -2,6 +2,8 @@ package com.example.shareart.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,16 +14,22 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.shareart.R;
+import com.example.shareart.adapters.CommentAdapter;
 import com.example.shareart.models.Komentarioa;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.CommentProvider;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class KomentarioakActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private CommentAdapter commentAdapter;
 
     private CommentProvider commentProvider;
     private AuthProvider authProvider;
@@ -39,11 +47,15 @@ public class KomentarioakActivity extends AppCompatActivity {
 
 
     private void hasieratu() {
+        extraPostId = getIntent().getStringExtra("postId");
+        // RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewKomentarioak);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(KomentarioakActivity.this);
+        recyclerView.setLayoutManager(linearLayoutManager);
         // Providers
         commentProvider = new CommentProvider();
         authProvider = new AuthProvider();
 
-        extraPostId = getIntent().getStringExtra("postId");
     }
 
     private void alertKomentarioa() {
@@ -69,12 +81,11 @@ public class KomentarioakActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String mezua = editText.getText().toString();
 
-                        if (mezua.isEmpty()){
+                        if (mezua.isEmpty()) {
                             Toast.makeText(KomentarioakActivity.this, "Zerbait idatzi behar duzu", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             komentarioaSortu(mezua);
                         }
-
 
 
                     }
@@ -94,13 +105,33 @@ public class KomentarioakActivity extends AppCompatActivity {
         commentProvider.createKomentarioa(komentarioa).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(KomentarioakActivity.this, "Komentarioa ondo gorde da", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(KomentarioakActivity.this, "Errore bat egon da komentarioa gordetzean", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Query query = commentProvider.getKomentarioakByArgitalpen(extraPostId);
+        FirestoreRecyclerOptions<Komentarioa> options =
+                new FirestoreRecyclerOptions.Builder<Komentarioa>()
+                        .setQuery(query, Komentarioa.class)
+                        .build();
+
+        // PostAdapter
+        commentAdapter = new CommentAdapter(options, KomentarioakActivity.this);
+        recyclerView.setAdapter(commentAdapter);
+        commentAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        commentAdapter.stopListening();
+    }
 }

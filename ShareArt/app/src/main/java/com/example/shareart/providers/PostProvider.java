@@ -19,7 +19,7 @@ public class PostProvider {
     }
 
     public Query getArgitalpenGuztiak(){
-        return collectionReference.orderBy("deskribapena", Query.Direction.DESCENDING);
+        return collectionReference.orderBy("data", Query.Direction.DESCENDING);
     }
 
     public Query getArgitalpenakByErabiltzailea(String id){

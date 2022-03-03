@@ -35,11 +35,36 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
     public CommentAdapter(@NonNull FirestoreRecyclerOptions<Komentarioa> options, Context context) {
         super(options);
         this.context = context;
+        userProvider = new UserProvider();
     }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Komentarioa model) {
+        // Momentuko dokumentua
+        DocumentSnapshot document = getSnapshots().getSnapshot(position);
+        String comment_id = document.getId();
 
+        holder.textViewKomentarioa.setText(model.getMezua());
+
+        // Erabiltzailea bistaratu
+        userProvider.getErabiltzailea(model.getIdErabiltzailea()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    if (documentSnapshot.contains("erabiltzaileIzena")) {
+                        holder.textViewErabiltzaileIzena.setText(documentSnapshot.getString("erabiltzaileIzena"));
+                    }
+
+                    if (documentSnapshot.contains("argazkiaProfilaUrl")) {
+                        if (documentSnapshot.getString("argazkiaProfilaUrl") != null) {
+                            if (!documentSnapshot.getString("argazkiaProfilaUrl").isEmpty()){
+                                Picasso.with(context).load(documentSnapshot.getString("argazkiaProfilaUrl")).into(holder.imageViewProfilekoArgakia);
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @NonNull
