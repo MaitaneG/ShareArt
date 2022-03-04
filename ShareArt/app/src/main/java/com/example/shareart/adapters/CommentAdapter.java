@@ -57,7 +57,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
 
                     if (documentSnapshot.contains("argazkiaProfilaUrl")) {
                         if (documentSnapshot.getString("argazkiaProfilaUrl") != null) {
-                            if (!documentSnapshot.getString("argazkiaProfilaUrl").isEmpty()){
+                            if (!documentSnapshot.getString("argazkiaProfilaUrl").isEmpty()) {
                                 Picasso.with(context).load(documentSnapshot.getString("argazkiaProfilaUrl")).into(holder.imageViewProfilekoArgakia);
                             }
                         }
@@ -78,6 +78,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
                 }
             }
         });
+        holder.textViewData.setText(model.getData());
     }
 
     @NonNull
@@ -91,6 +92,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
 
         private TextView textViewErabiltzaileIzena;
         private TextView textViewKomentarioa;
+        private TextView textViewData;
         private ImageView imageViewProfilekoArgakia;
 
         public ViewHolder(View view) {
@@ -98,6 +100,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
 
             textViewErabiltzaileIzena = view.findViewById(R.id.textViewErabiltzaileIzenaKomentarioa);
             textViewKomentarioa = view.findViewById(R.id.textViewKomentarioa);
+            textViewData = view.findViewById(R.id.textViewDataKomentarioa);
             imageViewProfilekoArgakia = view.findViewById(R.id.imageViewPerfilArgazkiaKomentarioa);
         }
     }

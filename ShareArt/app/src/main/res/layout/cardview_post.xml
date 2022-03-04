@@ -38,9 +38,11 @@
                 android:id="@+id/textViewErabiltzaileIzenaCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:paddingVertical="5dp"
-                android:textSize="16sp" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:paddingVertical="3dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,9 +55,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="10dp"
-                    android:paddingVertical="5dp"
+                    android:paddingVertical="3dp"
                     android:text="0"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:id="@+id/imageViewLike"
@@ -63,11 +65,19 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/like_ikonoa" />
 
+                <TextView
+                    android:id="@+id/textViewKomentarioaCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="3dp"
+                    android:textSize="14sp" />
+
                 <ImageView
                     android:id="@+id/imageViewKomentatu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
                     android:src="@drawable/komentatu_botoia" />
             </LinearLayout>
         </LinearLayout>
@@ -82,29 +92,49 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:src="@drawable/deskribapena_ikonoa" />
 
             <TextView
                 android:id="@+id/textViewDeskriptionCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:paddingVertical="5dp"
-                android:textSize="16sp" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:paddingVertical="2dp"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewKategoriaCard"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="5dp"
-            android:text="#"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewKategoriaCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:paddingVertical="3dp"
+                android:text="#"
+                android:textSize="14sp"
+                android:textStyle="italic|bold" />
+
+
+            <TextView
+                android:id="@+id/textViewDataCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:gravity="center_vertical|end"
+                android:paddingVertical="3dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

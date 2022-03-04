@@ -21,21 +21,25 @@ import com.example.shareart.R;
 import com.example.shareart.activities.KomentarioakActivity;
 import com.example.shareart.activities.UserProfileActivity;
 import com.example.shareart.models.Argitalpena;
+import com.example.shareart.providers.CommentProvider;
 import com.example.shareart.providers.UserProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapter.ViewHolder> {
     private Context context;
     private UserProvider userProvider;
+    private CommentProvider commentProvider;
 
     public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
         this.context = context;
         userProvider = new UserProvider();
+        commentProvider = new CommentProvider();
     }
 
     @Override
@@ -65,7 +69,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         // Momentuko dokumentua
         DocumentSnapshot document = getSnapshots().getSnapshot(position);
         String user_id = document.getString("id_user");
-        String post_id=document.getId();
+        String post_id = document.getId();
         // OnClickListener
         holder.textViewErabiltzaileIzena.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,8 +89,21 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, KomentarioakActivity.class);
-                intent.putExtra("postId",post_id);
+                intent.putExtra("postId", post_id);
                 context.startActivity(intent);
+            }
+        });
+
+        holder.textViewData.setText(model.getData());
+        getKomentarioKopurua(post_id, holder);
+    }
+
+    private void getKomentarioKopurua(String postId, final ViewHolder holder) {
+        commentProvider.getKomentarioakByArgitalpen(postId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                int zenbat = queryDocumentSnapshots.size();
+                holder.textViewKomentarioa.setText(zenbat + "");
             }
         });
     }
@@ -104,6 +121,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         TextView textViewErabiltzaileIzena;
         TextView textViewLikeKopurua;
         TextView textViewKategoria;
+        TextView textViewKomentarioa;
+        TextView textViewData;
         ImageView imageViewArgitarapena;
         ImageView imageViewLike;
         ImageView imageViewKomentatu;
@@ -115,6 +134,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             textViewErabiltzaileIzena = view.findViewById(R.id.textViewErabiltzaileIzenaCard);
             textViewLikeKopurua = view.findViewById(R.id.textViewLikeCard);
             textViewKategoria = view.findViewById(R.id.textViewKategoriaCard);
+            textViewKomentarioa = view.findViewById(R.id.textViewKomentarioaCard);
+            textViewData = view.findViewById(R.id.textViewDataCard);
             imageViewArgitarapena = view.findViewById(R.id.imageViewArgitarapenaCard);
             imageViewLike = view.findViewById(R.id.imageViewLike);
             imageViewKomentatu = view.findViewById(R.id.imageViewKomentatu);
