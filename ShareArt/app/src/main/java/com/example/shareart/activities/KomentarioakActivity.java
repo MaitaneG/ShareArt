@@ -86,8 +86,6 @@ public class KomentarioakActivity extends AppCompatActivity {
                         } else {
                             komentarioaSortu(mezua);
                         }
-
-
                     }
                 })
                 .setNegativeButton("Itxi", null)

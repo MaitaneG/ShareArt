@@ -70,15 +70,27 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
             @Override
             public void onClick(View view) {
                 if (!model.getIdErabiltzailea().equals("")) {
-                    Intent intent = new Intent(context, UserProfileActivity.class);
-                    intent.putExtra("erabiltzaileId", model.getIdErabiltzailea());
-                    context.startActivity(intent);
+                    erabiltzailePerfilaIkusi(model.getIdErabiltzailea());
                 } else {
                     Toast.makeText(context, "Itxaron mesedez...", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        holder.imageViewProfilekoArgakia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                erabiltzailePerfilaIkusi(model.getIdErabiltzailea());
+            }
+        });
+
         holder.textViewData.setText(model.getData());
+    }
+
+    private void erabiltzailePerfilaIkusi(String idErabiltzaile){
+        Intent intent = new Intent(context, UserProfileActivity.class);
+        intent.putExtra("erabiltzaileId", idErabiltzaile);
+        context.startActivity(intent);
     }
 
     @NonNull
