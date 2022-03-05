@@ -4,16 +4,16 @@ public class Like {
 
     private String id;
     private String idErabiltzaile;
-    private String idArgiltapen;
+    private String idArgitalpen;
     private String data;
 
     public Like() {
     }
 
-    public Like(String id, String idErabiltzaile, String idArgiltapen, String data) {
+    public Like(String id, String idErabiltzaile, String idArgitalpen, String data) {
         this.id = id;
         this.idErabiltzaile = idErabiltzaile;
-        this.idArgiltapen = idArgiltapen;
+        this.idArgitalpen = idArgitalpen;
         this.data = data;
     }
 
@@ -33,12 +33,12 @@ public class Like {
         this.idErabiltzaile = idErabiltzaile;
     }
 
-    public String getIdArgiltapen() {
-        return idArgiltapen;
+    public String getIdArgitalpen() {
+        return idArgitalpen;
     }
 
-    public void setIdArgiltapen(String idArgiltapen) {
-        this.idArgiltapen = idArgiltapen;
+    public void setIdArgiltapen(String idArgitalpen) {
+        this.idArgitalpen = idArgitalpen;
     }
 
     public String getData() {

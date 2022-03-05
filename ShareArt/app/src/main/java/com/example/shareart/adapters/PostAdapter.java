@@ -1,16 +1,11 @@
 package com.example.shareart.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +16,10 @@ import com.example.shareart.R;
 import com.example.shareart.activities.KomentarioakActivity;
 import com.example.shareart.activities.UserProfileActivity;
 import com.example.shareart.models.Argitalpena;
+import com.example.shareart.models.Like;
+import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.CommentProvider;
+import com.example.shareart.providers.LikeProvider;
 import com.example.shareart.providers.UserProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -34,12 +32,16 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     private Context context;
     private UserProvider userProvider;
     private CommentProvider commentProvider;
+    private LikeProvider likeProvider;
+    private AuthProvider authProvider;
 
     public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
         this.context = context;
         userProvider = new UserProvider();
         commentProvider = new CommentProvider();
+        likeProvider = new LikeProvider();
+        authProvider = new AuthProvider();
     }
 
     @Override
@@ -48,18 +50,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         holder.textViewDeskribapena.setText(model.getDeskribapena());
         // Kategoria
         holder.textViewKategoria.setText(holder.textViewKategoria.getText().toString() + model.getKategoria());
-        // Erabiltzailea bistaratu
-        userProvider.getErabiltzailea(model.getId_user()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    if (documentSnapshot.contains("erabiltzaileIzena")) {
-                        holder.textViewErabiltzaileIzena.setText(documentSnapshot.get("erabiltzaileIzena").toString());
-                    }
-
-                }
-            }
-        });
+        // Erabiltzailea
+        erabiltzaileaBistaratu(model.getId_user(), holder);
         // Argazkia bistaratu
         if (model.getUrl_argazkia() != null) {
             if (!model.getUrl_argazkia().isEmpty()) {
@@ -70,7 +62,20 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         DocumentSnapshot document = getSnapshots().getSnapshot(position);
         String user_id = document.getString("id_user");
         String post_id = document.getId();
-        // OnClickListener
+
+        // Data
+        holder.textViewData.setText(model.getData());
+
+        // Komentario kopurua
+        getKomentarioKopurua(post_id, holder);
+
+        // Like kopurua
+        getLikeKopurua(post_id, holder);
+
+        // Like botoia hasieratu
+        getLike(post_id, authProvider.getUid(), holder);
+
+        // Erabiltzaile izenean klik egitean
         holder.textViewErabiltzaileIzena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +89,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             }
         });
 
+        // Komentario argazkian klik egitean
         holder.imageViewKomentatu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,8 +100,30 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             }
         });
 
-        holder.textViewData.setText(model.getData());
-        getKomentarioKopurua(post_id, holder);
+        // Like bat ematean
+        holder.imageViewLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Like like = new Like();
+                like.setIdArgiltapen(post_id);
+                like.setIdErabiltzaile(authProvider.getUid());
+
+                likeBatEman(like, holder);
+            }
+        });
+    }
+
+    private void erabiltzaileaBistaratu(String userId, ViewHolder holder) {
+        userProvider.getErabiltzailea(userId).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    if (documentSnapshot.contains("erabiltzaileIzena")) {
+                        holder.textViewErabiltzaileIzena.setText(documentSnapshot.get("erabiltzaileIzena").toString());
+                    }
+                }
+            }
+        });
     }
 
     private void getKomentarioKopurua(String postId, final ViewHolder holder) {
@@ -108,6 +136,48 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         });
     }
 
+    private void getLikeKopurua(String post_id, ViewHolder holder) {
+        likeProvider.getLikesByArgitalpen(post_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                holder.textViewLikeKopurua.setText(queryDocumentSnapshots.getDocuments().size() + "");
+            }
+        });
+    }
+
+    private void likeBatEman(Like like, ViewHolder holder) {
+        likeProvider.getLikeByArgitalpenAndErabiltzaile(like.getIdArgitalpen(), like.getIdErabiltzaile()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                int number = queryDocumentSnapshots.size();
+                if (number > 0) {
+                    String idQuery = queryDocumentSnapshots.getDocuments().get(0).getId();
+                    likeProvider.deleteLike(idQuery);
+                    holder.imageViewLike.setImageResource(R.drawable.like_ikonoa);
+                    getLikeKopurua(like.getIdArgitalpen(), holder);
+                } else {
+                    likeProvider.createLike(like);
+                    holder.imageViewLike.setImageResource(R.drawable.like_ikono_azul);
+                    getLikeKopurua(like.getIdArgitalpen(), holder);
+                }
+            }
+        });
+    }
+
+    private void getLike(String post_id, String user_id, ViewHolder holder) {
+        likeProvider.getLikeByArgitalpenAndErabiltzaile(post_id, user_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                int number = queryDocumentSnapshots.size();
+                if (number > 0) {
+                    holder.imageViewLike.setImageResource(R.drawable.like_ikono_azul);
+                } else {
+                    holder.imageViewLike.setImageResource(R.drawable.like_ikonoa);
+                }
+            }
+        });
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -115,7 +185,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         return new ViewHolder(view);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewDeskribapena;
         TextView textViewErabiltzaileIzena;
@@ -139,17 +209,6 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             imageViewArgitarapena = view.findViewById(R.id.imageViewArgitarapenaCard);
             imageViewLike = view.findViewById(R.id.imageViewLike);
             imageViewKomentatu = view.findViewById(R.id.imageViewKomentatu);
-
-            imageViewLike.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.imageViewLike:
-                    imageViewLike.setImageResource(R.drawable.like_ikonoa_azul);
-                    break;
-            }
         }
     }
 }
