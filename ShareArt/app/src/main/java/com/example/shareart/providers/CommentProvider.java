@@ -4,6 +4,7 @@ import com.example.shareart.models.Argitalpena;
 import com.example.shareart.models.Komentarioa;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -16,10 +17,17 @@ public class CommentProvider {
     }
 
     public Task<Void> createKomentarioa(Komentarioa komentarioa){
-        return collectionReference.document().set(komentarioa);
+        DocumentReference documentReference = collectionReference.document();
+        String id = documentReference.getId();
+        komentarioa.setId(id);
+        return documentReference.set(komentarioa);
     }
 
     public Query getKomentarioakByArgitalpen(String idArgitalpen) {
         return collectionReference.whereEqualTo("idArgitalpen", idArgitalpen);
+    }
+
+    public Task<Void> deleteKomentarioa(String id) {
+        return collectionReference.document(id).delete();
     }
 }

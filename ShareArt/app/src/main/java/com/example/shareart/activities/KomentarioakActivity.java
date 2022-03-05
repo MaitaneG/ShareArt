@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,6 +22,7 @@ import com.example.shareart.providers.CommentProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +31,7 @@ import java.util.Date;
 public class KomentarioakActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private FloatingActionButton komentatuBotoia;
     private CommentAdapter commentAdapter;
 
     private CommentProvider commentProvider;
@@ -47,6 +50,9 @@ public class KomentarioakActivity extends AppCompatActivity {
 
 
     private void hasieratu() {
+        // FloatingButton
+        komentatuBotoia = findViewById(R.id.floatingButtonKomentarioa);
+        // PostId
         extraPostId = getIntent().getStringExtra("postId");
         // RecyclerView
         recyclerView = findViewById(R.id.recyclerViewKomentarioak);
@@ -55,7 +61,8 @@ public class KomentarioakActivity extends AppCompatActivity {
         // Providers
         commentProvider = new CommentProvider();
         authProvider = new AuthProvider();
-
+        // OnClickListener
+        komentatuBotoia.setOnClickListener(this::komentatu);
     }
 
     private void alertKomentarioa() {
@@ -110,6 +117,10 @@ public class KomentarioakActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void komentatu(View view) {
+        alertKomentarioa();
     }
 
     @Override

@@ -7,20 +7,19 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
 import com.example.shareart.activities.UserProfileActivity;
-import com.example.shareart.models.Argitalpena;
 import com.example.shareart.models.Komentarioa;
+import com.example.shareart.providers.AuthProvider;
+import com.example.shareart.providers.CommentProvider;
 import com.example.shareart.providers.UserProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -31,11 +30,15 @@ import com.squareup.picasso.Picasso;
 public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, CommentAdapter.ViewHolder> {
     private Context context;
     private UserProvider userProvider;
+    private CommentProvider commentProvider;
+    private AuthProvider authProvider;
 
     public CommentAdapter(@NonNull FirestoreRecyclerOptions<Komentarioa> options, Context context) {
         super(options);
         this.context = context;
         userProvider = new UserProvider();
+        commentProvider = new CommentProvider();
+        authProvider = new AuthProvider();
     }
 
     @Override
@@ -47,7 +50,56 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
         holder.textViewKomentarioa.setText(model.getMezua());
 
         // Erabiltzailea bistaratu
-        userProvider.getErabiltzailea(model.getIdErabiltzailea()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        erabiltzaileaBistaratu(model.getIdErabiltzailea(), holder);
+
+        // Data
+        holder.textViewData.setText(model.getData());
+
+        // Erabltzailearen argazkian klik egitean
+        holder.imageViewProfilekoArgakia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                erabiltzailePerfilaIkusi(model.getIdErabiltzailea());
+            }
+        });
+
+        // Erabiltzailearen izenean klik egitean
+        holder.textViewErabiltzaileIzena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!model.getIdErabiltzailea().equals("")) {
+                    erabiltzailePerfilaIkusi(model.getIdErabiltzailea());
+                } else {
+                    Toast.makeText(context, "Itxaron mesedez...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        if (model.getIdErabiltzailea().equals(authProvider.getUid())) {
+            holder.cardViewKomentarioa.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+                    new AlertDialog.Builder(context)
+                            .setTitle("Komentarioa ezabatzen")
+                            .setMessage("Ziur zaude komentarioa ezabatu nahi duzula?")
+                            .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    commentProvider.deleteKomentarioa(model.getId());
+                                }
+                            })
+                            .setNegativeButton("Ez", null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void erabiltzaileaBistaratu(String erabiltzaileId, ViewHolder holder) {
+        userProvider.getErabiltzailea(erabiltzaileId).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
@@ -65,29 +117,9 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
                 }
             }
         });
-
-        holder.textViewErabiltzaileIzena.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!model.getIdErabiltzailea().equals("")) {
-                    erabiltzailePerfilaIkusi(model.getIdErabiltzailea());
-                } else {
-                    Toast.makeText(context, "Itxaron mesedez...", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        holder.imageViewProfilekoArgakia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                erabiltzailePerfilaIkusi(model.getIdErabiltzailea());
-            }
-        });
-
-        holder.textViewData.setText(model.getData());
     }
 
-    private void erabiltzailePerfilaIkusi(String idErabiltzaile){
+    private void erabiltzailePerfilaIkusi(String idErabiltzaile) {
         Intent intent = new Intent(context, UserProfileActivity.class);
         intent.putExtra("erabiltzaileId", idErabiltzaile);
         context.startActivity(intent);
@@ -106,6 +138,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
         private TextView textViewKomentarioa;
         private TextView textViewData;
         private ImageView imageViewProfilekoArgakia;
+        private CardView cardViewKomentarioa;
 
         public ViewHolder(View view) {
             super(view);
@@ -114,6 +147,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
             textViewKomentarioa = view.findViewById(R.id.textViewKomentarioa);
             textViewData = view.findViewById(R.id.textViewDataKomentarioa);
             imageViewProfilekoArgakia = view.findViewById(R.id.imageViewPerfilArgazkiaKomentarioa);
+            cardViewKomentarioa = view.findViewById(R.id.cardViewKomentarioa);
         }
     }
 }
