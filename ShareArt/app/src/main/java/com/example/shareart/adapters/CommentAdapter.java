@@ -21,6 +21,7 @@ import com.example.shareart.models.Komentarioa;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.CommentProvider;
 import com.example.shareart.providers.UserProvider;
+import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -53,7 +54,8 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
         erabiltzaileaBistaratu(model.getIdErabiltzailea(), holder);
 
         // Data
-        holder.textViewData.setText(model.getData());
+        String relativeTime = RelativeTime.getTimeAgo(model.getData());
+        holder.textViewData.setText(relativeTime);
 
         // Erabltzailearen argazkian klik egitean
         holder.imageViewProfilekoArgakia.setOnClickListener(new View.OnClickListener() {

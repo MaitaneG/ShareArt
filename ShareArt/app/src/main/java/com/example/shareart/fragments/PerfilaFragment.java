@@ -12,10 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.shareart.R;
+import com.example.shareart.activities.HomeActivity;
 import com.example.shareart.activities.PerfilaEguneratuActivity;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.PostProvider;
 import com.example.shareart.providers.UserProvider;
+import com.example.shareart.utils.RelativeTime;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -50,7 +52,7 @@ public class PerfilaFragment extends Fragment {
         erabiltzaileIzenaTextView = view.findViewById(R.id.textViewErabiltzaileIzena);
         korreoaTextView = view.findViewById(R.id.textViewKorreoa);
         argitalpenKopurua = view.findViewById(R.id.argitarapenZenbakia);
-        dataTextView=view.findViewById(R.id.textViewData);
+        dataTextView = view.findViewById(R.id.textViewData);
         // LinearLayout
         linearLayout = view.findViewById(R.id.perfilaEditatuLink);
         // CircleImageView
@@ -91,8 +93,9 @@ public class PerfilaFragment extends Fragment {
                         }
                     }
 
-                    if (documentSnapshot.contains("sortzeData")){
-                        dataTextView.setText(documentSnapshot.getString("sortzeData")+"-an sartu zinen");
+                    if (documentSnapshot.contains("sortzeData")) {
+                        String relativeTime = RelativeTime.timeFormatAMPM(documentSnapshot.getLong("sortzeData"));
+                        dataTextView.setText(relativeTime + "-an sartu zinen");
                     }
                 }
             }
@@ -104,7 +107,7 @@ public class PerfilaFragment extends Fragment {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 int zenbat = queryDocumentSnapshots.size();
-                argitalpenKopurua.setText(zenbat+"");
+                argitalpenKopurua.setText(zenbat + "");
             }
         });
     }

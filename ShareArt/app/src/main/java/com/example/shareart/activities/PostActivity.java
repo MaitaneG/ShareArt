@@ -294,8 +294,7 @@ public class PostActivity extends AppCompatActivity {
                             argitalpena.setKategoria(kategoria);
                             argitalpena.setId_user(authProvider.getUid());
 
-                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                            argitalpena.setData(format.format(new Date()));
+                            argitalpena.setData(new Date().getTime());
                             postProvider.createArgitalpena(argitalpena).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> taskGorde) {

@@ -3,6 +3,7 @@ package com.example.shareart.providers;
 import com.example.shareart.models.Argitalpena;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -15,7 +16,11 @@ public class PostProvider {
     }
 
     public Task<Void> createArgitalpena(Argitalpena argitalpena){
-        return collectionReference.document().set(argitalpena);
+
+        DocumentReference documentReference = collectionReference.document();
+        String id= documentReference.getId();
+        argitalpena.setId(id);
+        return documentReference.set(argitalpena);
     }
 
     public Query getArgitalpenGuztiak(){

@@ -21,12 +21,15 @@ import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.CommentProvider;
 import com.example.shareart.providers.LikeProvider;
 import com.example.shareart.providers.UserProvider;
+import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
+
+import java.util.Date;
 
 public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapter.ViewHolder> {
     private Context context;
@@ -64,7 +67,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         String post_id = document.getId();
 
         // Data
-        holder.textViewData.setText(model.getData());
+        String relativeTime = RelativeTime.getTimeAgo(model.getData());
+        holder.textViewData.setText(relativeTime);
 
         // Komentario kopurua
         getKomentarioKopurua(post_id, holder);
@@ -107,6 +111,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
                 Like like = new Like();
                 like.setIdArgiltapen(post_id);
                 like.setIdErabiltzaile(authProvider.getUid());
+                like.setData(new Date().getTime());
 
                 likeBatEman(like, holder);
             }

@@ -143,8 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
                     erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
                     erabiltzailea.setEmail(email);
 
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                    erabiltzailea.setSortzeData(format.format(new Date()));
+                    erabiltzailea.setSortzeData(new Date().getTime());
 
                     userProvider.createErabiltzailea(erabiltzailea);
                     Toast.makeText(RegisterActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();

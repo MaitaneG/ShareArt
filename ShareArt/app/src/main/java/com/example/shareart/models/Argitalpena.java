@@ -9,12 +9,12 @@ public class Argitalpena {
     private String deskribapena;
     private String url_argazkia;
     private String kategoria;
-    private String data;
+    private long data;
 
     public Argitalpena() {
     }
 
-    public Argitalpena(String id, String id_user, String deskribapena, String url_argazkia, String kategoria, String data) {
+    public Argitalpena(String id, String id_user, String deskribapena, String url_argazkia, String kategoria, long data) {
         this.id = id;
         this.id_user = id_user;
         this.deskribapena = deskribapena;
@@ -63,11 +63,11 @@ public class Argitalpena {
         this.kategoria = kategoria;
     }
 
-    public String getData() {
+    public long getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(long data) {
         this.data = data;
     }
 }

@@ -5,12 +5,12 @@ public class Like {
     private String id;
     private String idErabiltzaile;
     private String idArgitalpen;
-    private String data;
+    private long data;
 
     public Like() {
     }
 
-    public Like(String id, String idErabiltzaile, String idArgitalpen, String data) {
+    public Like(String id, String idErabiltzaile, String idArgitalpen, long data) {
         this.id = id;
         this.idErabiltzaile = idErabiltzaile;
         this.idArgitalpen = idArgitalpen;
@@ -41,11 +41,11 @@ public class Like {
         this.idArgitalpen = idArgitalpen;
     }
 
-    public String getData() {
+    public long getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(long data) {
         this.data = data;
     }
 }

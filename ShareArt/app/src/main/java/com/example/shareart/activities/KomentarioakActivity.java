@@ -103,8 +103,7 @@ public class KomentarioakActivity extends AppCompatActivity {
         Komentarioa komentarioa = new Komentarioa();
         komentarioa.setMezua(mezua);
         komentarioa.setIdErabiltzailea(authProvider.getUid());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        komentarioa.setData(format.format(new Date()));
+        komentarioa.setData(new Date().getTime());
         komentarioa.setIdArgitalpen(extraPostId);
 
         commentProvider.createKomentarioa(komentarioa).addOnCompleteListener(new OnCompleteListener<Void>() {

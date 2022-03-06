@@ -8,13 +8,13 @@ public class Erabiltzailea {
     private String email;
     private String pasahitza;
     private String argazkiaProfilaUrl;
-    private String sortzeData;
+    private long sortzeData;
 
     public Erabiltzailea() {
 
     }
 
-    public Erabiltzailea(String id, String erabiltzaileIzena, String email, String pasahitza, String argazkiaProfilaUrl, String sortzeData) {
+    public Erabiltzailea(String id, String erabiltzaileIzena, String email, String pasahitza, String argazkiaProfilaUrl, long sortzeData) {
         this.id = id;
         this.erabiltzaileIzena = erabiltzaileIzena;
         this.email = email;
@@ -63,11 +63,11 @@ public class Erabiltzailea {
         this.argazkiaProfilaUrl = argazkiaProfilaUrl;
     }
 
-    public String getSortzeData() {
+    public long getSortzeData() {
         return sortzeData;
     }
 
-    public void setSortzeData(String sortzeData) {
+    public void setSortzeData(long sortzeData) {
         this.sortzeData = sortzeData;
     }
 }
