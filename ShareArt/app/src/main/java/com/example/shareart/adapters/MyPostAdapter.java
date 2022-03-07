@@ -39,11 +39,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostAdapter.ViewHolder> {
     private Context context;
     private PostProvider postProvider;
+    private AuthProvider authProvider;
 
     public MyPostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
         this.context = context;
         postProvider = new PostProvider();
+        authProvider = new AuthProvider();
     }
 
     @Override
@@ -58,6 +60,10 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
             if (!model.getUrl_argazkia().isEmpty()) {
                 Picasso.with(context).load(model.getUrl_argazkia()).into(holder.imageViewArgitalpena);
             }
+        }
+
+        if (!authProvider.getUid().equals(model.getId_user())) {
+            holder.imageViewEzabatuArgitalpena.setVisibility(View.INVISIBLE);
         }
 
         holder.imageViewEzabatuArgitalpena.setOnClickListener(new View.OnClickListener() {

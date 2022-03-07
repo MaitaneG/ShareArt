@@ -1,16 +1,23 @@
 package com.example.shareart.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.shareart.R;
+import com.example.shareart.adapters.MyPostAdapter;
+import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.PostProvider;
 import com.example.shareart.providers.UserProvider;
+import com.example.shareart.utils.RelativeTime;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -22,11 +29,14 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView korreoaTextView;
     private TextView argitalpenKopuruaTextView;
     private TextView dataTextView;
+    private TextView argitalpenTexView;
     private CircleImageView perfilekoArgazkia;
+    private RecyclerView recyclerView;
 
     private AuthProvider authProvider;
     private UserProvider userProvider;
     private PostProvider postProvider;
+    private MyPostAdapter postAdapter;
 
     private String extraErabiltzaileId;
 
@@ -42,6 +52,7 @@ public class UserProfileActivity extends AppCompatActivity {
         // Erabiltzailea hasieratu
         getErabiltzailearenInformazioa();
         getArgitalpenKopurua();
+        getExistitzenDenArgitalpena();
     }
 
     private void hasieratu() {
@@ -50,12 +61,17 @@ public class UserProfileActivity extends AppCompatActivity {
         korreoaTextView = findViewById(R.id.textViewKorreoaBesteErabiltzaile);
         argitalpenKopuruaTextView = findViewById(R.id.argitarapenZenbakiaBesteErabiltzaile);
         dataTextView = findViewById(R.id.textViewDataBesteErabiltzaile);
+        argitalpenTexView = findViewById(R.id.textViewArgitalpenBesteErabiltzaile);
         // CircleImageView
         perfilekoArgazkia = findViewById(R.id.perfilaArgazkiaBesteErabiltzaile);
         // Providers
         authProvider = new AuthProvider();
         userProvider = new UserProvider();
         postProvider = new PostProvider();
+        // RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewNireArgitarapenakBesteErabiltzaile);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(UserProfileActivity.this);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     private void getErabiltzailearenInformazioa() {
@@ -82,7 +98,8 @@ public class UserProfileActivity extends AppCompatActivity {
                     }
 
                     if (documentSnapshot.contains("sortzeData")) {
-                        dataTextView.setText(documentSnapshot.getString("sortzeData") + "-an sartu zen");
+                        String relativeTime = RelativeTime.timeFormatAMPM(documentSnapshot.getLong("sortzeData"));
+                        dataTextView.setText(relativeTime + "-an sartu zen");
                     }
 
                 }
@@ -98,5 +115,33 @@ public class UserProfileActivity extends AppCompatActivity {
                 argitalpenKopuruaTextView.setText(zenbat + "");
             }
         });
+    }
+
+    private void getExistitzenDenArgitalpena() {
+        postProvider.getArgitalpenGuztiak().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (queryDocumentSnapshots.getDocuments().size() > 0) {
+                    argitalpenTexView.setText("Argitalpenak");
+                } else {
+                    argitalpenTexView.setText("Ez daude argitalpeik");
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Query query = postProvider.getArgitalpenakByErabiltzailea(extraErabiltzaileId);
+        FirestoreRecyclerOptions<Argitalpena> options =
+                new FirestoreRecyclerOptions.Builder<Argitalpena>()
+                        .setQuery(query, Argitalpena.class)
+                        .build();
+
+        // PostAdapter
+        postAdapter = new MyPostAdapter(options, UserProfileActivity.this);
+        recyclerView.setAdapter(postAdapter);
+        postAdapter.startListening();
     }
 }

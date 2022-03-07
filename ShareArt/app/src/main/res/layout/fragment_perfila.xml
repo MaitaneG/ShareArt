@@ -132,6 +132,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textViewArgitalpen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -140,7 +141,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="Ez daude argitarapenik"
                 android:textSize="18dp"
-                android:textStyle="italic" />
+                android:textStyle="italic|bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewNireArgitarapenak"

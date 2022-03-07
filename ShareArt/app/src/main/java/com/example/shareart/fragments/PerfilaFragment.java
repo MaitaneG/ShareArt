@@ -36,7 +36,8 @@ public class PerfilaFragment extends Fragment {
     private LinearLayout linearLayout;
     private TextView erabiltzaileIzenaTextView;
     private TextView korreoaTextView;
-    private TextView argitalpenKopurua;
+    private TextView argitalpenKopuruaTextView;
+    private TextView argitalpenTexView;
     private TextView dataTextView;
     private CircleImageView perfilekoArgazkia;
     private RecyclerView recyclerView;
@@ -58,8 +59,9 @@ public class PerfilaFragment extends Fragment {
         // TextView
         erabiltzaileIzenaTextView = view.findViewById(R.id.textViewErabiltzaileIzena);
         korreoaTextView = view.findViewById(R.id.textViewKorreoa);
-        argitalpenKopurua = view.findViewById(R.id.argitarapenZenbakia);
+        argitalpenKopuruaTextView = view.findViewById(R.id.argitarapenZenbakia);
         dataTextView = view.findViewById(R.id.textViewData);
+        argitalpenTexView = view.findViewById(R.id.textViewArgitalpen);
         // LinearLayout
         linearLayout = view.findViewById(R.id.perfilaEditatuLink);
         // CircleImageView
@@ -73,6 +75,7 @@ public class PerfilaFragment extends Fragment {
         // Erabiltzailea hasieratu
         getErabiltzailearenInformazioa();
         getArgitalpenKopurua();
+        getExistitzenDenArgitalpena();
         // RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewNireArgitarapenak);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -117,7 +120,20 @@ public class PerfilaFragment extends Fragment {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 int zenbat = queryDocumentSnapshots.size();
-                argitalpenKopurua.setText(zenbat + "");
+                argitalpenKopuruaTextView.setText(zenbat + "");
+            }
+        });
+    }
+
+    private void getExistitzenDenArgitalpena() {
+        postProvider.getArgitalpenGuztiak().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (queryDocumentSnapshots.getDocuments().size() > 0) {
+                    argitalpenTexView.setText("Argitalpenak");
+                } else {
+                    argitalpenTexView.setText("Ez daude argitalpeik");
+                }
             }
         });
     }
