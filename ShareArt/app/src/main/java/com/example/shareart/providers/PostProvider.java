@@ -30,4 +30,8 @@ public class PostProvider {
     public Query getArgitalpenakByErabiltzailea(String id){
         return collectionReference.whereEqualTo("id_user",id);
     }
+
+    public Task<Void> deleteArgitalpena(String id) {
+        return collectionReference.document(id).delete();
+    }
 }

@@ -52,7 +52,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         // Deskripzioa bistaratu
         holder.textViewDeskribapena.setText(model.getDeskribapena());
         // Kategoria
-        holder.textViewKategoria.setText(holder.textViewKategoria.getText().toString() + model.getKategoria());
+        holder.textViewKategoria.setText("#" + model.getKategoria());
         // Erabiltzailea
         erabiltzaileaBistaratu(model.getId_user(), holder);
         // Argazkia bistaratu

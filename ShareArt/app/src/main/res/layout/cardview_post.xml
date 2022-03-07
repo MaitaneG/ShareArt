@@ -131,10 +131,9 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center_vertical|end"
                 android:paddingVertical="3dp"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.shareart.R;
-import com.example.shareart.activities.HomeActivity;
 import com.example.shareart.activities.PerfilaEguneratuActivity;
+import com.example.shareart.adapters.MyPostAdapter;
+import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.PostProvider;
 import com.example.shareart.providers.UserProvider;
 import com.example.shareart.utils.RelativeTime;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -34,10 +39,12 @@ public class PerfilaFragment extends Fragment {
     private TextView argitalpenKopurua;
     private TextView dataTextView;
     private CircleImageView perfilekoArgazkia;
+    private RecyclerView recyclerView;
 
     private AuthProvider authProvider;
     private UserProvider userProvider;
     private PostProvider postProvider;
+    private MyPostAdapter postAdapter;
 
     public PerfilaFragment() {
         // Required empty public constructor
@@ -66,7 +73,10 @@ public class PerfilaFragment extends Fragment {
         // Erabiltzailea hasieratu
         getErabiltzailearenInformazioa();
         getArgitalpenKopurua();
-
+        // RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerViewNireArgitarapenak);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
         return view;
     }
 
@@ -115,5 +125,20 @@ public class PerfilaFragment extends Fragment {
     private void perfilaEditaturaJoan(View view) {
         Intent intent = new Intent(getContext(), PerfilaEguneratuActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Query query = postProvider.getArgitalpenakByErabiltzailea(authProvider.getUid());
+        FirestoreRecyclerOptions<Argitalpena> options =
+                new FirestoreRecyclerOptions.Builder<Argitalpena>()
+                        .setQuery(query, Argitalpena.class)
+                        .build();
+
+        // PostAdapter
+        postAdapter = new MyPostAdapter(options, getContext());
+        recyclerView.setAdapter(postAdapter);
+        postAdapter.startListening();
     }
 }
