@@ -3,6 +3,8 @@ package com.example.shareart.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +43,7 @@ public class PerfilaFragment extends Fragment {
     private TextView dataTextView;
     private CircleImageView perfilekoArgazkia;
     private RecyclerView recyclerView;
+    private Toolbar toolbar;
 
     private AuthProvider authProvider;
     private UserProvider userProvider;
@@ -68,6 +71,10 @@ public class PerfilaFragment extends Fragment {
         perfilekoArgazkia = view.findViewById(R.id.perfilaArgazkia);
         // OnClickListener
         linearLayout.setOnClickListener(this::perfilaEditaturaJoan);
+        // Toolbar
+        toolbar = (Toolbar) view.findViewById(R.id.toolbarProfila);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
         // Providers
         authProvider = new AuthProvider();
         userProvider = new UserProvider();

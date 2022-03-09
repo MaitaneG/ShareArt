@@ -7,41 +7,44 @@
     android:background="@drawable/fondo_txuria"
     tools:context=".fragments.FiltroakFragment">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
 
         <!-- Layout bertikala ezkerra -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="400dp"
-            android:layout_weight="1"
             android:layout_marginTop="50dp"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <!-- Natura -->
             <ImageView
+                android:id="@+id/imageViewNaturaFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/natura_kategoria_handia" />
 
             <!-- Hiperrealismo -->
             <ImageView
+                android:id="@+id/imageViewHiperrealismoFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/hiperrealismo_kategoria_handia"/>
+                android:src="@drawable/hiperrealismo_kategoria_handia" />
 
             <!-- Erretratoak -->
             <ImageView
+                android:id="@+id/imageViewErretratoakFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -49,6 +52,7 @@
 
             <!-- Grafitiak -->
             <ImageView
+                android:id="@+id/imageViewGraffitiFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -59,13 +63,14 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="400dp"
-            android:layout_weight="1"
             android:layout_marginTop="50dp"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <!-- Komikia -->
             <ImageView
+                android:id="@+id/imageViewKomikiaFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -73,6 +78,7 @@
 
             <!-- Ilustrazioa -->
             <ImageView
+                android:id="@+id/imageViewIlustrazioaFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -80,6 +86,7 @@
 
             <!-- Karikatura -->
             <ImageView
+                android:id="@+id/imageViewKarikaturaFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -87,6 +94,7 @@
 
             <!-- Natura hila -->
             <ImageView
+                android:id="@+id/imageViewNaturaHilaFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

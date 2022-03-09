@@ -34,4 +34,8 @@ public class PostProvider {
     public Task<Void> deleteArgitalpena(String id) {
         return collectionReference.document(id).delete();
     }
+
+    public Query getArgitalpenByKategoria(String kategoria){
+        return collectionReference.whereEqualTo("kategoria",kategoria).orderBy("data", Query.Direction.DESCENDING);
+    }
 }

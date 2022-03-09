@@ -23,11 +23,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShareArt">
         <activity
+            android:name=".activities.FiltratutakoaActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.KomentarioakActivity"
             android:exported="false" />
         <activity
             android:name=".activities.UserProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activities.HomeActivity" />
         <activity
             android:name=".activities.PerfilaEguneratuActivity"
             android:exported="false" />
