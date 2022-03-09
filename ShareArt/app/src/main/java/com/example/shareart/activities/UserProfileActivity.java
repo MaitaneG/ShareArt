@@ -73,7 +73,7 @@ public class UserProfileActivity extends AppCompatActivity {
         userProvider = new UserProvider();
         postProvider = new PostProvider();
         // Toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbarProfila);
+        toolbar = findViewById(R.id.toolbarProfila);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

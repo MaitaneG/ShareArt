@@ -2,12 +2,14 @@ package com.example.shareart.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,7 +27,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class KomentarioakActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class KomentarioakActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FloatingActionButton komentatuBotoia;
     private CommentAdapter commentAdapter;
+    private Toolbar toolbar;
 
     private CommentProvider commentProvider;
     private AuthProvider authProvider;
@@ -58,6 +60,11 @@ public class KomentarioakActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewKomentarioak);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(KomentarioakActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
+        // Toolbar
+        toolbar = findViewById(R.id.ToolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Providers
         commentProvider = new CommentProvider();
         authProvider = new AuthProvider();
@@ -141,5 +148,13 @@ public class KomentarioakActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         commentAdapter.stopListening();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 }
