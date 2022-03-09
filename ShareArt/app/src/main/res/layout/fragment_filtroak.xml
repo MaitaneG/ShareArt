@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,20 +10,16 @@
 
     <include layout="@layout/toolbar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <!-- Layout bertikala ezkerra -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="400dp"
-            android:layout_marginTop="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="100dp">
 
             <!-- Natura -->
             <ImageView
@@ -30,16 +27,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/natura_kategoria_handia" />
+                android:src="@drawable/natura_kategoria_handia"/>
 
             <!-- Hiperrealismo -->
             <ImageView
                 android:id="@+id/imageViewHiperrealismoFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/hiperrealismo_kategoria_handia" />
 
             <!-- Erretratoak -->
@@ -48,49 +49,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/erretratoak_kategoria_handia" />
+                android:layout_marginBottom="20dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/erretratoak_kategoria_handia"/>
 
             <!-- Grafitiak -->
             <ImageView
                 android:id="@+id/imageViewGraffitiFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/graffitiak_kategoria_handia" />
-        </LinearLayout>
-
-        <!-- Layout bertikala eskuma -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="400dp"
-            android:layout_marginTop="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <!-- Komikia -->
-            <ImageView
-                android:id="@+id/imageViewKomikiaFiltratu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/komikia_kategoria_handia" />
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/graffitiak_kategoria_handia"/>
 
             <!-- Ilustrazioa -->
             <ImageView
                 android:id="@+id/imageViewIlustrazioaFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ilustrazioa_kategoria_handia" />
 
-            <!-- Karikatura -->
+            <!-- Komikia -->
             <ImageView
-                android:id="@+id/imageViewKarikaturaFiltratu"
+                android:id="@+id/imageViewKomikiaFiltratu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/karikatura_kategoria_handia" />
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/komikia_kategoria_handia"/>
 
             <!-- Natura hila -->
             <ImageView
@@ -98,8 +93,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/natura_hila_kategoria_handia" />
-        </LinearLayout>
-    </LinearLayout>
 
+            <!-- Karikatura -->
+            <ImageView
+                android:id="@+id/imageViewKarikaturaFiltratu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="140dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/karikatura_kategoria_handia" />
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
