@@ -37,6 +37,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     private CommentProvider commentProvider;
     private LikeProvider likeProvider;
     private AuthProvider authProvider;
+    private TextView textView;
 
     public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
@@ -45,6 +46,16 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         commentProvider = new CommentProvider();
         likeProvider = new LikeProvider();
         authProvider = new AuthProvider();
+    }
+
+    public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context, TextView textView) {
+        super(options);
+        this.context = context;
+        userProvider = new UserProvider();
+        commentProvider = new CommentProvider();
+        likeProvider = new LikeProvider();
+        authProvider = new AuthProvider();
+        this.textView = textView;
     }
 
     @Override
@@ -78,6 +89,12 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
 
         // Like botoia hasieratu
         getLike(post_id, authProvider.getUid(), holder);
+
+        // Argitalpen kopurua
+        if (textView != null) {
+            int zenbakia = getSnapshots().size();
+            textView.setText(String.valueOf(zenbakia));
+        }
 
         // Erabiltzaile izenean klik egitean
         holder.textViewErabiltzaileIzena.setOnClickListener(new View.OnClickListener() {
