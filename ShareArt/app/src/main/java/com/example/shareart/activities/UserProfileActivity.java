@@ -51,7 +51,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         hasieratu();
 
-        extraErabiltzaileId = getIntent().getStringExtra("erabiltzaileId");
+        extraErabiltzaileId = getIntent().getStringExtra("erabiltzaile_id");
 
         // Erabiltzailea hasieratu
         getErabiltzailearenInformazioa();
@@ -88,16 +88,16 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    if (documentSnapshot.contains("erabiltzaileIzena")) {
-                        erabiltzaileIzenaTextView.setText(documentSnapshot.getString("erabiltzaileIzena"));
+                    if (documentSnapshot.contains("erabiltzaile_izena")) {
+                        erabiltzaileIzenaTextView.setText(documentSnapshot.getString("erabiltzaile_izena"));
                     }
 
                     if (documentSnapshot.contains("email")) {
                         korreoaTextView.setText(documentSnapshot.getString("email"));
                     }
 
-                    if (documentSnapshot.contains("argazkiaProfilaUrl")) {
-                        String argazkiaUrl = documentSnapshot.getString("argazkiaProfilaUrl");
+                    if (documentSnapshot.contains("argazkia_profila_url")) {
+                        String argazkiaUrl = documentSnapshot.getString("argazkia_profila_url");
 
                         if (argazkiaUrl != null) {
                             if (!argazkiaUrl.isEmpty()) {
@@ -106,8 +106,8 @@ public class UserProfileActivity extends AppCompatActivity {
                         }
                     }
 
-                    if (documentSnapshot.contains("sortzeData")) {
-                        String relativeTime = RelativeTime.timeFormatAMPM(documentSnapshot.getLong("sortzeData"));
+                    if (documentSnapshot.contains("sortze_data")) {
+                        String relativeTime = RelativeTime.timeFormatAMPM(documentSnapshot.getLong("sortze_data"));
                         dataTextView.setText(relativeTime + "-an sartu zen");
                     }
 

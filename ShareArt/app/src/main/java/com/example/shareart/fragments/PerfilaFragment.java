@@ -95,16 +95,16 @@ public class PerfilaFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    if (documentSnapshot.contains("erabiltzaileIzena")) {
-                        erabiltzaileIzenaTextView.setText(documentSnapshot.getString("erabiltzaileIzena"));
+                    if (documentSnapshot.contains("erabiltzaile_izena")) {
+                        erabiltzaileIzenaTextView.setText(documentSnapshot.getString("erabiltzaile_izena"));
                     }
 
                     if (documentSnapshot.contains("email")) {
                         korreoaTextView.setText(documentSnapshot.getString("email"));
                     }
 
-                    if (documentSnapshot.contains("argazkiaProfilaUrl")) {
-                        String argazkiaUrl = documentSnapshot.getString("argazkiaProfilaUrl");
+                    if (documentSnapshot.contains("argazkia_profila_url")) {
+                        String argazkiaUrl = documentSnapshot.getString("argazkia_profila_url");
 
                         if (argazkiaUrl != null) {
                             if (!argazkiaUrl.isEmpty()) {
@@ -113,8 +113,8 @@ public class PerfilaFragment extends Fragment {
                         }
                     }
 
-                    if (documentSnapshot.contains("sortzeData")) {
-                        String relativeTime = RelativeTime.timeFormatAMPM(documentSnapshot.getLong("sortzeData"));
+                    if (documentSnapshot.contains("sortze_data")) {
+                        String relativeTime = RelativeTime.timeFormatAMPM(documentSnapshot.getLong("sortze_data"));
                         dataTextView.setText(relativeTime + "-an sartu zinen");
                     }
                 }
@@ -133,13 +133,13 @@ public class PerfilaFragment extends Fragment {
     }
 
     private void getExistitzenDenArgitalpena() {
-        postProvider.getArgitalpenGuztiak().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        postProvider.getArgitalpenakByErabiltzailea(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots.getDocuments().size() > 0) {
                     argitalpenTexView.setText("Argitalpenak");
                 } else {
-                    argitalpenTexView.setText("Ez daude argitalpeik");
+                    argitalpenTexView.setText("Ez daude argitalpenik");
                 }
             }
         });

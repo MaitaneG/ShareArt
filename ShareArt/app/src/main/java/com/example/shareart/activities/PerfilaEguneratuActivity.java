@@ -106,12 +106,12 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    if (documentSnapshot.contains("erabiltzaileIzena")) {
-                        editTextErabiltzailea.setText(documentSnapshot.getString("erabiltzaileIzena"));
+                    if (documentSnapshot.contains("erabiltzaile_izena")) {
+                        editTextErabiltzailea.setText(documentSnapshot.getString("erabiltzaile_izena"));
                     }
 
-                    if (documentSnapshot.contains("argazkiaProfilaUrl")) {
-                        argazkiZaharraUrl = documentSnapshot.getString("argazkiaProfilaUrl");
+                    if (documentSnapshot.contains("argazkia_profila_url")) {
+                        argazkiZaharraUrl = documentSnapshot.getString("argazkia_profila_url");
 
                         if (argazkiZaharraUrl != null) {
                             if (!argazkiZaharraUrl.isEmpty()) {
@@ -215,8 +215,8 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
 
         Erabiltzailea erabiltzailea = new Erabiltzailea();
         erabiltzailea.setId(authProvider.getUid());
-        erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
-        erabiltzailea.setArgazkiaProfilaUrl(argazkiZaharraUrl);
+        erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena);
+        erabiltzailea.setArgazkia_profila_url(argazkiZaharraUrl);
 
         userProvider.updateErabiltzailea(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -248,8 +248,8 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
                             Erabiltzailea erabiltzailea = new Erabiltzailea();
-                            erabiltzailea.setArgazkiaProfilaUrl(url);
-                            erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
+                            erabiltzailea.setArgazkia_profila_url(url);
+                            erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena);
                             erabiltzailea.setId(authProvider.getUid());
 
                             userProvider.updateErabiltzailea(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {

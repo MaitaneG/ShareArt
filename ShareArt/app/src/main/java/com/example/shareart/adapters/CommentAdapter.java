@@ -105,14 +105,14 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    if (documentSnapshot.contains("erabiltzaileIzena")) {
-                        holder.textViewErabiltzaileIzena.setText(documentSnapshot.getString("erabiltzaileIzena"));
+                    if (documentSnapshot.contains("erabiltzaile_izena")) {
+                        holder.textViewErabiltzaileIzena.setText(documentSnapshot.getString("erabiltzaile_izena"));
                     }
 
-                    if (documentSnapshot.contains("argazkiaProfilaUrl")) {
-                        if (documentSnapshot.getString("argazkiaProfilaUrl") != null) {
-                            if (!documentSnapshot.getString("argazkiaProfilaUrl").isEmpty()) {
-                                Picasso.with(context).load(documentSnapshot.getString("argazkiaProfilaUrl")).into(holder.imageViewProfilekoArgakia);
+                    if (documentSnapshot.contains("argazkia_profila_url")) {
+                        if (documentSnapshot.getString("argazkia_profila_url") != null) {
+                            if (!documentSnapshot.getString("argazkia_profila_url").isEmpty()) {
+                                Picasso.with(context).load(documentSnapshot.getString("argazkia_profila_url")).into(holder.imageViewProfilekoArgakia);
                             }
                         }
                     }

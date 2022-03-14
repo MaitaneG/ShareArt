@@ -102,7 +102,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             public void onClick(View view) {
                 if (!user_id.equals("")) {
                     Intent intent = new Intent(context, UserProfileActivity.class);
-                    intent.putExtra("erabiltzaileId", user_id);
+                    intent.putExtra("erabiltzaile_id", user_id);
                     context.startActivity(intent);
                 } else {
                     Toast.makeText(context, "Itxaron mesedez...", Toast.LENGTH_SHORT).show();
@@ -140,8 +140,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    if (documentSnapshot.contains("erabiltzaileIzena")) {
-                        holder.textViewErabiltzaileIzena.setText(documentSnapshot.get("erabiltzaileIzena").toString());
+                    if (documentSnapshot.contains("erabiltzaile_izena")) {
+                        holder.textViewErabiltzaileIzena.setText(documentSnapshot.get("erabiltzaile_izena").toString());
                     }
                 }
             }
