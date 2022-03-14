@@ -51,7 +51,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
         holder.textViewKomentarioa.setText(model.getMezua());
 
         // Erabiltzailea bistaratu
-        erabiltzaileaBistaratu(model.getIdErabiltzailea(), holder);
+        erabiltzaileaBistaratu(model.getId_erabiltzailea(), holder);
 
         // Data
         String relativeTime = RelativeTime.getTimeAgo(model.getData());
@@ -61,7 +61,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
         holder.imageViewProfilekoArgakia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                erabiltzailePerfilaIkusi(model.getIdErabiltzailea());
+                erabiltzailePerfilaIkusi(model.getId_erabiltzailea());
             }
         });
 
@@ -69,15 +69,15 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
         holder.textViewErabiltzaileIzena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!model.getIdErabiltzailea().equals("")) {
-                    erabiltzailePerfilaIkusi(model.getIdErabiltzailea());
+                if (!model.getId_erabiltzailea().equals("")) {
+                    erabiltzailePerfilaIkusi(model.getId_erabiltzailea());
                 } else {
                     Toast.makeText(context, "Itxaron mesedez...", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        if (model.getIdErabiltzailea().equals(authProvider.getUid())) {
+        if (model.getId_erabiltzailea().equals(authProvider.getUid())) {
             holder.cardViewKomentarioa.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {

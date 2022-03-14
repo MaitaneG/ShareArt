@@ -4,18 +4,18 @@ package com.example.shareart.models;
 public class Komentarioa {
     private String id;
     private String mezua;
-    private String idErabiltzailea;
-    private String idArgitalpen;
+    private String id_erabiltzailea;
+    private String id_argitalpen;
     private long data;
 
     public Komentarioa() {
     }
 
-    public Komentarioa(String id, String mezua, String idErabiltzailea, String idArgitalpen, long data) {
+    public Komentarioa(String id, String mezua, String id_erabiltzailea, String id_argitalpen, long data) {
         this.id = id;
         this.mezua = mezua;
-        this.idErabiltzailea = idErabiltzailea;
-        this.idArgitalpen = idArgitalpen;
+        this.id_erabiltzailea = id_erabiltzailea;
+        this.id_argitalpen = id_argitalpen;
         this.data = data;
     }
 
@@ -35,20 +35,20 @@ public class Komentarioa {
         this.mezua = mezua;
     }
 
-    public String getIdErabiltzailea() {
-        return idErabiltzailea;
+    public String getId_erabiltzailea() {
+        return id_erabiltzailea;
     }
 
-    public void setIdErabiltzailea(String idErabiltzailea) {
-        this.idErabiltzailea = idErabiltzailea;
+    public void setId_erabiltzailea(String id_erabiltzailea) {
+        this.id_erabiltzailea = id_erabiltzailea;
     }
 
-    public String getIdArgitalpen() {
-        return idArgitalpen;
+    public String getId_argitalpen() {
+        return id_argitalpen;
     }
 
-    public void setIdArgitalpen(String idArgitalpen) {
-        this.idArgitalpen = idArgitalpen;
+    public void setId_argitalpen(String id_argitalpen) {
+        this.id_argitalpen = id_argitalpen;
     }
 
     public long getData() {

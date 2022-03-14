@@ -24,7 +24,7 @@ public class CommentProvider {
     }
 
     public Query getKomentarioakByArgitalpen(String idArgitalpen) {
-        return collectionReference.whereEqualTo("idArgitalpen", idArgitalpen);
+        return collectionReference.whereEqualTo("id_argitalpen", idArgitalpen);
     }
 
     public Task<Void> deleteKomentarioa(String id) {

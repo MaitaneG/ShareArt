@@ -109,9 +109,9 @@ public class KomentarioakActivity extends AppCompatActivity {
     private void komentarioaSortu(String mezua) {
         Komentarioa komentarioa = new Komentarioa();
         komentarioa.setMezua(mezua);
-        komentarioa.setIdErabiltzailea(authProvider.getUid());
+        komentarioa.setId_erabiltzailea(authProvider.getUid());
         komentarioa.setData(new Date().getTime());
-        komentarioa.setIdArgitalpen(extraPostId);
+        komentarioa.setId_argitalpen(extraPostId);
 
         commentProvider.createKomentarioa(komentarioa).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
