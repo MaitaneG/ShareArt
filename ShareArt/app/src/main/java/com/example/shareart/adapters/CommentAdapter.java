@@ -16,7 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
-import com.example.shareart.activities.UserProfileActivity;
+import com.example.shareart.activities.BesteErabiltzaileProfilaActivity;
 import com.example.shareart.models.Komentarioa;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.CommentProvider;
@@ -122,7 +122,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
     }
 
     private void erabiltzailePerfilaIkusi(String idErabiltzaile) {
-        Intent intent = new Intent(context, UserProfileActivity.class);
+        Intent intent = new Intent(context, BesteErabiltzaileProfilaActivity.class);
         intent.putExtra("erabiltzaileId", idErabiltzaile);
         context.startActivity(intent);
     }

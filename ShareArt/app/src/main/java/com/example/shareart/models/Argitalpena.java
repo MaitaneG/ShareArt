@@ -20,7 +20,7 @@ public class Argitalpena {
         this.deskribapena = deskribapena;
         this.url_argazkia = url_argazkia;
         this.kategoria = kategoria;
-        this.data=data;
+        this.data = data;
     }
 
     public String getId() {

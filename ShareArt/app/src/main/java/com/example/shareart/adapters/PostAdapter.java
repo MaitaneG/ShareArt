@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
 import com.example.shareart.activities.KomentarioakActivity;
-import com.example.shareart.activities.UserProfileActivity;
+import com.example.shareart.activities.BesteErabiltzaileProfilaActivity;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.models.Like;
 import com.example.shareart.providers.AuthProvider;
@@ -101,7 +101,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             @Override
             public void onClick(View view) {
                 if (!user_id.equals("")) {
-                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    Intent intent = new Intent(context, BesteErabiltzaileProfilaActivity.class);
                     intent.putExtra("erabiltzaile_id", user_id);
                     context.startActivity(intent);
                 } else {
@@ -203,7 +203,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_post, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_argitalpena, parent, false);
         return new ViewHolder(view);
     }
 

@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +30,7 @@ import java.util.regex.Pattern;
 /**
  * Erregistro pantailaren Activity-a
  */
-public class RegisterActivity extends AppCompatActivity {
+public class ErregistroActivity extends AppCompatActivity {
 
     private ImageButton atzeraBotoia;
     private ImageButton erregistratuBotoia;
@@ -51,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_erregistro);
         hasieratu();
     }
 
@@ -103,15 +102,15 @@ public class RegisterActivity extends AppCompatActivity {
         String pasahitzaBaeieztatu = pasahitzaBaieztatuEditText.getText().toString().trim();
 
         if (erabiltzaileIzena.isEmpty() || email.isEmpty() || pasahitza.isEmpty() || pasahitzaBaeieztatu.isEmpty()) {
-            Toast.makeText(RegisterActivity.this, "Gako guztiak bete behar dira.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ErregistroActivity.this, "Gako guztiak bete behar dira.", Toast.LENGTH_SHORT).show();
         } else if (!emailaKonprobatu(email)) {
-            Toast.makeText(RegisterActivity.this, "Emailaren formatua gaizki dago.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ErregistroActivity.this, "Emailaren formatua gaizki dago.", Toast.LENGTH_SHORT).show();
         } else {
             if (!pasahitza.equals(pasahitzaBaeieztatu)) {
-                Toast.makeText(RegisterActivity.this, "Pasahitzak ez dira berdinak.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ErregistroActivity.this, "Pasahitzak ez dira berdinak.", Toast.LENGTH_SHORT).show();
             } else {
                 if (pasahitza.length() < 8) {
-                    Toast.makeText(RegisterActivity.this, "Pasahitza oso motza da. Gutxienez 8 karaketere izan behar ditu.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ErregistroActivity.this, "Pasahitza oso motza da. Gutxienez 8 karaketere izan behar ditu.", Toast.LENGTH_SHORT).show();
                 } else {
                     sortuErabiltzailea(erabiltzaileIzena, email, pasahitza);
                 }
@@ -146,13 +145,13 @@ public class RegisterActivity extends AppCompatActivity {
                     erabiltzailea.setSortze_data(new Date().getTime());
 
                     userProvider.createErabiltzailea(erabiltzailea);
-                    Toast.makeText(RegisterActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ErregistroActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(ErregistroActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Arazo bat egon da erabiltzailea sortzean", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ErregistroActivity.this, "Arazo bat egon da erabiltzailea sortzean", Toast.LENGTH_SHORT).show();
                 }
 
                 progressBar.setVisibility(View.INVISIBLE);

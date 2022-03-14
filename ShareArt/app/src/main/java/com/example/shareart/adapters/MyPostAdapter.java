@@ -3,36 +3,23 @@ package com.example.shareart.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
-import com.example.shareart.activities.KomentarioakActivity;
-import com.example.shareart.activities.UserProfileActivity;
 import com.example.shareart.models.Argitalpena;
-import com.example.shareart.models.Like;
 import com.example.shareart.providers.AuthProvider;
-import com.example.shareart.providers.CommentProvider;
-import com.example.shareart.providers.LikeProvider;
 import com.example.shareart.providers.PostProvider;
-import com.example.shareart.providers.UserProvider;
 import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-
-import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

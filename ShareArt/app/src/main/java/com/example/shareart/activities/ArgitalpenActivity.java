@@ -38,13 +38,12 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Argitalen pantailaren Activity-a
  */
-public class PostActivity extends AppCompatActivity {
+public class ArgitalpenActivity extends AppCompatActivity {
 
     private ImageView argazkiaIgoBotoia;
     private ImageButton argitaratuBotoia;
@@ -81,7 +80,7 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_argitalpen);
 
         hasieratu();
     }
@@ -192,7 +191,7 @@ public class PostActivity extends AppCompatActivity {
                 argazkiaFile = argazkiaAteraEtaKargatu();
 
                 if (argazkiaFile != null) {
-                    Uri argazkiUri = FileProvider.getUriForFile(PostActivity.this, "com.example.shareart", argazkiaFile);
+                    Uri argazkiUri = FileProvider.getUriForFile(ArgitalpenActivity.this, "com.example.shareart", argazkiaFile);
                     argazkiaAteraintent.putExtra(MediaStore.EXTRA_OUTPUT, argazkiUri);
                     someActivityResultLauncher.launch(argazkiaAteraintent);
                 }
@@ -240,11 +239,11 @@ public class PostActivity extends AppCompatActivity {
                         try {
                             Intent data = result.getData();
                             Uri imageUri = data.getData();
-                            argazkiaFitxeroa = FileUtil.from(PostActivity.this, imageUri);
+                            argazkiaFitxeroa = FileUtil.from(ArgitalpenActivity.this, imageUri);
                             argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
                             argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
                         } catch (Exception ex) {
-                            Toast.makeText(PostActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ArgitalpenActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -266,7 +265,7 @@ public class PostActivity extends AppCompatActivity {
                 Toast.makeText(this, "Deskripzoa eta kategoria zehaztu behar duzu.", Toast.LENGTH_SHORT).show();
             } else {
                 gordeArgazkia(deskripzioa, kategoria);
-                Intent intent = new Intent(PostActivity.this, HomeActivity.class);
+                Intent intent = new Intent(ArgitalpenActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -279,7 +278,7 @@ public class PostActivity extends AppCompatActivity {
      */
     private void gordeArgazkia(String deskripzioa, String kategoria) {
         progressBar.setVisibility(View.VISIBLE);
-        imageProvider.saveArgitalpenaFirebasen(PostActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        imageProvider.saveArgitalpenaFirebasen(ArgitalpenActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -299,9 +298,9 @@ public class PostActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> taskGorde) {
                                     if (taskGorde.isSuccessful()) {
-                                        Toast.makeText(PostActivity.this, "Argazkia ondo argitaratu da", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ArgitalpenActivity.this, "Argazkia ondo argitaratu da", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(PostActivity.this, "Arazo bat egon da argazkia argitaratzean", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ArgitalpenActivity.this, "Arazo bat egon da argazkia argitaratzean", Toast.LENGTH_SHORT).show();
                                     }
                                     progressBar.setVisibility(View.INVISIBLE);
                                 }

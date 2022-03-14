@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
 
     private TextView erabiltzaileIzenaTextView;
     private TextView korreoaTextView;
@@ -47,7 +47,7 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_beste_erabiltzaile_profila);
 
         hasieratu();
 
@@ -79,7 +79,7 @@ public class UserProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // RecyclerView
         recyclerView = findViewById(R.id.recyclerViewNireArgitarapenakBesteErabiltzaile);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(UserProfileActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(BesteErabiltzaileProfilaActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
@@ -101,7 +101,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                         if (argazkiaUrl != null) {
                             if (!argazkiaUrl.isEmpty()) {
-                                Picasso.with(UserProfileActivity.this).load(argazkiaUrl).into(perfilekoArgazkia);
+                                Picasso.with(BesteErabiltzaileProfilaActivity.this).load(argazkiaUrl).into(perfilekoArgazkia);
                             }
                         }
                     }
@@ -149,7 +149,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         .build();
 
         // PostAdapter
-        postAdapter = new MyPostAdapter(options, UserProfileActivity.this);
+        postAdapter = new MyPostAdapter(options, BesteErabiltzaileProfilaActivity.this);
         recyclerView.setAdapter(postAdapter);
         postAdapter.startListening();
     }

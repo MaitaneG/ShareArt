@@ -29,20 +29,20 @@
             android:name=".activities.KomentarioakActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.UserProfileActivity"
+            android:name=".activities.BesteErabiltzaileProfilaActivity"
             android:exported="false"
             android:parentActivityName=".activities.HomeActivity" />
         <activity
             android:name=".activities.PerfilaEguneratuActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.PostActivity"
+            android:name=".activities.ArgitalpenActivity"
             android:exported="false" />
         <activity
             android:name=".activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name=".activities.ErregistroActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

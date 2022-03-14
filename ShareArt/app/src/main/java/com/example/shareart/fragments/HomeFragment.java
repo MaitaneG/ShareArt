@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 
 import com.example.shareart.R;
 import com.example.shareart.activities.MainActivity;
-import com.example.shareart.activities.PostActivity;
+import com.example.shareart.activities.ArgitalpenActivity;
 import com.example.shareart.adapters.PostAdapter;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void argitaratuArgazkiBat(View view) {
-        Intent intent = new Intent(getContext(), PostActivity.class);
+        Intent intent = new Intent(getContext(), ArgitalpenActivity.class);
         startActivity(intent);
 
     }
