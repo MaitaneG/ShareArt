@@ -33,7 +33,7 @@
             android:exported="false"
             android:parentActivityName=".activities.HomeActivity" />
         <activity
-            android:name=".activities.PerfilaEguneratuActivity"
+            android:name=".activities.ProfilaEguneratuActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ArgitalpenActivity"

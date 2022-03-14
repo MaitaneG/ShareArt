@@ -2,7 +2,6 @@ package com.example.shareart.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,7 +14,7 @@ import android.view.View;
 
 import com.example.shareart.fragments.FiltroakFragment;
 import com.example.shareart.fragments.HomeFragment;
-import com.example.shareart.fragments.PerfilaFragment;
+import com.example.shareart.fragments.ProfilaFragment;
 import com.example.shareart.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -72,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             // Perfila fragmentua
             case R.id.navigation_perfila:
-                openFragment(new PerfilaFragment());
+                openFragment(new ProfilaFragment());
                 return true;
         }
         return false;

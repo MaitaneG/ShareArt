@@ -41,7 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Perfila eguneratzeko pantailaren Activity-a
  */
-public class PerfilaEguneratuActivity extends AppCompatActivity {
+public class ProfilaEguneratuActivity extends AppCompatActivity {
 
     private CircleImageView perfilaArgazkiaAldatu;
     private TextInputEditText editTextErabiltzailea;
@@ -67,7 +67,7 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfila_eguneratu);
+        setContentView(R.layout.activity_profila_eguneratu);
         hasieratu();
     }
 
@@ -115,7 +115,7 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
 
                         if (argazkiZaharraUrl != null) {
                             if (!argazkiZaharraUrl.isEmpty()) {
-                                Picasso.with(PerfilaEguneratuActivity.this).load(argazkiZaharraUrl).into(perfilaArgazkiaAldatu);
+                                Picasso.with(ProfilaEguneratuActivity.this).load(argazkiZaharraUrl).into(perfilaArgazkiaAldatu);
                             }
                         }
                     }
@@ -166,10 +166,10 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
                         try {
                             Intent data = result.getData();
                             Uri imageUri = data.getData();
-                            argazkiaFitxeroa = FileUtil.from(PerfilaEguneratuActivity.this, imageUri);
+                            argazkiaFitxeroa = FileUtil.from(ProfilaEguneratuActivity.this, imageUri);
                             perfilaArgazkiaAldatu.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
                         } catch (Exception ex) {
-                            Toast.makeText(PerfilaEguneratuActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfilaEguneratuActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -198,7 +198,7 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
             } else {
                 argazkiaEguneratu(erabiltzailea);
             }
-            Intent intent = new Intent(PerfilaEguneratuActivity.this, HomeActivity.class);
+            Intent intent = new Intent(ProfilaEguneratuActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
@@ -222,10 +222,10 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(PerfilaEguneratuActivity.this, "Erabiltzailea ondo eguneratu da", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfilaEguneratuActivity.this, "Erabiltzailea ondo eguneratu da", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(PerfilaEguneratuActivity.this, "Errore bat egon da profila eguneratzerakoan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfilaEguneratuActivity.this, "Errore bat egon da profila eguneratzerakoan", Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(View.INVISIBLE);
             }
@@ -239,7 +239,7 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
      */
     private void argazkiaEguneratu(String erabiltzaileIzena) {
         progressBar.setVisibility(View.VISIBLE);
-        imageProvider.saveProfilArgazkiaFirebasen(PerfilaEguneratuActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        imageProvider.saveProfilArgazkiaFirebasen(ProfilaEguneratuActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -256,10 +256,10 @@ public class PerfilaEguneratuActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(PerfilaEguneratuActivity.this, "Erabiltzailea ondo eguneratu da", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ProfilaEguneratuActivity.this, "Erabiltzailea ondo eguneratu da", Toast.LENGTH_SHORT).show();
                                         finish();
                                     } else {
-                                        Toast.makeText(PerfilaEguneratuActivity.this, "Errore bat egon da profila eguneratzerakoan", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ProfilaEguneratuActivity.this, "Errore bat egon da profila eguneratzerakoan", Toast.LENGTH_SHORT).show();
                                     }
                                     progressBar.setVisibility(View.INVISIBLE);
                                 }

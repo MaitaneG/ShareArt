@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.shareart.R;
-import com.example.shareart.activities.PerfilaEguneratuActivity;
+import com.example.shareart.activities.ProfilaEguneratuActivity;
 import com.example.shareart.adapters.MyPostAdapter;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
@@ -32,7 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PerfilaFragment extends Fragment {
+public class ProfilaFragment extends Fragment {
 
     private View view;
     private LinearLayout linearLayout;
@@ -50,7 +50,7 @@ public class PerfilaFragment extends Fragment {
     private PostProvider postProvider;
     private MyPostAdapter postAdapter;
 
-    public PerfilaFragment() {
+    public ProfilaFragment() {
         // Required empty public constructor
     }
 
@@ -58,7 +58,7 @@ public class PerfilaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_perfila, container, false);
+        view = inflater.inflate(R.layout.fragment_profila, container, false);
         // TextView
         erabiltzaileIzenaTextView = view.findViewById(R.id.textViewErabiltzaileIzena);
         korreoaTextView = view.findViewById(R.id.textViewKorreoa);
@@ -146,7 +146,7 @@ public class PerfilaFragment extends Fragment {
     }
 
     private void perfilaEditaturaJoan(View view) {
-        Intent intent = new Intent(getContext(), PerfilaEguneratuActivity.class);
+        Intent intent = new Intent(getContext(), ProfilaEguneratuActivity.class);
         startActivity(intent);
     }
 
