@@ -3,17 +3,17 @@ package com.example.shareart.models;
 public class Like {
 
     private String id;
-    private String idErabiltzaile;
-    private String idArgitalpen;
+    private String id_erabiltzaile;
+    private String id_argitalpen;
     private long data;
 
     public Like() {
     }
 
-    public Like(String id, String idErabiltzaile, String idArgitalpen, long data) {
+    public Like(String id, String id_erabiltzaile, String id_argitalpen, long data) {
         this.id = id;
-        this.idErabiltzaile = idErabiltzaile;
-        this.idArgitalpen = idArgitalpen;
+        this.id_erabiltzaile = id_erabiltzaile;
+        this.id_argitalpen = id_argitalpen;
         this.data = data;
     }
 
@@ -25,20 +25,20 @@ public class Like {
         this.id = id;
     }
 
-    public String getIdErabiltzaile() {
-        return idErabiltzaile;
+    public String getId_erabiltzaile() {
+        return id_erabiltzaile;
     }
 
-    public void setIdErabiltzaile(String idErabiltzaile) {
-        this.idErabiltzaile = idErabiltzaile;
+    public void setId_erabiltzaile(String id_erabiltzaile) {
+        this.id_erabiltzaile = id_erabiltzaile;
     }
 
-    public String getIdArgitalpen() {
-        return idArgitalpen;
+    public String getId_argitalpen() {
+        return id_argitalpen;
     }
 
-    public void setIdArgiltapen(String idArgitalpen) {
-        this.idArgitalpen = idArgitalpen;
+    public void setId_argitalpen(String id_argitalpen) {
+        this.id_argitalpen = id_argitalpen;
     }
 
     public long getData() {

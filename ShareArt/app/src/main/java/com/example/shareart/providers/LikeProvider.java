@@ -22,11 +22,11 @@ public class LikeProvider {
     }
 
     public Query getLikesByArgitalpen(String idArgitalpen) {
-        return collectionReference.whereEqualTo("idArgitalpen", idArgitalpen);
+        return collectionReference.whereEqualTo("id_argitalpen", idArgitalpen);
     }
 
     public Query getLikeByArgitalpenAndErabiltzaile(String idArgitalpen, String idErabiltzaile) {
-        return collectionReference.whereEqualTo("idArgitalpen", idArgitalpen).whereEqualTo("idErabiltzaile", idErabiltzaile);
+        return collectionReference.whereEqualTo("id_argitalpen", idArgitalpen).whereEqualTo("id_erabiltzaile", idErabiltzaile);
     }
 
     public Task<Void> deleteLike(String id) {

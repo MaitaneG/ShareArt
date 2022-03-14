@@ -126,8 +126,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             @Override
             public void onClick(View view) {
                 Like like = new Like();
-                like.setIdArgiltapen(post_id);
-                like.setIdErabiltzaile(authProvider.getUid());
+                like.setId_argitalpen(post_id);
+                like.setId_erabiltzaile(authProvider.getUid());
                 like.setData(new Date().getTime());
 
                 likeBatEman(like, holder);
@@ -168,7 +168,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     }
 
     private void likeBatEman(Like like, ViewHolder holder) {
-        likeProvider.getLikeByArgitalpenAndErabiltzaile(like.getIdArgitalpen(), like.getIdErabiltzaile()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        likeProvider.getLikeByArgitalpenAndErabiltzaile(like.getId_argitalpen(), like.getId_erabiltzaile()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 int number = queryDocumentSnapshots.size();
@@ -176,11 +176,11 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
                     String idQuery = queryDocumentSnapshots.getDocuments().get(0).getId();
                     likeProvider.deleteLike(idQuery);
                     holder.imageViewLike.setImageResource(R.drawable.like_ikonoa);
-                    getLikeKopurua(like.getIdArgitalpen(), holder);
+                    getLikeKopurua(like.getId_argitalpen(), holder);
                 } else {
                     likeProvider.createLike(like);
                     holder.imageViewLike.setImageResource(R.drawable.like_ikono_azul);
-                    getLikeKopurua(like.getIdArgitalpen(), holder);
+                    getLikeKopurua(like.getId_argitalpen(), holder);
                 }
             }
         });
