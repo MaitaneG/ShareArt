@@ -89,4 +89,8 @@ public class AuthProvider {
             return null;
         }
     }
+
+    public Task<Void> changePasahitza(String email){
+        return firebaseAuth.sendPasswordResetEmail(email);
+    }
 }

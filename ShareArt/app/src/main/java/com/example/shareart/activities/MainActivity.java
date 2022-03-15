@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText pasahitzaEditText;
     private ImageButton hasiSaioBotoia;
     private ProgressBar progressBar;
+    private TextView pasahitzaBerreskuratuTextView;
 
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton hasiSaioaGooglekinBotoia;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private void hasieratu() {
         // TextView
         erregistroLinka = findViewById(R.id.erregistratu_linka);
+        pasahitzaBerreskuratuTextView=findViewById(R.id.textViewPasahitzaBerreskuratu);
         // EditText
         emailEditText = findViewById(R.id.textInputEditTextEmailLogin);
         pasahitzaEditText = findViewById(R.id.textInputEditTextPasahitzaLogin);
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
         // OnClickListener
         erregistroLinka.setOnClickListener(this::erregistroraJoan);
+        pasahitzaBerreskuratuTextView.setOnClickListener(this::berreskurapenPantailaraJoan);
         hasiSaioBotoia.setOnClickListener(this::hasiSaioaKorreoaEtaPasahitzarekin);
         hasiSaioaGooglekinBotoia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +112,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, ErregistroActivity.class);
         startActivity(intent);
     }
+
+
+    private void berreskurapenPantailaraJoan(View view) {
+        Intent intent = new Intent(MainActivity.this, PasahitzaBerreskuratuActivity.class);
+        startActivity(intent);
+    }
+
 
     /**
      * Saioa hasteko

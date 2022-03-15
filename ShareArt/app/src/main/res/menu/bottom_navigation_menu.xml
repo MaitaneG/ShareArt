@@ -11,5 +11,5 @@
     <item
         android:id="@+id/navigation_perfila"
         android:icon="@drawable/erabiltzailea_navigation_menu"
-        android:title="Zure perfila" />
+        android:title="Zure profila" />
 </menu>
