@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(MainActivity.this, googleSignInOptions);
         //Providers
         authProvider = new AuthProvider();
-        userProvider=new UserProvider();
+        userProvider = new UserProvider();
         // ProgressBar
         progressBar = findViewById(R.id.indeterminateBarLogin);
         progressBar.setVisibility(View.INVISIBLE);
@@ -185,31 +185,41 @@ public class MainActivity extends AppCompatActivity {
         userProvider.getErabiltzailea(id).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()){
+                if (documentSnapshot.exists()) {
                     progressBar.setVisibility(View.INVISIBLE);
-                    
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+
+                    if (documentSnapshot.getString("erabiltzaile_izena").equals("")) {
+                        Intent intent = new Intent(MainActivity.this, ProfilaBeteActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
+                } else {
+                    sortuErabiltzailea(id);
+                }
+            }
+        });
+    }
+
+    private void sortuErabiltzailea(String id) {
+        String email = authProvider.getEmail();
+        Erabiltzailea erabiltzailea = new Erabiltzailea();
+        erabiltzailea.setEmail(email);
+        erabiltzailea.setErabiltzaile_izena("");
+        erabiltzailea.setId(id);
+        erabiltzailea.setSortze_data(new Date().getTime());
+
+        userProvider.createErabiltzailea(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                progressBar.setVisibility(View.INVISIBLE);
+
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(MainActivity.this, ProfilaBeteActivity.class);
                     startActivity(intent);
-                }else{
-                    String email = authProvider.getEmail();
-                    Erabiltzailea erabiltzailea = new Erabiltzailea();
-                    erabiltzailea.setEmail(email);
-                    erabiltzailea.setId(id);
-                    erabiltzailea.setSortze_data(new Date().getTime());
-
-                    userProvider.createErabiltzailea(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            progressBar.setVisibility(View.INVISIBLE);
-
-                            if(task.isSuccessful()){
-                                Intent intent = new Intent(MainActivity.this, ProfilaBeteActivity.class);
-                                startActivity(intent);
-                            }else{
-                                Toast.makeText(MainActivity.this, "Errore bat egon da erabiltzailea gordetzean", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                } else {
+                    Toast.makeText(MainActivity.this, "Errore bat egon da erabiltzailea gordetzean", Toast.LENGTH_SHORT).show();
                 }
             }
         });

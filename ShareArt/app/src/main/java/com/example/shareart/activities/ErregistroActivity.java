@@ -134,10 +134,6 @@ public class ErregistroActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     String id = authProvider.getUid();
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("erabiltzaile_izena", erabiltzaileIzena);
-                    map.put("email", email);
-
                     Erabiltzailea erabiltzailea = new Erabiltzailea();
                     erabiltzailea.setId(id);
                     erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena);
