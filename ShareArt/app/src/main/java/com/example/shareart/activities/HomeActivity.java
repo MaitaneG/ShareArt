@@ -6,6 +6,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MenuItem;
@@ -16,7 +17,11 @@ import com.example.shareart.fragments.FiltroakFragment;
 import com.example.shareart.fragments.HomeFragment;
 import com.example.shareart.fragments.ProfilaFragment;
 import com.example.shareart.R;
+import com.example.shareart.providers.AuthProvider;
+import com.example.shareart.providers.UserProvider;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 /**
  * Fragmentuak dituen activity
@@ -51,6 +56,20 @@ public class HomeActivity extends AppCompatActivity {
         openFragment(new HomeFragment());
         coordinatorLayout = findViewById(R.id.coordinator);
         SwipeListener swipeListener = new SwipeListener(coordinatorLayout);
+        // Provider
+        AuthProvider authProvider = new AuthProvider();
+        UserProvider userProvider = new UserProvider();
+        userProvider.getErabiltzailea(authProvider.getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.getString("erabiltzaile_izena").equals("")) {
+                    Intent intent = new Intent(HomeActivity.this, ProfilaBeteActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
     }
 
     /**

@@ -83,4 +83,9 @@ public class ProfilaBeteActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
