@@ -10,7 +10,7 @@ import com.google.firebase.firestore.Query;
 
 public class CommentProvider {
 
-    private CollectionReference collectionReference;
+    private final CollectionReference collectionReference;
 
     public CommentProvider() {
         collectionReference= FirebaseFirestore.getInstance().collection("Komentarioa");

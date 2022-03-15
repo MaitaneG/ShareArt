@@ -66,7 +66,7 @@ public class ArgitalpenActivity extends AppCompatActivity {
     private PostProvider postProvider;
     private AuthProvider authProvider;
 
-    private CharSequence options[];
+    private CharSequence[] options;
 
     private String absolutePhotoPath;
     private String photoPath;

@@ -29,10 +29,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, CommentAdapter.ViewHolder> {
-    private Context context;
-    private UserProvider userProvider;
-    private CommentProvider commentProvider;
-    private AuthProvider authProvider;
+    private final Context context;
+    private final UserProvider userProvider;
+    private final CommentProvider commentProvider;
+    private final AuthProvider authProvider;
 
     public CommentAdapter(@NonNull FirestoreRecyclerOptions<Komentarioa> options, Context context) {
         super(options);
@@ -136,11 +136,11 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewErabiltzaileIzena;
-        private TextView textViewKomentarioa;
-        private TextView textViewData;
-        private ImageView imageViewProfilekoArgakia;
-        private CardView cardViewKomentarioa;
+        private final TextView textViewErabiltzaileIzena;
+        private final TextView textViewKomentarioa;
+        private final TextView textViewData;
+        private final ImageView imageViewProfilekoArgakia;
+        private final CardView cardViewKomentarioa;
 
         public ViewHolder(View view) {
             super(view);

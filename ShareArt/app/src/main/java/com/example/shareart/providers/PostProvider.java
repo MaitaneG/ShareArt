@@ -9,7 +9,7 @@ import com.google.firebase.firestore.Query;
 
 public class PostProvider {
 
-    private CollectionReference collectionReference;
+    private final CollectionReference collectionReference;
 
     public PostProvider() {
         collectionReference = FirebaseFirestore.getInstance().collection("Argitalpena");

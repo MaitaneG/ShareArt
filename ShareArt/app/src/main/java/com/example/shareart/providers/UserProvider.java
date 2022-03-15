@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class UserProvider {
 
-    private CollectionReference collectionReference;
+    private final CollectionReference collectionReference;
 
     /**
      * Konstruktorea

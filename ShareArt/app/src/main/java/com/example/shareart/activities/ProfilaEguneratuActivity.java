@@ -51,7 +51,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
 
     private File argazkiaFitxeroa;
 
-    private CharSequence options[];
+    private CharSequence[] options;
 
     private ImageProvider imageProvider;
     private UserProvider userProvider;

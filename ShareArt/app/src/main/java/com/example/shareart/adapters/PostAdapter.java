@@ -32,11 +32,11 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 
 public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapter.ViewHolder> {
-    private Context context;
-    private UserProvider userProvider;
-    private CommentProvider commentProvider;
-    private LikeProvider likeProvider;
-    private AuthProvider authProvider;
+    private final Context context;
+    private final UserProvider userProvider;
+    private final CommentProvider commentProvider;
+    private final LikeProvider likeProvider;
+    private final AuthProvider authProvider;
     private TextView textView;
 
     public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {

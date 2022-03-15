@@ -38,9 +38,10 @@ public class ErregistroActivity extends AppCompatActivity {
     private TextInputEditText emailEditText;
     private TextInputEditText pasahitzaEditText;
     private TextInputEditText pasahitzaBaieztatuEditText;
+    private ProgressBar progressBar;
+
     private AuthProvider authProvider;
     private UserProvider userProvider;
-    private ProgressBar progressBar;
 
     /**
      * Activity-a sortzen denean

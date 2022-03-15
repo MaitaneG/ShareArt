@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class ImageProvider {
 
-    private StorageReference storageReference;
+    private final StorageReference storageReference;
     private String childRefernce="";
 
     public ImageProvider(){

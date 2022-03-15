@@ -24,9 +24,9 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostAdapter.ViewHolder> {
-    private Context context;
-    private PostProvider postProvider;
-    private AuthProvider authProvider;
+    private final Context context;
+    private final PostProvider postProvider;
+    private final AuthProvider authProvider;
 
     public MyPostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
@@ -80,11 +80,11 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private CircleImageView imageViewArgitalpena;
-        private ImageView imageViewEzabatuArgitalpena;
-        private TextView textViewDeskribapena;
-        private TextView textViewKategoria;
-        private TextView textViewData;
+        private final CircleImageView imageViewArgitalpena;
+        private final ImageView imageViewEzabatuArgitalpena;
+        private final TextView textViewDeskribapena;
+        private final TextView textViewKategoria;
+        private final TextView textViewData;
 
         public ViewHolder(View view) {
             super(view);

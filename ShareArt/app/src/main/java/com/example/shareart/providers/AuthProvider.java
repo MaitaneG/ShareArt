@@ -12,7 +12,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
  * Firebase-eko autentifikazioa egiteko
  */
 public class AuthProvider {
-    private FirebaseAuth firebaseAuth;
+    private final FirebaseAuth firebaseAuth;
 
     /**
      * Kontruktorea
