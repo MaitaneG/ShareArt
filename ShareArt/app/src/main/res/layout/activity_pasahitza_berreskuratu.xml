@@ -7,6 +7,22 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.PasahitzaBerreskuratuActivity">
 
+    <ImageButton
+        android:id="@+id/atzera_botoiaBerreskuratu"
+        android:layout_width="71dp"
+        android:layout_height="65dp"
+        android:backgroundTint="@color/kolorea"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/atzera_ikonoa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.462"
+        tools:ignore="SpeakableTextPresentCheck" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
@@ -18,22 +34,23 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintVertical_bias="0.091" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/usuarioa_ikonoa"
+        android:src="@drawable/kandado_txuria"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.37" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -49,7 +66,16 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66">
+        app:layout_constraintVertical_bias="0.646">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*Mezu bat bidaliko dizugu, bertan zure pasahitza aldatzeko."
+            android:gravity="center"
+            android:textStyle="italic"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,7 +109,7 @@
             android:id="@+id/imageButtonBerreskuratu"
             android:layout_width="147dp"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:backgroundTint="@color/kolorea"
             android:src="@drawable/pasahitza_berreskuratu_botoia"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />

@@ -55,7 +55,6 @@ public class HomeActivity extends AppCompatActivity {
         // Fragmentu lehenetsia
         openFragment(new HomeFragment());
         coordinatorLayout = findViewById(R.id.coordinator);
-        SwipeListener swipeListener = new SwipeListener(coordinatorLayout);
         // Provider
         AuthProvider authProvider = new AuthProvider();
         UserProvider userProvider = new UserProvider();
@@ -68,8 +67,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     /**
@@ -115,85 +112,5 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finishAffinity();
-    }
-
-    /**
-     * Klase honek irristatzeaz arduratzen da
-     */
-    private class SwipeListener implements View.OnTouchListener {
-        GestureDetector gestureDetector;
-
-        /**
-         * Klasearen konstruktorea
-         *
-         * @param view
-         */
-        SwipeListener(View view) {
-            int threshold = 100;
-            int velocity_threshold = 100;
-
-            /**
-             * Irristapenaren listenerra
-             */
-            GestureDetector.SimpleOnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {
-                /**
-                 * Klikatzerakoan
-                 * @param e
-                 * @return
-                 */
-                @Override
-                public boolean onDown(MotionEvent e) {
-                    return true;
-                }
-
-                /**
-                 * Irristatzerakoan
-                 * @param e1
-                 * @param e2
-                 * @param velocityX
-                 * @param velocityY
-                 * @return
-                 */
-                @Override
-                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                    // X eta Y-ren desberdintasuna
-                    float xDiff = e2.getX() - e1.getX();
-                    float yDiff = e2.getY() - e1.getY();
-
-                    try {
-                        // X-ren diferentzia handiago denean y-rena baino
-                        if (Math.abs(xDiff) > Math.abs(yDiff)) {
-                            // X-ren diferentzia handiagoa denean guk zehaztutakoa baino
-                            // Abiadura handiagoa bada guk zehaztutakoa baino
-                            if (Math.abs(xDiff) > threshold && Math.abs(velocityX) > velocity_threshold) {
-                                if (xDiff > 0) {
-                                    openFragment(new HomeFragment());
-                                } else {
-                                    openFragment(new FiltroakFragment());
-                                }
-                                return true;
-                            }
-                        }
-                    } catch (Exception ex) {
-                        ex.getStackTrace();
-                    }
-                    return false;
-                }
-            };
-            gestureDetector = new GestureDetector(listener);
-            view.setOnTouchListener(this);
-        }
-
-        /**
-         * Ikutzerakoan
-         *
-         * @param view
-         * @param motionEvent
-         * @return
-         */
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            return gestureDetector.onTouchEvent(motionEvent);
-        }
     }
 }

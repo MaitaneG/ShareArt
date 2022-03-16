@@ -37,7 +37,6 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Toolbar toolbar;
 
-    private AuthProvider authProvider;
     private UserProvider userProvider;
     private PostProvider postProvider;
     private MyPostAdapter postAdapter;
@@ -69,7 +68,6 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
         // CircleImageView
         perfilekoArgazkia = findViewById(R.id.perfilaArgazkiaBesteErabiltzaile);
         // Providers
-        authProvider = new AuthProvider();
         userProvider = new UserProvider();
         postProvider = new PostProvider();
         // Toolbar
@@ -110,7 +108,6 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
                         String relativeTime = RelativeTime.timeFormatAMPM(documentSnapshot.getLong("sortze_data"));
                         dataTextView.setText(relativeTime + "-an sartu zen");
                     }
-
                 }
             }
         });
@@ -160,5 +157,11 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        postAdapter.stopListening();
     }
 }

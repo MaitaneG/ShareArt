@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView pasahitzaBerreskuratuTextView;
 
-    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInClient googleSignInClient;
     private SignInButton hasiSaioaGooglekinBotoia;
 
     private UserProvider userProvider;
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 .requestIdToken("701358991762-2ip5fobsactab0fa5cl4gjrejpcj39j6.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(MainActivity.this, googleSignInOptions);
+        googleSignInClient = GoogleSignIn.getClient(MainActivity.this, googleSignInOptions);
         //Providers
         authProvider = new AuthProvider();
         userProvider = new UserProvider();
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         hasiSaioaGooglekinBotoia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resultLauncher.launch(new Intent(mGoogleSignInClient.getSignInIntent()));
+                resultLauncher.launch(new Intent(googleSignInClient.getSignInIntent()));
             }
         });
     }
@@ -113,12 +113,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     private void berreskurapenPantailaraJoan(View view) {
         Intent intent = new Intent(MainActivity.this, PasahitzaBerreskuratuActivity.class);
         startActivity(intent);
     }
-
 
     /**
      * Saioa hasteko

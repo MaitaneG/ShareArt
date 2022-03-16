@@ -52,6 +52,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1' // Argazkiak igotzeko
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.0' // Para listar la informacion de Firestore
+    implementation 'com.google.firebase:firebase-messaging' // Mezuak bidaltzeko
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -88,4 +88,11 @@ public class FiltratutakoaActivity extends AppCompatActivity {
         recyclerView.setAdapter(postAdapter);
         postAdapter.startListening();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        postAdapter.stopListening();
+    }
+
 }
