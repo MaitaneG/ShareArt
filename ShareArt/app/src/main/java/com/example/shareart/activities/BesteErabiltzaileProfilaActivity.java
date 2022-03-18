@@ -50,7 +50,7 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
 
         hasieratu();
 
-        extraErabiltzaileId = getIntent().getStringExtra("erabiltzaile_id");
+        extraErabiltzaileId = getIntent().getStringExtra("erabiltzaileId");
 
         // Erabiltzailea hasieratu
         getErabiltzailearenInformazioa();

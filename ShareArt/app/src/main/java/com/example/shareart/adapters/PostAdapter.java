@@ -102,7 +102,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             public void onClick(View view) {
                 if (!user_id.equals("")) {
                     Intent intent = new Intent(context, BesteErabiltzaileProfilaActivity.class);
-                    intent.putExtra("erabiltzaile_id", user_id);
+                    intent.putExtra("erabiltzaileId", user_id);
                     context.startActivity(intent);
                 } else {
                     Toast.makeText(context, "Itxaron mesedez...", Toast.LENGTH_SHORT).show();
