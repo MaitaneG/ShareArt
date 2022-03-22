@@ -13,4 +13,5 @@
     <string name="titulua_argitaratu">ARGITARATU ZURE MARRAZKIA</string>
     <string name="kategoria_titulua">KATEGORIA</string>
     <string name="transtionname_picture">transitionnamepicture</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 </resources>

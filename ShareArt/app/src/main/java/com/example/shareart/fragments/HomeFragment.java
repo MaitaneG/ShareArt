@@ -2,6 +2,12 @@ package com.example.shareart.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,16 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.shareart.R;
-import com.example.shareart.activities.MainActivity;
 import com.example.shareart.activities.ArgitalpenActivity;
+import com.example.shareart.activities.MainActivity;
 import com.example.shareart.adapters.PostAdapter;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;

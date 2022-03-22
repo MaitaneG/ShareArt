@@ -1,11 +1,9 @@
 package com.example.shareart.utils;
 
 import android.app.Application;
-import android.content.Context;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class RelativeTime extends Application {
 

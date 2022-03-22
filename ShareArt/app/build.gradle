@@ -54,6 +54,11 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.0' // Para listar la informacion de Firestore
     implementation 'com.google.firebase:firebase-messaging' // Mezuak bidaltzeko
 
+    // Cloud messaging
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

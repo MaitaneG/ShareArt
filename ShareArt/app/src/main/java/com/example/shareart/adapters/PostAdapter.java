@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
-import com.example.shareart.activities.KomentarioakActivity;
 import com.example.shareart.activities.BesteErabiltzaileProfilaActivity;
+import com.example.shareart.activities.KomentarioakActivity;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.models.Like;
 import com.example.shareart.providers.AuthProvider;

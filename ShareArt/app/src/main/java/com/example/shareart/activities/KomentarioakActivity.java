@@ -1,11 +1,5 @@
 package com.example.shareart.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -16,18 +10,37 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.shareart.R;
 import com.example.shareart.adapters.CommentAdapter;
+import com.example.shareart.models.FCMBody;
+import com.example.shareart.models.FCMResponse;
 import com.example.shareart.models.Komentarioa;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.CommentProvider;
+import com.example.shareart.providers.NotificationProvider;
+import com.example.shareart.providers.PostProvider;
+import com.example.shareart.providers.TokenProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class KomentarioakActivity extends AppCompatActivity {
 
@@ -37,7 +50,10 @@ public class KomentarioakActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private CommentProvider commentProvider;
+    private PostProvider postProvider;
     private AuthProvider authProvider;
+    private NotificationProvider notificationProvider;
+    private TokenProvider tokenProvider;
 
     private String extraPostId;
 
@@ -67,7 +83,10 @@ public class KomentarioakActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Providers
         commentProvider = new CommentProvider();
+        postProvider = new PostProvider();
         authProvider = new AuthProvider();
+        notificationProvider = new NotificationProvider();
+        tokenProvider = new TokenProvider();
         // OnClickListener
         komentatuBotoia.setOnClickListener(this::komentatu);
     }
@@ -117,6 +136,7 @@ public class KomentarioakActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    abisuaBidali(mezua);
                     Toast.makeText(KomentarioakActivity.this, "Komentarioa ondo gorde da", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(KomentarioakActivity.this, "Errore bat egon da komentarioa gordetzean", Toast.LENGTH_SHORT).show();
@@ -125,9 +145,50 @@ public class KomentarioakActivity extends AppCompatActivity {
         });
     }
 
+    private void abisuaBidali(String mezua) {
+        postProvider.getArgitalpenaById(extraPostId).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.getString("id_user") != null) {
+                    tokenProvider.getToken(documentSnapshot.getString("id_user")).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if (documentSnapshot.contains("token")) {
+                                String token = documentSnapshot.getString("token");
+                                Map<String, String> data = new HashMap<>();
+                                data.put("title", "Komentario berria daukazu");
+                                data.put("body", '"'+mezua+'"');
+                                FCMBody body = new FCMBody(token, "high", "4500s",data);
+                                notificationProvider.sendNotification(body).enqueue(new Callback<FCMResponse>() {
+                                    @Override
+                                    public void onResponse(Call<FCMResponse> call, Response<FCMResponse> response) {
+                                        if (response.body()!=null){
+                                            if (response.body().getSuccess()==1){
+                                                Toast.makeText(KomentarioakActivity.this, "SE HA ENVIADO EL MENSAJE", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<FCMResponse> call, Throwable t) {
+
+                                    }
+                                });
+                            }else {
+                                Toast.makeText(KomentarioakActivity.this, "NO HAY TOKEN", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+
     private void komentatu(View view) {
         alertKomentarioa();
     }
+
 
     @Override
     public void onStart() {

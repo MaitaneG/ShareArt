@@ -1,23 +1,20 @@
 package com.example.shareart.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-
+import com.example.shareart.R;
 import com.example.shareart.fragments.FiltroakFragment;
 import com.example.shareart.fragments.HomeFragment;
 import com.example.shareart.fragments.ProfilaFragment;
-import com.example.shareart.R;
 import com.example.shareart.providers.AuthProvider;
+import com.example.shareart.providers.TokenProvider;
 import com.example.shareart.providers.UserProvider;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,7 +26,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 public class HomeActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
-    private CoordinatorLayout coordinatorLayout;
+
+    private TokenProvider tokenProvider;
+    private AuthProvider authProvider;
 
     /**
      * HomeActivity-a sortzen denean
@@ -42,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         hasieratu();
+        createToken();
     }
 
     /**
@@ -50,11 +50,13 @@ public class HomeActivity extends AppCompatActivity {
     private void hasieratu() {
         // NavigationMenu
         bottomNavigation = findViewById(R.id.bottom_navigation);
+        // Providers
+        tokenProvider = new TokenProvider();
+        authProvider = new AuthProvider();
         // OnItemSelectedListener
         bottomNavigation.setOnItemSelectedListener(this::nabigatu);
         // Fragmentu lehenetsia
         openFragment(new HomeFragment());
-        coordinatorLayout = findViewById(R.id.coordinator);
         // Provider
         AuthProvider authProvider = new AuthProvider();
         UserProvider userProvider = new UserProvider();
@@ -91,6 +93,10 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    private void createToken() {
+        tokenProvider.createToken(authProvider.getUid());
     }
 
     /**

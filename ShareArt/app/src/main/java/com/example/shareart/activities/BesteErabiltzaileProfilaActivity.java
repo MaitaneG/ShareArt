@@ -1,19 +1,18 @@
 package com.example.shareart.activities;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
-
 import com.example.shareart.R;
 import com.example.shareart.adapters.MyPostAdapter;
 import com.example.shareart.models.Argitalpena;
-import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.PostProvider;
 import com.example.shareart.providers.UserProvider;
 import com.example.shareart.utils.RelativeTime;

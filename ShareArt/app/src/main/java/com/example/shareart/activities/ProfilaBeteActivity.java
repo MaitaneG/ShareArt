@@ -1,14 +1,14 @@
 package com.example.shareart.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shareart.R;
 import com.example.shareart.models.Erabiltzailea;
@@ -17,8 +17,6 @@ import com.example.shareart.providers.UserProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.Date;
 
 public class ProfilaBeteActivity extends AppCompatActivity {
 

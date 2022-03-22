@@ -1,7 +1,5 @@
 package com.example.shareart.models;
 
-import java.util.Date;
-
 public class Erabiltzailea {
     private String id;
     private String erabiltzaile_izena;
