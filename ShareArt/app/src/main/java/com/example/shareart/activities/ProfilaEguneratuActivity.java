@@ -1,9 +1,12 @@
 package com.example.shareart.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +22,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.shareart.R;
 import com.example.shareart.models.Erabiltzailea;
@@ -35,6 +40,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -50,6 +56,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private File argazkiaFitxeroa;
+    private Uri imageUri;
 
     private CharSequence[] options;
 
@@ -58,6 +65,8 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
     private AuthProvider authProvider;
 
     private String argazkiZaharraUrl;
+
+    private static final int CAMERA_PERMISSION_CODE = 100;
 
     /**
      * Activity-a sortzen denean
@@ -136,10 +145,23 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                 if (i == 0) {
                     galeriaZabaldu();
                 } else if (i == 1) {
-                    argazkiaAtera();
+                    checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE);
                 }
             }
         }).show();
+    }
+
+    /**
+     * Argazkia momentuan atera
+     */
+    private void argazkiaAtera() {
+        ContentValues cv = new ContentValues();
+        cv.put(MediaStore.Images.Media.TITLE, "Temp Pick");
+        cv.put(MediaStore.Images.Media.DESCRIPTION, "Temp Descr");
+
+        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
+
+        getCameraImage.launch(imageUri);
     }
 
     /**
@@ -148,13 +170,13 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
     private void galeriaZabaldu() {
         Intent galeriaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         galeriaIntent.setType("image/");
-        someActivityResultLauncher.launch(galeriaIntent);
+        getGalleryImage.launch(galeriaIntent);
     }
 
     /**
      * Argazkia aukeratzeko galeriatik
      */
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+    ActivityResultLauncher<Intent> getGalleryImage = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -166,8 +188,10 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                         try {
                             Intent data = result.getData();
                             Uri imageUri = data.getData();
-                            argazkiaFitxeroa = FileUtil.from(ProfilaEguneratuActivity.this, imageUri);
-                            perfilaArgazkiaAldatu.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
+                            if (imageUri != null) {
+                                argazkiaFitxeroa = FileUtil.from(ProfilaEguneratuActivity.this, imageUri);
+                                perfilaArgazkiaAldatu.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
+                            }
                         } catch (Exception ex) {
                             Toast.makeText(ProfilaEguneratuActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
                         }
@@ -175,12 +199,25 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                 }
             });
 
-    /**
-     * Argazkia momentuan atera
-     */
-    private void argazkiaAtera() {
+    ActivityResultLauncher<Uri> getCameraImage = registerForActivityResult(
+            new ActivityResultContracts.TakePicture(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    if (result) {
+                        try {
+                            if (imageUri != null) {
+                                argazkiaFitxeroa = FileUtil.from(ProfilaEguneratuActivity.this, imageUri);
+                                perfilaArgazkiaAldatu.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
 
-    }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            });
 
     /**
      * Perfila aldatu, informazioa bakarrik edo informazioa eta argazkia
@@ -287,5 +324,29 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                 .setNegativeButton("Ez", null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    private void checkPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(ProfilaEguneratuActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
+            // Requesting the permission
+            ActivityCompat.requestPermissions(ProfilaEguneratuActivity.this, new String[]{permission}, requestCode);
+        } else {
+            Toast.makeText(ProfilaEguneratuActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+            argazkiaAtera();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(ProfilaEguneratuActivity.this, "Camera Permission Granted", Toast.LENGTH_SHORT).show();
+                argazkiaAtera();
+            } else {
+                Toast.makeText(ProfilaEguneratuActivity.this, "Camera Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

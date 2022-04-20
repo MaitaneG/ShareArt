@@ -65,20 +65,15 @@ public class ArgitalpenActivity extends AppCompatActivity {
     private ImageView imageViewNaturaHila;
 
     private File argazkiaFitxeroa;
+    private Uri imageUri;
 
-    Uri imageUri;
     private ImageProvider imageProvider;
     private PostProvider postProvider;
     private AuthProvider authProvider;
 
     private CharSequence[] options;
 
-    private String absolutePhotoPath;
-    private String photoPath;
-    private File ateraArgazkiaFitxeroa;
-
     private static final int CAMERA_PERMISSION_CODE = 100;
-    private static final int STORAGE_PERMISSION_CODE = 101;
 
     /**
      * PostActivity-a sortzen denean
@@ -198,8 +193,6 @@ public class ArgitalpenActivity extends AppCompatActivity {
 
         imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
 
-        //Intent argazkiaAteraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //argazkiaAteraintent.putExtra(MediaStore.EXTRA_OUTPUT, argazkiUri);
         getCameraImage.launch(imageUri);
 
     }
@@ -228,9 +221,11 @@ public class ArgitalpenActivity extends AppCompatActivity {
                         try {
                             Intent data = result.getData();
                             imageUri = data.getData();
-                            argazkiaFitxeroa = FileUtil.from(ArgitalpenActivity.this, imageUri);
-                            argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
-                            argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
+                            if (imageUri != null) {
+                                argazkiaFitxeroa = FileUtil.from(ArgitalpenActivity.this, imageUri);
+                                argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
+                                argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
+                            }
                         } catch (Exception ex) {
                             Toast.makeText(ArgitalpenActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
                         }
@@ -245,16 +240,15 @@ public class ArgitalpenActivity extends AppCompatActivity {
                 public void onActivityResult(Boolean result) {
                     if (result) {
                         try {
-                            argazkiaFitxeroa = FileUtil.from(ArgitalpenActivity.this, imageUri);
-                            argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
-                            argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
+                            if (imageUri != null) {
+                                argazkiaFitxeroa = FileUtil.from(ArgitalpenActivity.this, imageUri);
+                                argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
+                                argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
+                            }
 
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
-                    } else {
-                        Toast.makeText(ArgitalpenActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -343,7 +337,6 @@ public class ArgitalpenActivity extends AppCompatActivity {
 
     private void checkPermission(String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(ArgitalpenActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
-
             // Requesting the permission
             ActivityCompat.requestPermissions(ArgitalpenActivity.this, new String[]{permission}, requestCode);
         } else {
@@ -353,12 +346,8 @@ public class ArgitalpenActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode,
-                permissions,
-                grantResults);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -366,13 +355,6 @@ public class ArgitalpenActivity extends AppCompatActivity {
                 argazkiaAtera();
             } else {
                 Toast.makeText(ArgitalpenActivity.this, "Camera Permission Denied", Toast.LENGTH_SHORT).show();
-            }
-        } else if (requestCode == STORAGE_PERMISSION_CODE) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(ArgitalpenActivity.this, "Storage Permission Granted", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(ArgitalpenActivity.this, "Storage Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
