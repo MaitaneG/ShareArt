@@ -292,9 +292,9 @@ public class ArgitalpenActivity extends AppCompatActivity {
                             String url = uri.toString();
 
                             Argitalpena argitalpena = new Argitalpena();
-                            argitalpena.setUrl_argazkia(url);
-                            argitalpena.setDeskribapena(deskripzioa);
-                            argitalpena.setKategoria(kategoria);
+                            argitalpena.setUrl_argazkia(url.trim());
+                            argitalpena.setDeskribapena(deskripzioa.trim());
+                            argitalpena.setKategoria(kategoria.trim());
                             argitalpena.setId_user(authProvider.getUid());
 
                             argitalpena.setData(new Date().getTime());

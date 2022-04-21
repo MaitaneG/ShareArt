@@ -61,7 +61,7 @@ public class PasahitzaBerreskuratuActivity extends AppCompatActivity {
 
     private void bidaliMezua(String email) {
         progressBar.setVisibility(View.VISIBLE);
-        authProvider.changePasahitza(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+        authProvider.changePasahitza(email.trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 progressBar.setVisibility(View.INVISIBLE);

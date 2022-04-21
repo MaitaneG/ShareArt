@@ -8,6 +8,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.Collections;
+
 public class PostProvider {
 
     private final CollectionReference collectionReference;
@@ -28,8 +30,8 @@ public class PostProvider {
         return collectionReference.orderBy("data", Query.Direction.DESCENDING);
     }
 
-    public Query getArgitalpenakByErabiltzailea(String id) {
-        return collectionReference.whereEqualTo("id_user", id);
+    public Query getArgitalpenakByErabiltzailea(String idErabiltzaile) {
+        return collectionReference.whereEqualTo("id_user", idErabiltzaile);
     }
 
     public Task<DocumentSnapshot> getArgitalpenaById(String id){
@@ -42,5 +44,9 @@ public class PostProvider {
 
     public Query getArgitalpenByKategoria(String kategoria) {
         return collectionReference.whereEqualTo("kategoria", kategoria).orderBy("data", Query.Direction.DESCENDING);
+    }
+    
+    public Query getArgitalpenByUserAndKategoria(String idErabiltzaile,String kategoria){
+        return collectionReference.whereEqualTo("kategoria",kategoria).whereEqualTo("id_user", idErabiltzaile);
     }
 }

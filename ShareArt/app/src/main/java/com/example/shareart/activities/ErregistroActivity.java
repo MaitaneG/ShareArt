@@ -133,9 +133,9 @@ public class ErregistroActivity extends AppCompatActivity {
 
                     String id = authProvider.getUid();
                     Erabiltzailea erabiltzailea = new Erabiltzailea();
-                    erabiltzailea.setId(id);
-                    erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena);
-                    erabiltzailea.setEmail(email);
+                    erabiltzailea.setId(id.trim());
+                    erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena.trim());
+                    erabiltzailea.setEmail(email.trim());
 
                     erabiltzailea.setSortze_data(new Date().getTime());
 

@@ -63,8 +63,8 @@ public class ProfilaBeteActivity extends AppCompatActivity {
     private void eguneratuErabiltzailea(String erabiltzaileIzena) {
         String id = authProvider.getUid();
         Erabiltzailea erabiltzailea = new Erabiltzailea();
-        erabiltzailea.setId(id);
-        erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena);
+        erabiltzailea.setId(id.trim());
+        erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena.trim());
 
         progressBar.setVisibility(View.VISIBLE);
 

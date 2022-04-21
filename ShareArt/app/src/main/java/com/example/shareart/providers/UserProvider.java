@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,11 @@ public class UserProvider {
      */
     public Task<DocumentSnapshot> getErabiltzailea(String id) {
         return collectionReference.document(id).get();
+    }
+
+    public Task<QuerySnapshot> getErabiltzaileaByErabiltzaileIzena(String izena){
+        return collectionReference.orderBy("erabiltzaile_izena").startAt(izena.toUpperCase()).endAt(izena + "\uf8ff").get();
+
     }
 
     /**

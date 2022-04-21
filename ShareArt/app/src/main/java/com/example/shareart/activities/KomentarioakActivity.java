@@ -127,10 +127,10 @@ public class KomentarioakActivity extends AppCompatActivity {
 
     private void komentarioaSortu(String mezua) {
         Komentarioa komentarioa = new Komentarioa();
-        komentarioa.setMezua(mezua);
+        komentarioa.setMezua(mezua.trim());
         komentarioa.setId_erabiltzailea(authProvider.getUid());
         komentarioa.setData(new Date().getTime());
-        komentarioa.setId_argitalpen(extraPostId);
+        komentarioa.setId_argitalpen(extraPostId.trim());
 
         commentProvider.createKomentarioa(komentarioa).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

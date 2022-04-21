@@ -28,7 +28,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.FiltratutakoaActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.KomentarioakActivity"
             android:exported="false" />
@@ -44,7 +45,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.ErregistroActivity"
             android:exported="false" />

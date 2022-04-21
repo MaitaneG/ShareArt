@@ -5,7 +5,8 @@
             android:id="@+id/bilatu"
             android:icon="@drawable/bilatzailea_ikonoa"
             android:title=""
-            app:showAsAction="always" />
+            app:showAsAction="always"
+            app:actionViewClass="android.widget.SearchView"/>
         <item android:id="@+id/logout"
         android:title="Sesioa itxi"
         app:showAsAction="never"/>

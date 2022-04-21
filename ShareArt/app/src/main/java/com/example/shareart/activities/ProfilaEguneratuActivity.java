@@ -125,7 +125,11 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                         if (argazkiZaharraUrl != null) {
                             if (!argazkiZaharraUrl.isEmpty()) {
                                 Picasso.with(ProfilaEguneratuActivity.this).load(argazkiZaharraUrl).into(perfilaArgazkiaAldatu);
+                            }else {
+                                argazkiZaharraUrl="";
                             }
+                        }else{
+                            argazkiZaharraUrl="";
                         }
                     }
                 }
@@ -225,7 +229,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
      * @param view
      */
     private void perfilaAldatu(View view) {
-        String erabiltzailea = editTextErabiltzailea.getText().toString();
+        String erabiltzailea = editTextErabiltzailea.getText().toString().trim();
 
         if (erabiltzailea.isEmpty()) {
             Toast.makeText(this, "Erabiltzaile izena jarri behar duzu", Toast.LENGTH_SHORT).show();
@@ -251,8 +255,8 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
 
         Erabiltzailea erabiltzailea = new Erabiltzailea();
         erabiltzailea.setId(authProvider.getUid());
-        erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena);
-        erabiltzailea.setArgazkia_profila_url(argazkiZaharraUrl);
+        erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena.trim());
+        erabiltzailea.setArgazkia_profila_url(argazkiZaharraUrl.trim());
 
         userProvider.updateErabiltzailea(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

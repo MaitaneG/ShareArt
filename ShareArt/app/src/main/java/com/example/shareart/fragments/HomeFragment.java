@@ -2,16 +2,19 @@ package com.example.shareart.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,9 +26,12 @@ import com.example.shareart.adapters.PostAdapter;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.PostProvider;
+import com.example.shareart.providers.UserProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class HomeFragment extends Fragment {
 
@@ -37,6 +43,7 @@ public class HomeFragment extends Fragment {
     private AuthProvider authProvider;
     private PostProvider postProvider;
     private PostAdapter postAdapter;
+    private UserProvider userProvider;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -63,11 +70,13 @@ public class HomeFragment extends Fragment {
         setHasOptionsMenu(true);
         // Sesioak kudeatzeko
         authProvider = new AuthProvider();
-        // PostProvider
         postProvider = new PostProvider();
+        userProvider = new UserProvider();
         // RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewArgitarapenak);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         // OnClickListenerrak
         floatingActionButton.setOnClickListener(this::argitaratuArgazkiBat);
@@ -80,9 +89,70 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private void loadPosts() {
+        Query query = postProvider.getArgitalpenGuztiak();
+        FirestoreRecyclerOptions<Argitalpena> options =
+                new FirestoreRecyclerOptions.Builder<Argitalpena>()
+                        .setQuery(query, Argitalpena.class)
+                        .build();
+
+        // PostAdapter
+        postAdapter = new PostAdapter(options, getContext());
+        recyclerView.setAdapter(postAdapter);
+        postAdapter.startListening();
+    }
+
+    private void bilatuPosts(String s) {
+        userProvider.getErabiltzaileaByErabiltzaileIzena(s).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (int i=0;i<queryDocumentSnapshots.size();i++){
+
+                    Query query = postProvider.getArgitalpenakByErabiltzailea(queryDocumentSnapshots.getDocuments().get(i).getId());
+                    FirestoreRecyclerOptions<Argitalpena> options =
+                            new FirestoreRecyclerOptions.Builder<Argitalpena>()
+                                    .setQuery(query, Argitalpena.class)
+                                    .build();
+
+                    // PostAdapter
+                    postAdapter = new PostAdapter(options, getContext());
+                    recyclerView.setAdapter(postAdapter);
+                    postAdapter.startListening();
+                }
+            }
+        });
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.bilatzailea_eta_sesioa_itxi_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.bilatu);
+
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (!TextUtils.isEmpty(s)) {
+                    bilatuPosts(s);
+                } else {
+                    loadPosts();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (!TextUtils.isEmpty(s)) {
+                    bilatuPosts(s);
+                } else {
+                    loadPosts();
+                }
+                return false;
+            }
+        });
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -106,16 +176,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Query query = postProvider.getArgitalpenGuztiak();
-        FirestoreRecyclerOptions<Argitalpena> options =
-                new FirestoreRecyclerOptions.Builder<Argitalpena>()
-                        .setQuery(query, Argitalpena.class)
-                        .build();
-
-        // PostAdapter
-        postAdapter = new PostAdapter(options, getContext());
-        recyclerView.setAdapter(postAdapter);
-        postAdapter.startListening();
+        loadPosts();
     }
 
     @Override
