@@ -42,7 +42,7 @@ public class RelativeTime extends Application {
         } else if (diff < MONTH_MILLIS) {
             return "Duela " + diff / DAY_MILLIS + " egun";
         } else if (diff < 2 * MONTH_MILLIS) {
-            return "Duela hilabete bat (" + day(time) + ")";
+            return "Duela hilabete bat (" + day(time) + "-an)";
         } else if (diff < YEAR_MILLIS) {
             return "Duela " + diff / MONTH_MILLIS + " hilabete (" + day(time) + ")";
         } else if (diff < 2 * YEAR_MILLIS) {
