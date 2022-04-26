@@ -23,7 +23,7 @@ public class FileUtil {
     private static final int EOF = -1;
     private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
 
-    private FileUtil() {
+    public FileUtil() {
 
     }
 

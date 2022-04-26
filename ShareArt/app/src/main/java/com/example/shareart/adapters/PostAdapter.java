@@ -148,7 +148,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         });
     }
 
-    private void getKomentarioKopurua(String postId, final ViewHolder holder) {
+    private void getKomentarioKopurua(String postId, ViewHolder holder) {
         commentProvider.getKomentarioakByArgitalpen(postId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
