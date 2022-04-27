@@ -41,14 +41,10 @@ public class RelativeTime extends Application {
             return "Atzo";
         } else if (diff < MONTH_MILLIS) {
             return "Duela " + diff / DAY_MILLIS + " egun";
-        } else if (diff < 2 * MONTH_MILLIS) {
-            return "Duela hilabete bat (" + day(time) + "-an)";
         } else if (diff < YEAR_MILLIS) {
-            return "Duela " + diff / MONTH_MILLIS + " hilabete (" + day(time) + ")";
-        } else if (diff < 2 * YEAR_MILLIS) {
-            return "Duela urte bat (" + timeFormatAMPM(time) + ")";
-        }else{
-            return "Duela "+ diff / YEAR_MILLIS + " urte (" + timeFormatAMPM(time) + ")";
+            return dayMonth(time);
+        } else{
+            return timeFormatAMPM(time);
         }
     }
 
@@ -60,12 +56,53 @@ public class RelativeTime extends Application {
         return dateString;
     }
 
-    public static String day(long timestamp) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd");
-        String dateString = formatter.format(new Date(timestamp));
-
-        return dateString;
+    public static String dayMonth(long timestamp) {
+        SimpleDateFormat day = new SimpleDateFormat("d");
+        SimpleDateFormat month = new SimpleDateFormat("M");
+        
+        String dayString = day.format(new Date(timestamp));
+        String monthNumberString = month.format(new Date(timestamp));
+        String monthNameString="";
+        switch (monthNumberString){
+            case "1":
+                monthNameString="Urtarrila";
+                break;
+            case "2":
+                monthNameString="Otsaila";
+                break;
+            case "3":
+                monthNameString="Martxoa";
+                break;
+            case "4":
+                monthNameString="Apirila";
+                break;
+            case "5":
+                monthNameString="Maiatza";
+                break;
+            case "6":
+                monthNameString="Ekaina";
+                break;
+            case "7":
+                monthNameString="Uztaila";
+                break;
+            case "8":
+                monthNameString="Abuztua";
+                break;
+            case "9":
+                monthNameString="Iraila";
+                break;
+            case "10":
+                monthNameString="Urria";
+                break;
+            case "11":
+                monthNameString="Azaroa";
+                break;
+            case "12":
+                monthNameString="Abendua";
+                break;
+        }
+        
+        return monthNameString+"ren " + dayString + "a";
     }
-
 }
 
