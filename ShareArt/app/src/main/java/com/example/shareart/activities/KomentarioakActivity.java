@@ -157,13 +157,13 @@ public class KomentarioakActivity extends AppCompatActivity {
                                 String token = documentSnapshot.getString("token");
                                 Map<String, String> data = new HashMap<>();
                                 data.put("title", "Komentario berria daukazu");
-                                data.put("body", '"'+mezua+'"');
-                                FCMBody body = new FCMBody(token, "high", "4500s",data);
+                                data.put("body", '"' + mezua + '"');
+                                FCMBody body = new FCMBody(token, "high", "4500s", data);
                                 notificationProvider.sendNotification(body).enqueue(new Callback<FCMResponse>() {
                                     @Override
                                     public void onResponse(Call<FCMResponse> call, Response<FCMResponse> response) {
-                                        if (response.body()!=null){
-                                            if (response.body().getSuccess()==1){
+                                        if (response.body() != null) {
+                                            if (response.body().getSuccess() == 1) {
                                                 Toast.makeText(KomentarioakActivity.this, "SE HA ENVIADO EL MENSAJE", Toast.LENGTH_SHORT).show();
                                             }
                                         }
@@ -174,7 +174,7 @@ public class KomentarioakActivity extends AppCompatActivity {
 
                                     }
                                 });
-                            }else {
+                            } else {
                                 Toast.makeText(KomentarioakActivity.this, "NO HAY TOKEN", Toast.LENGTH_SHORT).show();
                             }
                         }

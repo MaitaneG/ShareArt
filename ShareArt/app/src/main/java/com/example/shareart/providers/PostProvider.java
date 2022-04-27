@@ -38,6 +38,10 @@ public class PostProvider {
         return collectionReference.document(id).get();
     }
 
+    public Query getArgitalpenaByIdQuery(String id){
+        return collectionReference.whereEqualTo("id", id);
+    }
+
     public Task<Void> deleteArgitalpena(String id) {
         return collectionReference.document(id).delete();
     }

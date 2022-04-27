@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
+import com.example.shareart.activities.ArgitarapenBakarraActivity;
 import com.example.shareart.activities.BesteErabiltzaileProfilaActivity;
 import com.example.shareart.activities.KomentarioakActivity;
 import com.example.shareart.models.Argitalpena;
@@ -131,6 +132,15 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
                 like.setData(new Date().getTime());
 
                 likeBatEman(like, holder);
+            }
+        });
+
+        holder.imageViewArgitarapena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ArgitarapenBakarraActivity.class);
+                intent.putExtra("postId",post_id);
+                context.startActivity(intent);
             }
         });
     }

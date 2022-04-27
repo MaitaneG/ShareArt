@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
         toolbar = (Toolbar) view.findViewById(R.id.ToolBar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
-        // Sesioak kudeatzeko
+        // Providerrak
         authProvider = new AuthProvider();
         postProvider = new PostProvider();
         userProvider = new UserProvider();

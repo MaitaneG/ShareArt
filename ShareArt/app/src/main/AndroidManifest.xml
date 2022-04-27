@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShareArt">
         <activity
+            android:name=".activities.ArgitarapenBakarraActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.PasahitzaBerreskuratuActivity"
             android:exported="false" />
         <activity
@@ -29,7 +32,7 @@
         <activity
             android:name=".activities.FiltratutakoaActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.KomentarioakActivity"
             android:exported="false" />
@@ -46,7 +49,7 @@
         <activity
             android:name=".activities.HomeActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.ErregistroActivity"
             android:exported="false" />
@@ -71,6 +74,16 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.shareart.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
+
     </application>
 
 </manifest>

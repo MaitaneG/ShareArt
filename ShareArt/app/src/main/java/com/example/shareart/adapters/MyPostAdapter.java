@@ -3,6 +3,7 @@ package com.example.shareart.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
+import com.example.shareart.activities.ArgitarapenBakarraActivity;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.PostProvider;
 import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,6 +40,9 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Argitalpena model) {
+        DocumentSnapshot document = getSnapshots().getSnapshot(position);
+        String post_id = document.getId();
+
         holder.textViewDeskribapena.setText(model.getDeskribapena());
         holder.textViewKategoria.setText("#" + model.getKategoria());
 
@@ -68,6 +74,14 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
                         .setNegativeButton("Ez", null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
+            }
+        });
+        holder.imageViewArgitalpena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ArgitarapenBakarraActivity.class);
+                intent.putExtra("postId", post_id);
+                context.startActivity(intent);
             }
         });
     }
