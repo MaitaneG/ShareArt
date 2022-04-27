@@ -21,7 +21,6 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/fondo_txuria"
                 android:transitionName="@string/transtionname_picture"
                 app:layout_collapseMode="parallax">
 
