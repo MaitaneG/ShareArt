@@ -20,7 +20,7 @@
         app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.462"
+        app:layout_constraintVertical_bias="0.355"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -37,7 +37,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.091" />
+        app:layout_constraintVertical_bias="0.045" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -50,7 +50,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintVertical_bias="0.418" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -66,16 +66,16 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.646">
+        app:layout_constraintVertical_bias="0.668">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="*Mezu bat bidaliko dizugu, bertan zure pasahitza aldatzeko."
-            android:gravity="center"
-            android:textStyle="italic"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:text="*Mezu bat bidaliko dizugu, bertan zure pasahitza aldatzeko."
+            android:textStyle="italic" />
 
         <LinearLayout
             android:layout_width="match_parent"

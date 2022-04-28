@@ -41,7 +41,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="294dp"
-        android:layout_height="461dp"
+        android:layout_height="400dp"
         android:layout_gravity="center"
         android:background="@drawable/rectangulo_login"
         android:orientation="vertical"
@@ -51,7 +51,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.943">
+        app:layout_constraintVertical_bias="0.909">
 
         <!-- Deskripzioa  -->
 
@@ -93,94 +93,98 @@
             android:text="@string/kategoria_titulua"
             android:textSize="18sp" />
 
-        <!-- Layout horizontal -->
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <!-- Layout bertikala ezkerra -->
+            android:layout_height="120dp">
+            <!-- Layout horizontal -->
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="210dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <!-- Natura -->
-                <ImageView
-                    android:id="@+id/imageViewNatura"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/natura_kategoria" />
+                <!-- Layout bertikala ezkerra -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="210dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <!-- Hiperrealismo -->
-                <ImageView
-                    android:id="@+id/imageViewHiperrealismo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/hiperrealismo_kategoria" />
+                    <!-- Natura -->
+                    <ImageView
+                        android:id="@+id/imageViewNatura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/natura_kategoria" />
 
-                <!-- Erretratoak -->
-                <ImageView
-                    android:id="@+id/imageViewErretratoak"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/erretratoak_kategoria" />
+                    <!-- Hiperrealismo -->
+                    <ImageView
+                        android:id="@+id/imageViewHiperrealismo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/hiperrealismo_kategoria" />
 
-                <!-- Grafitiak -->
-                <ImageView
-                    android:id="@+id/imageViewGraffiti"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/graffitiak_kategoria" />
+                    <!-- Erretratoak -->
+                    <ImageView
+                        android:id="@+id/imageViewErretratoak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/erretratoak_kategoria" />
+
+                    <!-- Grafitiak -->
+                    <ImageView
+                        android:id="@+id/imageViewGraffiti"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/graffitiak_kategoria" />
+                </LinearLayout>
+
+                <!-- Layout bertikala eskuma -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="210dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <!-- Komikia -->
+                    <ImageView
+                        android:id="@+id/imageViewKomikia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/komikia_kategoria" />
+
+                    <!-- Ilustrazioa -->
+                    <ImageView
+                        android:id="@+id/imageViewIlustrazioa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ilustrazioa_kategoria" />
+
+                    <!-- Karikatura -->
+                    <ImageView
+                        android:id="@+id/imageViewKarikatura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/karikatura_kategoria" />
+
+                    <!-- Natura hila -->
+                    <ImageView
+                        android:id="@+id/imageViewNaturaHila"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/natura_hila_kategoria" />
+                </LinearLayout>
             </LinearLayout>
-
-            <!-- Layout bertikala eskuma -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="210dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <!-- Komikia -->
-                <ImageView
-                    android:id="@+id/imageViewKomikia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/komikia_kategoria" />
-
-                <!-- Ilustrazioa -->
-                <ImageView
-                    android:id="@+id/imageViewIlustrazioa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ilustrazioa_kategoria" />
-
-                <!-- Karikatura -->
-                <ImageView
-                    android:id="@+id/imageViewKarikatura"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/karikatura_kategoria" />
-
-                <!-- Natura hila -->
-                <ImageView
-                    android:id="@+id/imageViewNaturaHila"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/natura_hila_kategoria" />
-            </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
 
         <TextView
             android:id="@+id/textView4"
