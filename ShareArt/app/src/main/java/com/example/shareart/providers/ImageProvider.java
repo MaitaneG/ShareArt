@@ -1,8 +1,13 @@
 package com.example.shareart.providers;
 
 import android.content.Context;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.example.shareart.utils.CompressorBitmapImage;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -37,5 +42,10 @@ public class ImageProvider {
 
     public StorageReference getArgazkiarenKokapena(){
         return storageReference.child(childRefernce);
+    }
+
+    public void deleteArgazkia(String url){
+        StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(url);
+        reference.delete();
     }
 }

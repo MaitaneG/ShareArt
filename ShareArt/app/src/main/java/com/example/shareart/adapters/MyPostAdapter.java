@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +18,16 @@ import com.example.shareart.R;
 import com.example.shareart.activities.ArgitarapenBakarraActivity;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
+import com.example.shareart.providers.ImageProvider;
 import com.example.shareart.providers.PostProvider;
 import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -30,12 +36,14 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
     private final Context context;
     private final PostProvider postProvider;
     private final AuthProvider authProvider;
+    private final ImageProvider imageProvider;
 
     public MyPostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
         this.context = context;
         postProvider = new PostProvider();
         authProvider = new AuthProvider();
+        imageProvider = new ImageProvider();
     }
 
     @Override
@@ -69,6 +77,7 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 postProvider.deleteArgitalpena(model.getId());
+                                imageProvider.deleteArgazkia(model.getUrl_argazkia());
                             }
                         })
                         .setNegativeButton("Ez", null)

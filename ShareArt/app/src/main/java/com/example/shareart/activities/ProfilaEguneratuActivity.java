@@ -296,6 +296,9 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        if (argazkiZaharraUrl!=null && !argazkiZaharraUrl.isEmpty()){
+                                            imageProvider.deleteArgazkia(argazkiZaharraUrl);
+                                        }
                                         Toast.makeText(ProfilaEguneratuActivity.this, "Erabiltzailea ondo eguneratu da", Toast.LENGTH_SHORT).show();
                                         finish();
                                     } else {
