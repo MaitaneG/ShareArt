@@ -26,6 +26,7 @@ import com.example.shareart.providers.CommentProvider;
 import com.example.shareart.providers.NotificationProvider;
 import com.example.shareart.providers.PostProvider;
 import com.example.shareart.providers.TokenProvider;
+import com.example.shareart.providers.UserProvider;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,8 +55,10 @@ public class KomentarioakActivity extends AppCompatActivity {
     private AuthProvider authProvider;
     private NotificationProvider notificationProvider;
     private TokenProvider tokenProvider;
+    private UserProvider userProvider;
 
     private String extraPostId;
+    private String komentatzailea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +90,17 @@ public class KomentarioakActivity extends AppCompatActivity {
         authProvider = new AuthProvider();
         notificationProvider = new NotificationProvider();
         tokenProvider = new TokenProvider();
+        userProvider = new UserProvider();
         // OnClickListener
         komentatuBotoia.setOnClickListener(this::komentatu);
+
+        userProvider.getErabiltzailea(authProvider.getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                komentatzailea = documentSnapshot.getString("erabiltzaile_izena");
+            }
+        });
     }
 
     private void alertKomentarioa() {
@@ -157,7 +169,7 @@ public class KomentarioakActivity extends AppCompatActivity {
                                 String token = documentSnapshot.getString("token");
                                 Map<String, String> data = new HashMap<>();
                                 data.put("title", "Komentario berria daukazu");
-                                data.put("body", '"' + mezua + '"');
+                                data.put("body", '"' + mezua + '"' + " idatzi du " + komentatzailea + "-k");
                                 FCMBody body = new FCMBody(token, "high", "4500s", data);
                                 notificationProvider.sendNotification(body).enqueue(new Callback<FCMResponse>() {
                                     @Override
