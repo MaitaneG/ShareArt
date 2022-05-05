@@ -23,7 +23,7 @@ public class CommentProvider {
     }
 
     public Query getKomentarioakByArgitalpen(String idArgitalpen) {
-        return collectionReference.whereEqualTo("id_argitalpen", idArgitalpen);
+        return collectionReference.whereEqualTo("id_argitalpen", idArgitalpen).orderBy("data", Query.Direction.DESCENDING);
     }
 
     public Task<Void> deleteKomentarioa(String id) {
