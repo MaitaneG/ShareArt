@@ -60,8 +60,6 @@ public class FiltratutakoaActivity extends AppCompatActivity {
         // RecyclerView
         recyclerView = findViewById(R.id.recyclerViewArgitarapenakKategoria);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(FiltratutakoaActivity.this);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 

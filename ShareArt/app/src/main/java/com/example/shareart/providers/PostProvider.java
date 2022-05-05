@@ -31,7 +31,7 @@ public class PostProvider {
     }
 
     public Query getArgitalpenakByErabiltzailea(String idErabiltzaile) {
-        return collectionReference.whereEqualTo("id_user", idErabiltzaile);
+        return collectionReference.whereEqualTo("id_user", idErabiltzaile).orderBy("data", Query.Direction.DESCENDING);
     }
 
     public Task<DocumentSnapshot> getArgitalpenaById(String id){

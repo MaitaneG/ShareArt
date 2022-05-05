@@ -75,8 +75,6 @@ public class HomeFragment extends Fragment {
         // RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewArgitarapenak);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         // OnClickListenerrak
         floatingActionButton.setOnClickListener(this::argitaratuArgazkiBat);
