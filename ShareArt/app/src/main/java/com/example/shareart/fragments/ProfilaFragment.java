@@ -39,6 +39,7 @@ public class ProfilaFragment extends Fragment {
     private TextView korreoaTextView;
     private TextView argitalpenKopuruaTextView;
     private TextView argitalpenTexView;
+    private TextView deskribapenaTextView;
     private TextView dataTextView;
     private CircleImageView perfilekoArgazkia;
     private RecyclerView recyclerView;
@@ -64,6 +65,7 @@ public class ProfilaFragment extends Fragment {
         argitalpenKopuruaTextView = view.findViewById(R.id.argitarapenZenbakia);
         dataTextView = view.findViewById(R.id.textViewData);
         argitalpenTexView = view.findViewById(R.id.textViewArgitalpen);
+        deskribapenaTextView = view.findViewById(R.id.textViewDeskribapena);
         // LinearLayout
         linearLayout = view.findViewById(R.id.perfilaEditatuLink);
         // CircleImageView
@@ -100,6 +102,20 @@ public class ProfilaFragment extends Fragment {
 
                     if (documentSnapshot.contains("email")) {
                         korreoaTextView.setText(documentSnapshot.getString("email"));
+                    }
+
+                    if (documentSnapshot.contains("deskribapena")) {
+                        String deskribapena = documentSnapshot.getString("deskribapena");
+                        if (deskribapena != null) {
+                            if (!deskribapena.isEmpty()) {
+                                deskribapenaTextView.setText(deskribapena);
+                            } else {
+                                deskribapenaTextView.setText("Ez daukazu deskribapenik, aldatu zure deskripzioa.");
+                            }
+                        } else {
+                            deskribapenaTextView.setText("Ez daukazu deskribapenik, aldatu zure deskripzioa.");
+                        }
+
                     }
 
                     if (documentSnapshot.contains("argazkia_profila_url")) {

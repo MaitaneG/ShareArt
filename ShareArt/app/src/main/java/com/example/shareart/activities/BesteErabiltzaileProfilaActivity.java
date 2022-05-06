@@ -31,6 +31,7 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
     private TextView korreoaTextView;
     private TextView argitalpenKopuruaTextView;
     private TextView dataTextView;
+    private TextView deskribapenaTextView;
     private TextView argitalpenTexView;
     private CircleImageView perfilekoArgazkia;
     private RecyclerView recyclerView;
@@ -64,6 +65,7 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
         argitalpenKopuruaTextView = findViewById(R.id.argitarapenZenbakiaBesteErabiltzaile);
         dataTextView = findViewById(R.id.textViewDataBesteErabiltzaile);
         argitalpenTexView = findViewById(R.id.textViewArgitalpenBesteErabiltzaile);
+        deskribapenaTextView = findViewById(R.id.textViewDeskribapenaBesteErabiltzaile);
         // CircleImageView
         perfilekoArgazkia = findViewById(R.id.perfilaArgazkiaBesteErabiltzaile);
         // Providers
@@ -91,6 +93,20 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
 
                     if (documentSnapshot.contains("email")) {
                         korreoaTextView.setText(documentSnapshot.getString("email"));
+                    }
+
+                    if (documentSnapshot.contains("deskribapena")) {
+                        String deskribapena = documentSnapshot.getString("deskribapena");
+                        if (deskribapena != null) {
+                            if (!deskribapena.isEmpty()) {
+                                deskribapenaTextView.setText(deskribapena);
+                            } else {
+                                deskribapenaTextView.setText("Erabiltzaile honek ez dauka deskripziorik");
+                            }
+                        } else {
+                            deskribapenaTextView.setText("Erabiltzaile honek ez dauka deskripziorik");
+                        }
+
                     }
 
                     if (documentSnapshot.contains("argazkia_profila_url")) {

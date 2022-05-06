@@ -57,6 +57,7 @@ public class UserProvider {
         Map<String, Object> map = new HashMap<>();
         map.put("erabiltzaile_izena", erabiltzailea.getErabiltzaile_izena());
         map.put("argazkia_profila_url", erabiltzailea.getArgazkia_profila_url());
+        map.put("deskribapena",erabiltzailea.getDeskribapena());
 
         return collectionReference.document(erabiltzailea.getId()).update(map);
     }

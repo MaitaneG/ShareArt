@@ -51,6 +51,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
 
     private CircleImageView perfilaArgazkiaAldatu;
     private TextInputEditText editTextErabiltzailea;
+    private TextInputEditText editTextDeskribapena;
     private ImageButton perfilaAldatuBotoia;
     private AlertDialog.Builder alertDialog;
     private ProgressBar progressBar;
@@ -88,6 +89,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
         perfilaArgazkiaAldatu = findViewById(R.id.perfilaArgazkiaAldatu);
         // EditText
         editTextErabiltzailea = findViewById(R.id.textInputEditTextErabiltzaileaAldatu);
+        editTextDeskribapena=findViewById(R.id.textInputEditTextDeskribapenaAldatu);
         // ImageButton
         perfilaAldatuBotoia = findViewById(R.id.imageButtonPerfilaAldatu);
         // OnClickListener
@@ -130,6 +132,14 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                             }
                         }else{
                             argazkiZaharraUrl="";
+                        }
+                    }
+
+                    if (documentSnapshot.contains("deskribapena")){
+                        if (documentSnapshot.getString("deskribapena") != null) {
+                            if (!documentSnapshot.getString("deskribapena").isEmpty()) {
+                                editTextDeskribapena.setText(documentSnapshot.getString("deskribapena"));
+                            }
                         }
                     }
                 }
@@ -230,14 +240,15 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
      */
     private void perfilaAldatu(View view) {
         String erabiltzailea = editTextErabiltzailea.getText().toString().trim();
+        String deskribapena = editTextDeskribapena.getText().toString().trim();
 
         if (erabiltzailea.isEmpty()) {
             Toast.makeText(this, "Erabiltzaile izena jarri behar duzu", Toast.LENGTH_SHORT).show();
         } else {
             if (argazkiaFitxeroa == null) {
-                eguneratuInformazioa(erabiltzailea);
+                eguneratuInformazioa(erabiltzailea,deskribapena);
             } else {
-                argazkiaEguneratu(erabiltzailea);
+                argazkiaEguneratu(erabiltzailea,deskribapena);
             }
             Intent intent = new Intent(ProfilaEguneratuActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -250,12 +261,13 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
      *
      * @param erabiltzaileIzena
      */
-    private void eguneratuInformazioa(String erabiltzaileIzena) {
+    private void eguneratuInformazioa(String erabiltzaileIzena, String deskribapena) {
         progressBar.setVisibility(View.VISIBLE);
 
         Erabiltzailea erabiltzailea = new Erabiltzailea();
         erabiltzailea.setId(authProvider.getUid());
         erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena.trim());
+        erabiltzailea.setDeskribapena(deskribapena.trim());
         erabiltzailea.setArgazkia_profila_url(argazkiZaharraUrl.trim());
 
         userProvider.updateErabiltzailea(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -277,7 +289,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
      *
      * @param erabiltzaileIzena
      */
-    private void argazkiaEguneratu(String erabiltzaileIzena) {
+    private void argazkiaEguneratu(String erabiltzaileIzena, String deskribapena) {
         progressBar.setVisibility(View.VISIBLE);
         imageProvider.saveProfilArgazkiaFirebasen(ProfilaEguneratuActivity.this, argazkiaFitxeroa).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -290,6 +302,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                             Erabiltzailea erabiltzailea = new Erabiltzailea();
                             erabiltzailea.setArgazkia_profila_url(url);
                             erabiltzailea.setErabiltzaile_izena(erabiltzaileIzena);
+                            erabiltzailea.setDeskribapena(deskribapena);
                             erabiltzailea.setId(authProvider.getUid());
 
                             userProvider.updateErabiltzailea(erabiltzailea).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -5,6 +5,7 @@ public class Erabiltzailea {
     private String erabiltzaile_izena;
     private String email;
     private String pasahitza;
+    private String deskribapena;
     private String argazkia_profila_url;
     private long sortze_data;
 
@@ -50,6 +51,14 @@ public class Erabiltzailea {
 
     public void setPasahitza(String pasahitza) {
         this.pasahitza = pasahitza;
+    }
+
+    public String getDeskribapena() {
+        return deskribapena;
+    }
+
+    public void setDeskribapena(String deskribapena) {
+        this.deskribapena = deskribapena;
     }
 
     public String getArgazkia_profila_url() {
