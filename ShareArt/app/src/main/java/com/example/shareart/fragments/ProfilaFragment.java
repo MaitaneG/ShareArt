@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
+import com.example.shareart.activities.KonfigurazioaActivity;
 import com.example.shareart.activities.ProfilaEguneratuActivity;
 import com.example.shareart.adapters.MyPostAdapter;
 import com.example.shareart.models.Argitalpena;
@@ -34,7 +36,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfilaFragment extends Fragment {
 
     private View view;
-    private LinearLayout linearLayout;
+    private ImageView perfilaEguneratuLinka;
+    private ImageView konfigurazioLinka;
     private TextView erabiltzaileIzenaTextView;
     private TextView korreoaTextView;
     private TextView argitalpenKopuruaTextView;
@@ -66,12 +69,14 @@ public class ProfilaFragment extends Fragment {
         dataTextView = view.findViewById(R.id.textViewData);
         argitalpenTexView = view.findViewById(R.id.textViewArgitalpen);
         deskribapenaTextView = view.findViewById(R.id.textViewDeskribapena);
-        // LinearLayout
-        linearLayout = view.findViewById(R.id.perfilaEditatuLink);
+        // ImageView
+        perfilaEguneratuLinka = view.findViewById(R.id.perfilaEditatuLink);
+        konfigurazioLinka = view.findViewById(R.id.konfigurazioauLink);
         // CircleImageView
         perfilekoArgazkia = view.findViewById(R.id.perfilaArgazkia);
         // OnClickListener
-        linearLayout.setOnClickListener(this::perfilaEditaturaJoan);
+        perfilaEguneratuLinka.setOnClickListener(this::perfilaEditaturaJoan);
+        konfigurazioLinka.setOnClickListener(this::konfigurazioraJoan);
         // Toolbar
         toolbar = (Toolbar) view.findViewById(R.id.toolbarProfila);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -162,6 +167,11 @@ public class ProfilaFragment extends Fragment {
 
     private void perfilaEditaturaJoan(View view) {
         Intent intent = new Intent(getContext(), ProfilaEguneratuActivity.class);
+        startActivity(intent);
+    }
+
+    private void konfigurazioraJoan(View view) {
+        Intent intent = new Intent(getContext(), KonfigurazioaActivity.class);
         startActivity(intent);
     }
 
