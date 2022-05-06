@@ -67,6 +67,21 @@ public class ArgitarapenBakarraActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+        kargatuInformazioa();
+    }
+
+    private void kargatuInformazioa() {
+        postProvider.getArgitalpenaById(post_id).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                userProvider.getErabiltzailea(documentSnapshot.getString("id_user")).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        erabiltzaile_izena = documentSnapshot.getString("erabiltzaile_izena");
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -83,13 +98,6 @@ public class ArgitarapenBakarraActivity extends AppCompatActivity {
         postProvider.getArgitalpenaById(post_id).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                userProvider.getErabiltzailea(documentSnapshot.getString("id_user")).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        erabiltzaile_izena = documentSnapshot.getString("erabiltzaile_izena");
-                    }
-                });
-
                 Picasso.with(ArgitarapenBakarraActivity.this).load(documentSnapshot.getString("url_argazkia")).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
