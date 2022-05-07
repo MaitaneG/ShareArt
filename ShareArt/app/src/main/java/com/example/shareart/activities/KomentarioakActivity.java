@@ -82,7 +82,7 @@ public class KomentarioakActivity extends AppCompatActivity {
         // Toolbar
         toolbar = findViewById(R.id.ToolBar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle("Komentarioak");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Providers
         commentProvider = new CommentProvider();

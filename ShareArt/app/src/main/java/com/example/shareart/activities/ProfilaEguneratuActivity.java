@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -22,6 +23,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -55,6 +57,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
     private ImageButton perfilaAldatuBotoia;
     private AlertDialog.Builder alertDialog;
     private ProgressBar progressBar;
+    private Toolbar toolbar;
 
     private File argazkiaFitxeroa;
     private Uri imageUri;
@@ -92,6 +95,11 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
         editTextDeskribapena=findViewById(R.id.textInputEditTextDeskribapenaAldatu);
         // ImageButton
         perfilaAldatuBotoia = findViewById(R.id.imageButtonPerfilaAldatu);
+        // Toolbar
+        toolbar = findViewById(R.id.ToolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Profila eguneratu");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // OnClickListener
         perfilaArgazkiaAldatu.setOnClickListener(this::argakiaAukeratzekoMetodoa);
         perfilaAldatuBotoia.setOnClickListener(this::perfilaAldatu);
@@ -327,11 +335,25 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
         });
     }
 
+    private void checkPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(ProfilaEguneratuActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
+            // Requesting the permission
+            ActivityCompat.requestPermissions(ProfilaEguneratuActivity.this, new String[]{permission}, requestCode);
+        } else {
+            Toast.makeText(ProfilaEguneratuActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+            argazkiaAtera();
+        }
+    }
+
     /**
      * Atzera botoia ematean alerta bat agertzea
      */
     @Override
     public void onBackPressed() {
+        alert();
+    }
+
+    private void alert(){
         new AlertDialog.Builder(this)
                 .setTitle("Perfila editatzeko pantailatik irteten")
                 .setMessage("Ziur zaude irten nahi zarela pantaila honetatik perfila editatu gabe?")
@@ -346,14 +368,12 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void checkPermission(String permission, int requestCode) {
-        if (ContextCompat.checkSelfPermission(ProfilaEguneratuActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
-            // Requesting the permission
-            ActivityCompat.requestPermissions(ProfilaEguneratuActivity.this, new String[]{permission}, requestCode);
-        } else {
-            Toast.makeText(ProfilaEguneratuActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
-            argazkiaAtera();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            alert();
         }
+        return true;
     }
 
     @Override
