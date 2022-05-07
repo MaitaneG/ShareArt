@@ -104,7 +104,7 @@ public class ArgitarapenBakarraActivity extends AppCompatActivity {
                         Bitmap argazkia = bitmap;
 
                         if (argazkia != null) {
-                            String shareBody = documentSnapshot.getString("deskribapena") + "\n" + "Egilea: " + erabiltzaile_izena + "\n" + "ShareArt-etik partekatuta";
+                            String shareBody = documentSnapshot.getString("deskribapena") + "\n" + "Egilea: @" + erabiltzaile_izena + "\n" + "ShareArt-etik partekatuta";
 
                             Uri uri = gordeArgazkiaPartekatzeko(argazkia);
 

@@ -168,8 +168,8 @@ public class KomentarioakActivity extends AppCompatActivity {
                             if (documentSnapshot.contains("token")) {
                                 String token = documentSnapshot.getString("token");
                                 Map<String, String> data = new HashMap<>();
-                                data.put("title", "Komentario berria daukazu");
-                                data.put("body", '"' + mezua + '"' + " idatzi du " + komentatzailea + "-k");
+                                data.put("title", "Komentario berria (" + komentatzailea + ")");
+                                data.put("body", mezua);
                                 FCMBody body = new FCMBody(token, "high", "4500s", data);
                                 notificationProvider.sendNotification(body).enqueue(new Callback<FCMResponse>() {
                                     @Override
