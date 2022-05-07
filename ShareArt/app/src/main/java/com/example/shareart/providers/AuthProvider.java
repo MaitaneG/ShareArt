@@ -72,7 +72,7 @@ public class AuthProvider {
     }
 
     /**
-     * Sesioa hasteko googlerekin (ez doia)
+     * Sesioa hasteko googlerekin
      *
      * @param googleSignInAccount
      * @return
