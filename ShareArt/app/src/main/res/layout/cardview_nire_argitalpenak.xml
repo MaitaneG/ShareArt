@@ -9,8 +9,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -21,22 +22,17 @@
 
         <LinearLayout
             android:layout_width="185dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
-
-                <!--<ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/deskribapena_ikonoa"
-                    android:layout_marginEnd="15dp"/>-->
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp">
 
                 <TextView
                     android:id="@+id/textViewDeskribapenaNirea"
@@ -88,7 +84,6 @@
                 android:id="@+id/imageViewEzabatuArgitalpena"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
                 android:src="@drawable/argitalpen_ezabatu" />
         </LinearLayout>
 
