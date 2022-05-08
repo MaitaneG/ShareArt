@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.shareart.R;
 import com.example.shareart.activities.FiltratutakoaActivity;
-import com.example.shareart.activities.MainActivity;
+import com.example.shareart.activities.KonfigurazioaActivity;
 import com.example.shareart.providers.AuthProvider;
 
 public class FiltroakFragment extends Fragment {
@@ -107,24 +107,21 @@ public class FiltroakFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.sesioa_itxi_menu, menu);
+        inflater.inflate(R.menu.konfigurazioa_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.logout) {
-            saioaItxi();
+        if (item.getItemId() == R.id.konfigurazioa) {
+            konfigurazioaraJoan();
             return true;
         }
         return false;
     }
 
-    private void saioaItxi() {
-        authProvider.saioaItxi();
-
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+    private void konfigurazioaraJoan() {
+        Intent intent = new Intent(getContext(), KonfigurazioaActivity.class);
         startActivity(intent);
     }
 }

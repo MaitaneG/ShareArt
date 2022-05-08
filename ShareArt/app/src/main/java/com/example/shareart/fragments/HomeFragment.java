@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
 import com.example.shareart.activities.ArgitalpenActivity;
-import com.example.shareart.activities.MainActivity;
+import com.example.shareart.activities.KonfigurazioaActivity;
 import com.example.shareart.adapters.PostAdapter;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.bilatzailea_eta_sesioa_itxi_menu, menu);
+        inflater.inflate(R.menu.bilatzailea_eta_konfigurazioa_menu, menu);
 
         MenuItem item = menu.findItem(R.id.bilatu);
 
@@ -156,18 +156,15 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.logout) {
-            saioaItxi();
+        if (item.getItemId() == R.id.konfigurazioa) {
+            konfigurazioraJoan();
             return true;
         }
         return false;
     }
 
-    private void saioaItxi() {
-        authProvider.saioaItxi();
-
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+    private void konfigurazioraJoan() {
+        Intent intent = new Intent(getContext(), KonfigurazioaActivity.class);
         startActivity(intent);
     }
 

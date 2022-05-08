@@ -7,7 +7,7 @@
             android:title=""
             app:showAsAction="always"
             app:actionViewClass="android.widget.SearchView"/>
-        <item android:id="@+id/logout"
-        android:title="Sesioa itxi"
+        <item android:id="@+id/konfigurazioa"
+        android:title="Konfigurazioa"
         app:showAsAction="never"/>
 </menu>
