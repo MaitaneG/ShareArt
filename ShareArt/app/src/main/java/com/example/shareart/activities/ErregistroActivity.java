@@ -160,7 +160,7 @@ public class ErregistroActivity extends AppCompatActivity {
     private void atzeraAlertDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Erregistro pantailatik irteten")
-                .setMessage("Ziur zaude irten nahi zarela pantaila honetatik erregistratu gabe?")
+                .setMessage("Ziur zaude joan nahi zarela erregistratu gabe?")
                 .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -168,7 +168,6 @@ public class ErregistroActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton("Ez", null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 

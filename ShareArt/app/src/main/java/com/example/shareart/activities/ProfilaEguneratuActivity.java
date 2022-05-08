@@ -356,7 +356,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
     private void alert(){
         new AlertDialog.Builder(this)
                 .setTitle("Perfila editatzeko pantailatik irteten")
-                .setMessage("Ziur zaude irten nahi zarela pantaila honetatik perfila editatu gabe?")
+                .setMessage("Ziur zaude joan nahi zarela perfila editatu gabe?")
                 .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -364,7 +364,6 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton("Ez", null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 

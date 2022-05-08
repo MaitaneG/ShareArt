@@ -323,7 +323,7 @@ public class ArgitalpenActivity extends AppCompatActivity {
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setTitle("Argitarapen pantailatik irteten")
-                .setMessage("Ziur zaude irten nahi zarela pantaila honetatik argitaratu gabe?")
+                .setMessage("Ziur zaude joan nahi zarela argitaratu gabe?")
                 .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -331,7 +331,6 @@ public class ArgitalpenActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton("Ez", null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 
