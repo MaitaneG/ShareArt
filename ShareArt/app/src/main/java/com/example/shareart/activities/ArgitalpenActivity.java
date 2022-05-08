@@ -63,6 +63,7 @@ public class ArgitalpenActivity extends AppCompatActivity {
     private ImageView imageViewIlustrazioa;
     private ImageView imageViewKarikatura;
     private ImageView imageViewNaturaHila;
+    private ImageView imageViewAbstraktua;
 
     private File argazkiaFitxeroa;
     private Uri imageUri;
@@ -104,6 +105,7 @@ public class ArgitalpenActivity extends AppCompatActivity {
         imageViewIlustrazioa = findViewById(R.id.imageViewIlustrazioa);
         imageViewKarikatura = findViewById(R.id.imageViewKarikatura);
         imageViewNaturaHila = findViewById(R.id.imageViewNaturaHila);
+        imageViewAbstraktua=findViewById(R.id.imageViewAbstraktua);
         // TextView
         textViewKategoria = findViewById(R.id.textViewAukeratutakoKategoria);
         // EditText
@@ -125,6 +127,7 @@ public class ArgitalpenActivity extends AppCompatActivity {
         imageViewIlustrazioa.setOnClickListener(this::kategoriaAldatu);
         imageViewKarikatura.setOnClickListener(this::kategoriaAldatu);
         imageViewNaturaHila.setOnClickListener(this::kategoriaAldatu);
+        imageViewAbstraktua.setOnClickListener(this::kategoriaAldatu);
         // ImageProvider
         imageProvider = new ImageProvider();
         postProvider = new PostProvider();
@@ -162,6 +165,8 @@ public class ArgitalpenActivity extends AppCompatActivity {
             case R.id.imageViewNaturaHila:
                 textViewKategoria.setText("Natura hila");
                 break;
+            case R.id.imageViewAbstraktua:
+                textViewKategoria.setText("Abstraktua");
         }
     }
 

@@ -31,6 +31,7 @@ public class FiltroakFragment extends Fragment {
     private ImageView imageViewIlustrazioa;
     private ImageView imageViewKarikatura;
     private ImageView imageViewNaturaHila;
+    private ImageView imageViewAbstraktua;
     private Toolbar toolbar;
 
     private AuthProvider authProvider;
@@ -53,6 +54,7 @@ public class FiltroakFragment extends Fragment {
         imageViewIlustrazioa = view.findViewById(R.id.imageViewIlustrazioaFiltratu);
         imageViewKarikatura = view.findViewById(R.id.imageViewKarikaturaFiltratu);
         imageViewNaturaHila = view.findViewById(R.id.imageViewNaturaHilaFiltratu);
+        imageViewAbstraktua = view.findViewById(R.id.imageViewAbstraktuaFiltratu);
         // Tresna-barra
         toolbar = (Toolbar) view.findViewById(R.id.ToolBar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -66,6 +68,7 @@ public class FiltroakFragment extends Fragment {
         imageViewIlustrazioa.setOnClickListener(this::filtratu);
         imageViewKarikatura.setOnClickListener(this::filtratu);
         imageViewNaturaHila.setOnClickListener(this::filtratu);
+        imageViewAbstraktua.setOnClickListener(this::filtratu);
         // Sesioak kudeatzeko
         authProvider = new AuthProvider();
         return view;
@@ -97,6 +100,9 @@ public class FiltroakFragment extends Fragment {
                 break;
             case R.id.imageViewNaturaHilaFiltratu:
                 kategoria = "Natura hila";
+                break;
+            case R.id.imageViewAbstraktuaFiltratu:
+                kategoria = "Abstraktua";
                 break;
         }
 
