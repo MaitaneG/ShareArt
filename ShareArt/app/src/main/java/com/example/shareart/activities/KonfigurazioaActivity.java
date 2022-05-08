@@ -18,6 +18,7 @@ public class KonfigurazioaActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView emailTextView;
+    private TextView kontuBerriaSortuTextView;
     private ImageView saioaItxiImageView;
 
     private AuthProvider authProvider;
@@ -35,6 +36,7 @@ public class KonfigurazioaActivity extends AppCompatActivity {
     private void hasieratu() {
         // TextView
         emailTextView = findViewById(R.id.emailTextView);
+        kontuBerriaSortuTextView=findViewById(R.id.kontuBerriaSortuTextView);
         // ImageView
         saioaItxiImageView = findViewById(R.id.itxiSaioaButtom);
         // Providers
@@ -48,11 +50,20 @@ public class KonfigurazioaActivity extends AppCompatActivity {
         kargatuInformazioa();
         // OnClickListener
         saioaItxiImageView.setOnClickListener(this::saioaItxi);
+        kontuBerriaSortuTextView.setOnClickListener(this::erregistratuPantailaraJoan);
+    }
+
+    private void erregistratuPantailaraJoan(View view) {
+        authProvider.saioaItxi();
+        Intent intent = new Intent(KonfigurazioaActivity.this, ErregistroActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void saioaItxi(View view) {
         authProvider.saioaItxi();
         Intent intent = new Intent(KonfigurazioaActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

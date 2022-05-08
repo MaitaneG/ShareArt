@@ -21,7 +21,7 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        app:layout_constraintVertical_bias="0.063">
+        app:layout_constraintVertical_bias="0.166">
 
         <TextView
             android:layout_width="340dp"
@@ -34,12 +34,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:cardBackgroundColor="#E8E6E6"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include"
-            app:layout_constraintVertical_bias="0.037">
+            android:layout_margin="20dp"
+            app:cardBackgroundColor="#E8E6E6">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,6 +66,28 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <TextView
+            android:id="@+id/kontuBerriaSortuTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            android:text="Kontua itxi eta kontu berria sortu"
+            android:textSize="16sp"
+            android:textColor="@color/turquesa"
+            android:textStyle="italic" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Zure korreoa ezabatu"
+            android:textSize="16sp"
+            android:textColor="@color/turquesa"
+            android:textStyle="italic" />
 
         <View
             android:id="@+id/divider"
@@ -83,7 +101,7 @@
         <LinearLayout
             android:layout_width="340dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
