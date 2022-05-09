@@ -16,13 +16,15 @@ import android.widget.Toast;
 
 import com.example.shareart.R;
 import com.example.shareart.providers.AuthProvider;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class KonfigurazioaActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView emailTextView;
     private TextView kontuBerriaSortuTextView;
-    private TextView kontuaEzabatuTextView;
+    private TextView pasahitzaAldatuTextView;
     private ImageView saioaItxiImageView;
 
     private AuthProvider authProvider;
@@ -41,7 +43,7 @@ public class KonfigurazioaActivity extends AppCompatActivity {
         // TextView
         emailTextView = findViewById(R.id.emailTextView);
         kontuBerriaSortuTextView = findViewById(R.id.kontuBerriaSortuTextView);
-        kontuaEzabatuTextView = findViewById(R.id.kontuaEzabatuTextView);
+        pasahitzaAldatuTextView = findViewById(R.id.pasahitzaAldatuTextView);
         // ImageView
         saioaItxiImageView = findViewById(R.id.itxiSaioaButtom);
         // Providers
@@ -56,11 +58,33 @@ public class KonfigurazioaActivity extends AppCompatActivity {
         // OnClickListener
         saioaItxiImageView.setOnClickListener(this::saioaItxi);
         kontuBerriaSortuTextView.setOnClickListener(this::erregistratuPantailaraJoan);
-        kontuaEzabatuTextView.setOnClickListener(this::kontuaEzabatu);
+        pasahitzaAldatuTextView.setOnClickListener(this::pasahitzaAldatu);
     }
 
-    private void kontuaEzabatu(View view) {
-        Toast.makeText(this, "Oraindik ezin da ezabatu", Toast.LENGTH_SHORT).show();
+    private void pasahitzaAldatu(View view) {
+        new AlertDialog.Builder(KonfigurazioaActivity.this)
+                .setTitle("Pasahitza aldatu")
+                .setMessage("Pasahitza aldatu nahi duzu?")
+                .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        authProvider.changePasahitza(authProvider.getEmail()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                new AlertDialog.Builder(KonfigurazioaActivity.this)
+                                        .setMessage("Korreo bat helduko zaizu pasahitza aldatzeko")
+                                        .setPositiveButton("Ongi", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                finish();
+                                            }
+                                        }).show();
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Ez", null)
+                .show();
     }
 
     private void erregistratuPantailaraJoan(View view) {

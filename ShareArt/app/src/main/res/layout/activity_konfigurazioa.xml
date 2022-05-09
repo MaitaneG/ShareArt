@@ -79,13 +79,13 @@
             android:textStyle="italic" />
 
         <TextView
-            android:id="@+id/kontuaEzabatuTextView"
+            android:id="@+id/pasahitzaAldatuTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="Zure korreoa ezabatu"
+            android:text="Pasahitza aldatu"
             android:textSize="16sp"
             android:textColor="@color/turquesa"
             android:textStyle="italic" />
