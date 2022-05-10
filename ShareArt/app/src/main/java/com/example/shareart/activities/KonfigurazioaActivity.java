@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.shareart.R;
 import com.example.shareart.providers.AuthProvider;
@@ -25,7 +24,10 @@ public class KonfigurazioaActivity extends AppCompatActivity {
     private TextView emailTextView;
     private TextView kontuBerriaSortuTextView;
     private TextView pasahitzaAldatuTextView;
+    private TextView egiaztatuKorreoaLinkaTextView;
+    private TextView egiaztatuKorreoaTextView;
     private ImageView saioaItxiImageView;
+    private ImageView egiaztatuaImageView;
 
     private AuthProvider authProvider;
 
@@ -44,6 +46,9 @@ public class KonfigurazioaActivity extends AppCompatActivity {
         emailTextView = findViewById(R.id.emailTextView);
         kontuBerriaSortuTextView = findViewById(R.id.kontuBerriaSortuTextView);
         pasahitzaAldatuTextView = findViewById(R.id.pasahitzaAldatuTextView);
+        egiaztatuKorreoaLinkaTextView=findViewById(R.id.egiaztatuKorreoaLinkaTextView);
+        egiaztatuKorreoaTextView=findViewById(R.id.egiaztatuKorreoaTextView);
+        egiaztatuaImageView=findViewById(R.id.egiaztatuaImageView);
         // ImageView
         saioaItxiImageView = findViewById(R.id.itxiSaioaButtom);
         // Providers
@@ -59,6 +64,28 @@ public class KonfigurazioaActivity extends AppCompatActivity {
         saioaItxiImageView.setOnClickListener(this::saioaItxi);
         kontuBerriaSortuTextView.setOnClickListener(this::erregistratuPantailaraJoan);
         pasahitzaAldatuTextView.setOnClickListener(this::pasahitzaAldatu);
+        egiaztatuKorreoaLinkaTextView.setOnClickListener(this::bidaliEgiaztatzekoMezua);
+    }
+
+    private void bidaliEgiaztatzekoMezua(View view) {
+        authProvider.korreoaEgiaztatu().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    new AlertDialog.Builder(KonfigurazioaActivity.this)
+                            .setMessage("Korreo bat helduko zaizu korreoa egiaztatzeko")
+                            .setPositiveButton("Ongi", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    authProvider.saioaItxi();
+                                    Intent intent = new Intent(KonfigurazioaActivity.this, MainActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+                            }).show();
+                }
+            }
+        });
     }
 
     private void pasahitzaAldatu(View view) {
@@ -124,6 +151,13 @@ public class KonfigurazioaActivity extends AppCompatActivity {
     private void kargatuInformazioa() {
         emaila = authProvider.getEmail();
         emailTextView.setText(emaila);
+
+        if (authProvider.korreoaEgiaztatuta()){
+            egiaztatuKorreoaLinkaTextView.setVisibility(View.GONE);
+            egiaztatuKorreoaTextView.setText("Egiaztatua");
+            egiaztatuKorreoaTextView.setTextColor(getResources().getColor(R.color.green));
+            egiaztatuaImageView.setImageResource(R.drawable.bai_egiaztatuta_ikonoa);
+        }
     }
 
     @Override

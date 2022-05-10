@@ -24,9 +24,9 @@
         app:layout_constraintVertical_bias="0.166">
 
         <TextView
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="20dp"
             android:text="Zure kontua:"
             android:textSize="18sp"
             android:textStyle="bold|italic" />
@@ -54,7 +54,6 @@
                     android:id="@+id/emailTextView"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text="fmormomgoigmerimgioergmiorgmreogme"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -66,6 +65,41 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/egiaztatuKorreoaTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ez egiaztatuta"
+                android:textColor="@color/red_1"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:id="@+id/egiaztatuaImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ez_egiaztatuta_ikonoa"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/egiaztatuKorreoaLinkaTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="Egiaztatu korreo elektronikoa"
+            android:textSize="16sp"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/turquesa"
+            android:textStyle="italic"/>
         <TextView
             android:id="@+id/kontuBerriaSortuTextView"
             android:layout_width="match_parent"
@@ -73,7 +107,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
-            android:text="Kontua itxi eta kontu berria sortu"
+            android:text="Saioa itxi eta kontu berria sortu"
             android:textSize="16sp"
             android:textColor="@color/turquesa"
             android:textStyle="italic" />

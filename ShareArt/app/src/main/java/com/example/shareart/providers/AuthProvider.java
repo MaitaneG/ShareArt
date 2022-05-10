@@ -93,4 +93,12 @@ public class AuthProvider {
     public Task<Void> changePasahitza(String email){
         return firebaseAuth.sendPasswordResetEmail(email);
     }
+    
+    public Task<Void> korreoaEgiaztatu(){
+        return firebaseAuth.getCurrentUser().sendEmailVerification();
+    }
+    
+    public boolean korreoaEgiaztatuta(){
+        return firebaseAuth.getCurrentUser().isEmailVerified();
+    }
 }
