@@ -12,7 +12,6 @@ import android.graphics.Color;
 import androidx.core.app.NotificationCompat;
 
 import com.example.shareart.R;
-import com.example.shareart.activities.ArgitarapenBakarraActivity;
 import com.example.shareart.activities.HomeActivity;
 import com.example.shareart.activities.KomentarioakActivity;
 import com.example.shareart.providers.NotificationProvider;
@@ -24,11 +23,8 @@ public class NotificationHelper extends ContextWrapper {
 
     private NotificationManager manager;
 
-    private NotificationProvider notificationProvider;
-
     public NotificationHelper(Context context) {
         super(context);
-        notificationProvider=new NotificationProvider();
         createChannels();
     }
 
@@ -57,8 +53,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setSmallIcon(R.drawable.logo_shareart)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(body).setBigContentTitle(title));
 
-        Intent notficationIntent = new Intent(this, ArgitarapenBakarraActivity.class);
-        notficationIntent.putExtra("postId", notificationProvider.getPostId());
+        Intent notficationIntent = new Intent(this, HomeActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notficationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
         return notificationBuilder;
