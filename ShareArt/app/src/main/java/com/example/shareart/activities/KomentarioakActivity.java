@@ -215,6 +215,14 @@ public class KomentarioakActivity extends AppCompatActivity {
         commentAdapter = new CommentAdapter(options, KomentarioakActivity.this);
         recyclerView.setAdapter(commentAdapter);
         commentAdapter.startListening();
+
+        commentAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                recyclerView.scrollToPosition(itemCount-1);
+            }
+        });
     }
 
     @Override
