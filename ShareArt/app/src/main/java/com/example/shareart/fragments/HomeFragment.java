@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
+    private  LinearLayoutManager linearLayoutManager;
 
     private AuthProvider authProvider;
     private PostProvider postProvider;
@@ -74,7 +75,7 @@ public class HomeFragment extends Fragment {
         userProvider = new UserProvider();
         // RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewArgitarapenak);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         // OnClickListenerrak
         floatingActionButton.setOnClickListener(this::argitaratuArgazkiBat);
@@ -98,6 +99,13 @@ public class HomeFragment extends Fragment {
         postAdapter = new PostAdapter(options, getContext());
         recyclerView.setAdapter(postAdapter);
         postAdapter.startListening();
+        postAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                recyclerView.scrollToPosition(itemCount-1);
+            }
+        });
     }
 
     private void bilatuPosts(String s) {
