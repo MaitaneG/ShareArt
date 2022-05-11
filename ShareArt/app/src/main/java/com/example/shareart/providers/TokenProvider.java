@@ -1,6 +1,9 @@
 package com.example.shareart.providers;
 
+import androidx.annotation.NonNull;
+
 import com.example.shareart.models.Token;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -27,6 +30,19 @@ public class TokenProvider {
                 collectionReference.document(idUser).set(token);
             }
         });
+    }
+
+    public void deleteToken(String idUser) {
+        if (idUser != null) {
+            FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        collectionReference.document(idUser).delete();
+                    }
+                }
+            });
+        }
     }
 
     public Task<DocumentSnapshot> getToken(String idUser) {
