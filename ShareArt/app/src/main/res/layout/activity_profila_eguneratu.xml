@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:hint="Sartu edo gehitu informazioa zure deskribapenean"
-                    android:lines="4"
+                    android:inputType="textMultiLine"
                     tools:ignore="TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
