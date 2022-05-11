@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareart.R;
@@ -27,6 +28,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -159,20 +162,19 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     }
 
     private void getKomentarioKopurua(String postId, ViewHolder holder) {
-        commentProvider.getKomentarioakByArgitalpen(postId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        commentProvider.getKomentarioakByArgitalpen(postId).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                int zenbat = queryDocumentSnapshots.size();
-                holder.textViewKomentarioa.setText(zenbat + "");
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                holder.textViewKomentarioa.setText(value.size() + "");
             }
         });
     }
 
     private void getLikeKopurua(String post_id, ViewHolder holder) {
-        likeProvider.getLikesByArgitalpen(post_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        likeProvider.getLikesByArgitalpen(post_id).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                holder.textViewLikeKopurua.setText(queryDocumentSnapshots.getDocuments().size() + "");
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                holder.textViewLikeKopurua.setText(value.size() + "");
             }
         });
     }
