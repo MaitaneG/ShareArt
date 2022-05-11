@@ -23,15 +23,18 @@
         
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />
-
+            android:value="@string/default_notification_channel_id"/>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@mipmap/ic_launcher" />
+            android:resource="@drawable/logo_shareart"/>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/turquesa" />
+            android:resource="@color/turquesa"/>
 
+        <activity
+            android:name=".activities.KonfigurazioaActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <activity
             android:name=".activities.ArgitarapenBakarraActivity"
             android:exported="false"
@@ -47,8 +50,8 @@
         <activity
             android:name=".activities.FiltratutakoaActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.KomentarioakActivity"
             android:exported="false"
@@ -56,7 +59,6 @@
         <activity
             android:name=".activities.BesteErabiltzaileProfilaActivity"
             android:exported="false"
-            android:parentActivityName=".activities.HomeActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.ProfilaEguneratuActivity"
@@ -65,13 +67,13 @@
         <activity
             android:name=".activities.ArgitalpenActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.HomeActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.ErregistroActivity"
             android:exported="false"
@@ -94,6 +96,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.shareart.fileprovider"
@@ -104,4 +107,5 @@
                 android:resource="@xml/paths" />
         </provider>
     </application>
+
 </manifest>
