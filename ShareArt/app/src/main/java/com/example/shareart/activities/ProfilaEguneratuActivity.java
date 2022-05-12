@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -54,7 +55,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
     private CircleImageView perfilaArgazkiaAldatu;
     private TextInputEditText editTextErabiltzailea;
     private TextInputEditText editTextDeskribapena;
-    private ImageButton perfilaAldatuBotoia;
+    private LinearLayout perfilaAldatuBotoia;
     private AlertDialog.Builder alertDialog;
     private ProgressBar progressBar;
     private Toolbar toolbar;
@@ -94,7 +95,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
         editTextErabiltzailea = findViewById(R.id.textInputEditTextErabiltzaileaAldatu);
         editTextDeskribapena=findViewById(R.id.textInputEditTextDeskribapenaAldatu);
         // ImageButton
-        perfilaAldatuBotoia = findViewById(R.id.imageButtonPerfilaAldatu);
+        perfilaAldatuBotoia = findViewById(R.id.buttonPerfilaAldatu);
         // Toolbar
         toolbar = findViewById(R.id.ToolBar);
         setSupportActionBar(toolbar);

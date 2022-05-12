@@ -94,20 +94,30 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/imageButtonPerfilaAldatu"
-            android:layout_width="147dp"
-            android:layout_height="45dp"
+        <LinearLayout
+            android:id="@+id/buttonPerfilaAldatu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:backgroundTint="@color/kolorea"
-            android:src="@drawable/eguneratu_botoia"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            android:background="@drawable/hasi_saioa_botoia"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:scaleType="centerCrop">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eguneratu"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/indeterminateBarProfila"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp" />
     </LinearLayout>
