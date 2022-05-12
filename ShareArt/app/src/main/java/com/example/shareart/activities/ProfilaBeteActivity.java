@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.shareart.R;
 import com.example.shareart.models.Erabiltzailea;
@@ -21,8 +23,9 @@ import com.google.android.material.textfield.TextInputEditText;
 public class ProfilaBeteActivity extends AppCompatActivity {
 
     private TextInputEditText editTextErabiltzaileIzena;
-    private ImageButton imageButtonOsatu;
+    private LinearLayout imageButtonOsatu;
     private ProgressBar progressBar;
+    private Toolbar toolbar;
 
     private AuthProvider authProvider;
     private UserProvider userProvider;
@@ -39,13 +42,17 @@ public class ProfilaBeteActivity extends AppCompatActivity {
         // EditText
         editTextErabiltzaileIzena = findViewById(R.id.textInputEditTextErabiltzaileaGoogle);
         // ImageButton
-        imageButtonOsatu = findViewById(R.id.imageButtonErregistratuGoogle);
+        imageButtonOsatu = findViewById(R.id.buttonErregistratuGoogle);
         // ProgressBar
         progressBar = findViewById(R.id.indeterminateBarGoogle);
         progressBar.setVisibility(View.INVISIBLE);
         // Providers
         authProvider = new AuthProvider();
         userProvider = new UserProvider();
+        // Tresna-barra
+        toolbar = findViewById(R.id.ToolBar);
+        toolbar.setTitle("Osatu zure informazioa");
+        setSupportActionBar(toolbar);
         // OnClickListener
         imageButtonOsatu.setOnClickListener(this::osatuInformazioa);
     }

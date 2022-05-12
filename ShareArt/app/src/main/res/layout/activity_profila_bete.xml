@@ -9,21 +9,9 @@
     android:background="@drawable/erregistratu_fondoa"
     tools:context=".activities.ProfilaBeteActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="OSATU ZURE INFORMAZIOA"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+    <include
+        android:id="@+id/include2"
+        layout="@layout/toolbar" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -31,70 +19,100 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/usuarioa_ikonoa"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/cardview2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="270dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/rectangulo_login"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66">
+        app:layout_constraintVertical_bias="0.5"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="8dp">
 
-        <!-- User  -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/linearLayout2"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="50dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/user_ikono_txikia" />
-
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:text="*Erabiltzaile izen bat jarri behar duzu zure profila sortzeko."
+                android:textStyle="italic" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditTextErabiltzaileaGoogle"
+            <!-- User  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/user_ikono_txikia" />
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/erabiltzailea_hint"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:theme="@style/EditTextWhite">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextErabiltzaileaGoogle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/erabiltzailea_hint"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Hasi saioa -->
+            <LinearLayout
+                android:id="@+id/buttonErregistratuGoogle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/hasi_saioa_botoia"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:scaleType="centerCrop">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Osatu"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/indeterminateBarGoogle"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp" />
         </LinearLayout>
 
-        <!-- Hasi saioa -->
-        <ImageButton
-            android:id="@+id/imageButtonErregistratuGoogle"
-            android:layout_width="147dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/kolorea"
-            android:src="@drawable/osatu_botoia"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+    </androidx.cardview.widget.CardView>
 
-        <ProgressBar
-            android:id="@+id/indeterminateBarGoogle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
