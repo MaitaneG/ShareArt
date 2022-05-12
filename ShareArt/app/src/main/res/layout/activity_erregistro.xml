@@ -9,202 +9,191 @@
     android:background="@drawable/login_fondoa"
     tools:context=".activities.ErregistroActivity">
 
+    <include
+        android:id="@+id/include2"
+        layout="@layout/toolbar" />
+
     <!-- Login -->
-
-    <ImageButton
-        android:id="@+id/atzera_botoia"
-        android:layout_width="71dp"
-        android:layout_height="65dp"
-        android:backgroundTint="@color/kolorea"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/atzera_ikonoa"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.462"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ERREGISTRATU ORAIN"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.089" />
-
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/usuarioa_ikonoa"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/cardview2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="270dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/rectangulo_login"
-        android:orientation="vertical"
-        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.605">
+        app:layout_constraintVertical_bias="0.605"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="8dp">
 
-        <!-- User  -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/user_ikono_txikia" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TextInputEditTextErabiltzaileaErregistratu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/erabiltzailea_hint"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <!-- Email  -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/karta_ikono" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TextInputEditTextEmailErregistratu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/korreo_elektronikoa_hint"
-                    android:inputType="textEmailAddress"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <!-- Password  -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/kandado_ikono" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite"
-                app:passwordToggleEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TextInputEditTextPasahitzaErregistratu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/pasahitza_hint"
-                    android:inputType="textPassword"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <!-- Confirm Password  -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/kandado_ikono" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite"
-                app:passwordToggleEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TextInputEditTextBaieztatuPasahitzaErregistratu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/baieztatu_pasahitza_hint"
-                    android:inputType="textPassword"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <!-- Hasi saioa -->
-        <ImageButton
-            android:id="@+id/ImageButtonErregistratu"
-            android:layout_width="147dp"
-            android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/kolorea"
-            android:src="@drawable/erregistratu_botoia"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="30dp">
 
-        <ProgressBar
-            android:id="@+id/indeterminateBarRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </LinearLayout>
+            <!-- User  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/user_ikono_txikia" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditTextWhite">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputEditTextErabiltzaileaErregistratu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/erabiltzailea_hint"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Email  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/karta_ikono" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditTextWhite">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputEditTextEmailErregistratu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/korreo_elektronikoa_hint"
+                        android:inputType="textEmailAddress"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Password  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/kandado_ikono" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditTextWhite"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputEditTextPasahitzaErregistratu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/pasahitza_hint"
+                        android:inputType="textPassword"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Confirm Password  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/kandado_ikono" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditTextWhite"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputEditTextBaieztatuPasahitzaErregistratu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/baieztatu_pasahitza_hint"
+                        android:inputType="textPassword"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Hasi saioa -->
+            <LinearLayout
+                android:id="@+id/buttonErregistratu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/hasi_saioa_botoia"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:scaleType="centerCrop">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Erregistratu"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/indeterminateBarRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,13 +2,20 @@ package com.example.shareart.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 
 import com.example.shareart.R;
 import com.example.shareart.providers.AuthProvider;
@@ -19,9 +26,9 @@ import com.google.android.material.textfield.TextInputEditText;
 public class PasahitzaBerreskuratuActivity extends AppCompatActivity {
 
     private TextInputEditText editTextEmail;
-    private ImageButton imageButtonPasahitzaBerreskuratu;
-    private ImageButton atzeraBotoia;
+    private LinearLayout imageButtonPasahitzaBerreskuratu;
     private ProgressBar progressBar;
+    private Toolbar toolbar;
 
     private AuthProvider authProvider;
 
@@ -36,17 +43,20 @@ public class PasahitzaBerreskuratuActivity extends AppCompatActivity {
     private void hasieratu() {
         // EditText
         editTextEmail = findViewById(R.id.textInputEditTextEmailBerreskuratu);
-        // ImageButton
-        imageButtonPasahitzaBerreskuratu = findViewById(R.id.imageButtonBerreskuratu);
-        atzeraBotoia = findViewById(R.id.atzera_botoiaBerreskuratu);
+        //LinearLayout
+        imageButtonPasahitzaBerreskuratu = findViewById(R.id.buttonBerreskuratu);
         // ProgressBar
         progressBar = findViewById(R.id.indeterminateBarBerreskuratu);
         progressBar.setVisibility(View.INVISIBLE);
         // Providers
         authProvider = new AuthProvider();
+        // Tresna-barra
+        toolbar = findViewById(R.id.ToolBar);
+        toolbar.setTitle("Pasahitza berreskuratu");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // OnClickListener
         imageButtonPasahitzaBerreskuratu.setOnClickListener(this::berreskuratuPasahitza);
-        atzeraBotoia.setOnClickListener(this::atzeraJoan);
     }
 
     private void berreskuratuPasahitza(View view) {
@@ -76,7 +86,11 @@ public class PasahitzaBerreskuratuActivity extends AppCompatActivity {
         });
     }
 
-    private void atzeraJoan(View view) {
-        finish();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 }

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView erregistroLinka;
     private TextInputEditText emailEditText;
     private TextInputEditText pasahitzaEditText;
-    private ImageButton hasiSaioBotoia;
+    private LinearLayout hasiSaioBotoia;
     private ProgressBar progressBar;
     private TextView pasahitzaBerreskuratuTextView;
 
@@ -76,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
         // EditText
         emailEditText = findViewById(R.id.textInputEditTextEmailLogin);
         pasahitzaEditText = findViewById(R.id.textInputEditTextPasahitzaLogin);
-        // ImageButton
-        hasiSaioBotoia = findViewById(R.id.ImageButtonHasiSaioa);
+        // LinearLayout
+        hasiSaioBotoia = findViewById(R.id.buttonHasiSaioa);
+        //ImageButton
         hasiSaioaGooglekinBotoia = findViewById(R.id.ButtonHasiSaioaGoogle);
         // Login Google-ekin
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

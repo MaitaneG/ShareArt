@@ -7,37 +7,9 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.PasahitzaBerreskuratuActivity">
 
-    <ImageButton
-        android:id="@+id/atzera_botoiaBerreskuratu"
-        android:layout_width="71dp"
-        android:layout_height="65dp"
-        android:backgroundTint="@color/kolorea"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/atzera_ikonoa"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.355"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="BERRESKURATU ZURE PASAHITZA"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.045" />
+    <include
+        android:id="@+id/include2"
+        layout="@layout/toolbar" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -45,79 +17,99 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/kandado_txuria"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/cardview2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.418" />
+        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintVertical_bias="0.541" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="270dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/rectangulo_login"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.668">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="center"
-            android:text="*Mezu bat bidaliko dizugu, bertan zure pasahitza aldatzeko."
-            android:textStyle="italic" />
+        app:layout_constraintVertical_bias="0.55"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="8dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="40dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/karta_ikono" />
-
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:text="*Mezu bat bidaliko dizugu, bertan zure pasahitza aldatzeko."
+                android:textStyle="italic" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditTextEmailBerreskuratu"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/karta_ikono" />
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Korreoa"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:theme="@style/EditTextWhite">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextEmailBerreskuratu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Korreoa"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Hasi saioa -->
+            <LinearLayout
+                android:id="@+id/buttonBerreskuratu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/hasi_saioa_botoia"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:scaleType="centerCrop">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bidali mezua"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/indeterminateBarBerreskuratu"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp" />
         </LinearLayout>
 
-        <!-- Hasi saioa -->
-        <ImageButton
-            android:id="@+id/imageButtonBerreskuratu"
-            android:layout_width="147dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="@color/kolorea"
-            android:src="@drawable/pasahitza_berreskuratu_botoia"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+    </androidx.cardview.widget.CardView>
 
-        <ProgressBar
-            android:id="@+id/indeterminateBarBerreskuratu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

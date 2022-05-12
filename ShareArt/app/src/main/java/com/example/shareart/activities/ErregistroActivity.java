@@ -4,13 +4,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.shareart.R;
 import com.example.shareart.models.Erabiltzailea;
@@ -30,13 +33,13 @@ import java.util.regex.Pattern;
  */
 public class ErregistroActivity extends AppCompatActivity {
 
-    private ImageButton atzeraBotoia;
-    private ImageButton erregistratuBotoia;
+    private LinearLayout erregistratuBotoia;
     private TextInputEditText erabiltzaileaEditText;
     private TextInputEditText emailEditText;
     private TextInputEditText pasahitzaEditText;
     private TextInputEditText pasahitzaBaieztatuEditText;
     private ProgressBar progressBar;
+    private Toolbar toolbar;
 
     private AuthProvider authProvider;
     private UserProvider userProvider;
@@ -58,8 +61,7 @@ public class ErregistroActivity extends AppCompatActivity {
      */
     private void hasieratu() {
         // Botoiak
-        atzeraBotoia = findViewById(R.id.atzera_botoia);
-        erregistratuBotoia = findViewById(R.id.ImageButtonErregistratu);
+        erregistratuBotoia = findViewById(R.id.buttonErregistratu);
         // EditText
         erabiltzaileaEditText = findViewById(R.id.TextInputEditTextErabiltzaileaErregistratu);
         emailEditText = findViewById(R.id.TextInputEditTextEmailErregistratu);
@@ -71,8 +73,11 @@ public class ErregistroActivity extends AppCompatActivity {
         // ProgressBar
         progressBar = (ProgressBar) findViewById(R.id.indeterminateBarRegister);
         progressBar.setVisibility(View.INVISIBLE);
-        // OnClickListener
-        atzeraBotoia.setOnClickListener(this::atzeraJoan);
+        // Tresna-barra
+        toolbar = findViewById(R.id.ToolBar);
+        toolbar.setTitle("Erregistratu orain");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         erregistratuBotoia.setOnClickListener(this::erregistratu);
     }
 
@@ -173,11 +178,15 @@ public class ErregistroActivity extends AppCompatActivity {
 
     /**
      * Hasierako menura joateko botoia klikatzean
-     *
-     * @param view
+     * @param item
+     * @return
      */
-    private void atzeraJoan(View view) {
-        atzeraAlertDialog();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            atzeraAlertDialog();
+        }
+        return true;
     }
 
     /**

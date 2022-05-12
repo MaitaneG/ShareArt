@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_fondoa"
@@ -16,21 +15,19 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.421" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="270dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/rectangulo_login"
-        android:orientation="vertical"
-        android:padding="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -38,100 +35,119 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.572">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="@string/hasi_saioa_tituloa"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-
-        <!-- Email  -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/karta_ikono" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditTextEmailLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/korreo_elektronikoa_hint"
-                    android:inputType="textEmailAddress"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <!-- Password  -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/kandado_ikono" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true"
-                android:theme="@style/EditTextWhite">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditTextPasahitzaLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/pasahitza_hint"
-                    android:inputType="textPassword"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <!-- Hasi saioa -->
-
-        <ImageButton
-            android:id="@+id/ImageButtonHasiSaioa"
-            android:layout_width="147dp"
-            android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/kolorea"
-            android:src="@drawable/hasi_saioa_botoia"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/ButtonHasiSaioaGoogle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="35dp"
-            android:layout_marginTop="10dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/hasi_saioa_tituloa"
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
-        <ProgressBar
-            android:id="@+id/indeterminateBarLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </LinearLayout>
+            <!-- Email  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/karta_ikono" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditTextWhite">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextEmailLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/korreo_elektronikoa_hint"
+                        android:inputType="textEmailAddress"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Password  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/kandado_ikono" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditTextWhite"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextPasahitzaLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/pasahitza_hint"
+                        android:inputType="textPassword"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Hasi saioa -->
+
+            <LinearLayout
+                android:id="@+id/buttonHasiSaioa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/hasi_saioa_botoia"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:scaleType="centerCrop">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hasi saioa"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/ButtonHasiSaioaGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="35dp"
+                android:layout_marginTop="10dp" />
+
+            <ProgressBar
+                android:id="@+id/indeterminateBarLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/erregistratu_linka"
@@ -157,10 +173,9 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.087" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.186" />
 
     <TextView
         android:id="@+id/textView"
