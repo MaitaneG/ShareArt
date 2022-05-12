@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +20,9 @@ import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -41,6 +45,8 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
     private PostProvider postProvider;
     private MyPostAdapter postAdapter;
 
+    private ListenerRegistration listenerRegistration;
+
     private String extraErabiltzaileId;
 
     @Override
@@ -54,8 +60,7 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
 
         // Erabiltzailea hasieratu
         getErabiltzailearenInformazioa();
-        getArgitalpenKopurua();
-        getExistitzenDenArgitalpena();
+        getExistitzenDenArgitalpenaEtaKopurua();
     }
 
     private void hasieratu() {
@@ -128,24 +133,17 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
         });
     }
 
-    private void getArgitalpenKopurua() {
-        postProvider.getArgitalpenakByErabiltzailea(extraErabiltzaileId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+    private void getExistitzenDenArgitalpenaEtaKopurua() {
+        listenerRegistration = postProvider.getArgitalpenakByErabiltzailea(extraErabiltzaileId).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                int zenbat = queryDocumentSnapshots.size();
-                argitalpenKopuruaTextView.setText(zenbat + "");
-            }
-        });
-    }
-
-    private void getExistitzenDenArgitalpena() {
-        postProvider.getArgitalpenGuztiak().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots.getDocuments().size() > 0) {
-                    argitalpenTexView.setText("Argitalpenak");
-                } else {
-                    argitalpenTexView.setText("Ez daude argitalpeik");
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value != null) {
+                    if (value.size() > 0) {
+                        argitalpenTexView.setText("Argitalpenak");
+                        argitalpenKopuruaTextView.setText(value.size() + "");
+                    } else {
+                        argitalpenTexView.setText("Ez daude argitalpenik");
+                    }
                 }
             }
         });
@@ -178,5 +176,13 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         postAdapter.stopListening();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (postAdapter != null) {
+            listenerRegistration.remove();
+        }
     }
 }

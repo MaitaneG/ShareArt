@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,9 @@ import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -52,6 +56,8 @@ public class ProfilaFragment extends Fragment {
     private UserProvider userProvider;
     private PostProvider postProvider;
     private MyPostAdapter postAdapter;
+
+    private ListenerRegistration listenerRegistration;
 
     public ProfilaFragment() {
         // Required empty public constructor
@@ -87,8 +93,7 @@ public class ProfilaFragment extends Fragment {
         postProvider = new PostProvider();
         // Erabiltzailea hasieratu
         getErabiltzailearenInformazioa();
-        getArgitalpenKopurua();
-        getExistitzenDenArgitalpena();
+        getExistitzenDenArgitalpenaEtaKopurua();
         // RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewNireArgitarapenak);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -142,24 +147,17 @@ public class ProfilaFragment extends Fragment {
         });
     }
 
-    private void getArgitalpenKopurua() {
-        postProvider.getArgitalpenakByErabiltzailea(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+    private void getExistitzenDenArgitalpenaEtaKopurua() {
+        listenerRegistration = postProvider.getArgitalpenakByErabiltzailea(authProvider.getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                int zenbat = queryDocumentSnapshots.size();
-                argitalpenKopuruaTextView.setText(zenbat + "");
-            }
-        });
-    }
-
-    private void getExistitzenDenArgitalpena() {
-        postProvider.getArgitalpenakByErabiltzailea(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots.getDocuments().size() > 0) {
-                    argitalpenTexView.setText("Argitalpenak");
-                } else {
-                    argitalpenTexView.setText("Ez daude argitalpenik");
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value != null) {
+                    if (value.size() > 0) {
+                        argitalpenTexView.setText("Argitalpenak");
+                        argitalpenKopuruaTextView.setText(value.size() + "");
+                    } else {
+                        argitalpenTexView.setText("Ez daude argitalpenik");
+                    }
                 }
             }
         });
@@ -188,5 +186,13 @@ public class ProfilaFragment extends Fragment {
         postAdapter = new MyPostAdapter(options, getContext());
         recyclerView.setAdapter(postAdapter);
         postAdapter.startListening();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (postAdapter!=null){
+            listenerRegistration.remove();
+        }
     }
 }
