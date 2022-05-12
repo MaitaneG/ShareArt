@@ -12,9 +12,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -50,7 +53,7 @@ import java.util.Date;
 public class ArgitalpenActivity extends AppCompatActivity {
 
     private ImageView argazkiaIgoBotoia;
-    private ImageButton argitaratuBotoia;
+    private LinearLayout argitaratuBotoia;
     private ProgressBar progressBar;
     private AlertDialog.Builder alertDialog;
     private TextInputEditText editTextDeskripzioa;
@@ -64,6 +67,7 @@ public class ArgitalpenActivity extends AppCompatActivity {
     private ImageView imageViewKarikatura;
     private ImageView imageViewNaturaHila;
     private ImageView imageViewAbstraktua;
+    private Toolbar toolbar;
 
     private File argazkiaFitxeroa;
     private Uri imageUri;
@@ -95,7 +99,7 @@ public class ArgitalpenActivity extends AppCompatActivity {
     private void hasieratu() {
         // ImageButton
         argazkiaIgoBotoia = findViewById(R.id.ImageViewArgazkiaIgo);
-        argitaratuBotoia = findViewById(R.id.ImageButtonArgitaratu);
+        argitaratuBotoia = findViewById(R.id.buttonArgitaratu);
         // ImageView
         imageViewNatura = findViewById(R.id.imageViewNatura);
         imageViewHiperrealismoa = findViewById(R.id.imageViewHiperrealismo);
@@ -116,6 +120,11 @@ public class ArgitalpenActivity extends AppCompatActivity {
         // AlertDialog
         alertDialog = new AlertDialog.Builder(this).setTitle("Hautatu aukera bat");
         options = new CharSequence[]{"Galeriako argazki bat", "Argazkia atera"};
+        // Tresna-barra
+        toolbar = findViewById(R.id.ToolBar);
+        toolbar.setTitle("Argitaratu zure marrazkia");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // OnClickListener
         argazkiaIgoBotoia.setOnClickListener(this::argakiaAukeratzekoMetodoa);
         argitaratuBotoia.setOnClickListener(this::argitaratu);
@@ -128,7 +137,7 @@ public class ArgitalpenActivity extends AppCompatActivity {
         imageViewKarikatura.setOnClickListener(this::kategoriaAldatu);
         imageViewNaturaHila.setOnClickListener(this::kategoriaAldatu);
         imageViewAbstraktua.setOnClickListener(this::kategoriaAldatu);
-        // ImageProvider
+        // Providers
         imageProvider = new ImageProvider();
         postProvider = new PostProvider();
         authProvider = new AuthProvider();
@@ -229,7 +238,6 @@ public class ArgitalpenActivity extends AppCompatActivity {
                             if (imageUri != null) {
                                 argazkiaFitxeroa = FileUtil.from(ArgitalpenActivity.this, imageUri);
                                 argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
-                                argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
                             }
                         } catch (Exception ex) {
                             Toast.makeText(ArgitalpenActivity.this, "Errore bat egon da", Toast.LENGTH_SHORT).show();
@@ -321,11 +329,15 @@ public class ArgitalpenActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Atzera botoia ematean alerta bat agertzea
-     */
     @Override
-    public void onBackPressed() {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            atzeraAlertDialog();
+        }
+        return true;
+    }
+
+    private void atzeraAlertDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Argitarapen pantailatik irteten")
                 .setMessage("Ziur zaude joan nahi zarela argitaratu gabe?")
@@ -337,6 +349,14 @@ public class ArgitalpenActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Ez", null)
                 .show();
+    }
+
+    /**
+     * Atzera botoia ematean alerta bat agertzea
+     */
+    @Override
+    public void onBackPressed() {
+        atzeraAlertDialog();
     }
 
     private void checkPermission(String permission, int requestCode) {

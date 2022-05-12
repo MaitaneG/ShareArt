@@ -7,224 +7,227 @@
     android:background="@drawable/argazkia_igo_fondoa"
     tools:context=".activities.ArgitalpenActivity">
 
+    <include
+        android:id="@+id/include2"
+        layout="@layout/toolbar" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="379dp"
-        android:layout_height="60dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/titulua_argitaratu"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <ImageView
+        android:id="@+id/ImageViewArgazkiaIgo"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/kamara_argazkia_igotzeko"
+        app:layout_constraintBottom_toTopOf="@+id/cardview2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.037" />
+        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintVertical_bias="0.2" />
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-        <ImageView
-            android:id="@+id/ImageViewArgazkiaIgo"
-            android:layout_width="167dp"
-            android:layout_height="162dp"
-            android:src="@drawable/kamara_argazkia_igotzeko" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="294dp"
-        android:layout_height="400dp"
-        android:layout_gravity="center"
-        android:background="@drawable/rectangulo_login"
-        android:orientation="vertical"
-        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.909">
-
-        <!-- Deskripzioa  -->
+        app:layout_constraintTop_toTopOf="@id/ImageViewArgazkiaIgo"
+        app:layout_constraintVertical_bias="0.70"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="8dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/deskripzioa_ikonoa" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditTextDeskripzioa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/deskripzioa_hint"
-                    android:inputType="textImeMultiLine"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <!-- Kategoria -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:text="@string/kategoria_titulua"
-            android:textSize="18sp" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="120dp">
-            <!-- Layout horizontal -->
+            <!-- Deskripzioa  -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!-- Layout bertikala ezkerra -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="270dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/deskripzioa_ikonoa" />
 
-                    <!-- Natura -->
-                    <ImageView
-                        android:id="@+id/imageViewNatura"
-                        android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditTextWhite">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextDeskripzioa"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/natura_kategoria" />
-
-                    <!-- Hiperrealismo -->
-                    <ImageView
-                        android:id="@+id/imageViewHiperrealismo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/hiperrealismo_kategoria" />
-
-                    <!-- Erretratoak -->
-                    <ImageView
-                        android:id="@+id/imageViewErretratoak"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/erretratoak_kategoria" />
-
-                    <!-- Grafitiak -->
-                    <ImageView
-                        android:id="@+id/imageViewGraffiti"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/graffitiak_kategoria" />
-
-                    <ImageView
-                        android:id="@+id/imageViewAbstraktua"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/abstraktua_kategoria" />
-                </LinearLayout>
-
-                <!-- Layout bertikala eskuma -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="210dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <!-- Komikia -->
-                    <ImageView
-                        android:id="@+id/imageViewKomikia"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/komikia_kategoria" />
-
-                    <!-- Ilustrazioa -->
-                    <ImageView
-                        android:id="@+id/imageViewIlustrazioa"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ilustrazioa_kategoria" />
-
-                    <!-- Karikatura -->
-                    <ImageView
-                        android:id="@+id/imageViewKarikatura"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/karikatura_kategoria" />
-
-                    <!-- Natura hila -->
-                    <ImageView
-                        android:id="@+id/imageViewNaturaHila"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/natura_hila_kategoria" />
-                </LinearLayout>
+                        android:hint="@string/deskripzioa_hint"
+                        android:inputType="textImeMultiLine"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-        </ScrollView>
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="255dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Aukeratutako kategoria: "
-            android:textAlignment="center"
-            android:textSize="16sp" />
+            <!-- Kategoria -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="@string/kategoria_titulua"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textViewAukeratutakoKategoria"
-            android:layout_width="255dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="sans-serif"
-            android:textAlignment="center"
-            android:textSize="16sp" />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+                <!-- Layout horizontal -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/ImageButtonArgitaratu"
-            android:layout_width="147dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/kolorea"
-            android:src="@drawable/argitaratu_botoia"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                    <!-- Layout bertikala ezkerra -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="270dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/indeterminateBarPost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </LinearLayout>
+                        <!-- Natura -->
+                        <ImageView
+                            android:id="@+id/imageViewNatura"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/natura_kategoria" />
+
+                        <!-- Hiperrealismo -->
+                        <ImageView
+                            android:id="@+id/imageViewHiperrealismo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/hiperrealismo_kategoria" />
+
+                        <!-- Erretratoak -->
+                        <ImageView
+                            android:id="@+id/imageViewErretratoak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/erretratoak_kategoria" />
+
+                        <!-- Grafitiak -->
+                        <ImageView
+                            android:id="@+id/imageViewGraffiti"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/graffitiak_kategoria" />
+
+                        <ImageView
+                            android:id="@+id/imageViewAbstraktua"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/abstraktua_kategoria" />
+                    </LinearLayout>
+
+                    <!-- Layout bertikala eskuma -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="210dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <!-- Komikia -->
+                        <ImageView
+                            android:id="@+id/imageViewKomikia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/komikia_kategoria" />
+
+                        <!-- Ilustrazioa -->
+                        <ImageView
+                            android:id="@+id/imageViewIlustrazioa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ilustrazioa_kategoria" />
+
+                        <!-- Karikatura -->
+                        <ImageView
+                            android:id="@+id/imageViewKarikatura"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/karikatura_kategoria" />
+
+                        <!-- Natura hila -->
+                        <ImageView
+                            android:id="@+id/imageViewNaturaHila"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/natura_hila_kategoria" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="255dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Aukeratutako kategoria: "
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textViewAukeratutakoKategoria"
+                android:layout_width="255dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/buttonArgitaratu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/hasi_saioa_botoia"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:scaleType="centerCrop">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Argitaratu"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/indeterminateBarPost"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
