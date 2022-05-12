@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private  LinearLayoutManager linearLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
 
     private AuthProvider authProvider;
     private PostProvider postProvider;
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
-                recyclerView.scrollToPosition(itemCount-1);
+                recyclerView.scrollToPosition(itemCount - 1);
             }
         });
     }
@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
         userProvider.getErabiltzaileaByErabiltzaileIzena(s).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (int i=0;i<queryDocumentSnapshots.size();i++){
+                for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
 
                     Query query = postProvider.getArgitalpenakByErabiltzailea(queryDocumentSnapshots.getDocuments().get(i).getId());
                     FirestoreRecyclerOptions<Argitalpena> options =
@@ -186,5 +186,14 @@ public class HomeFragment extends Fragment {
     public void onStop() {
         super.onStop();
         postAdapter.stopListening();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (postAdapter != null) {
+            postAdapter.getListenerRegistrationLike().remove();
+            postAdapter.getListenerRegistrationKomentarioa().remove();
+        }
     }
 }

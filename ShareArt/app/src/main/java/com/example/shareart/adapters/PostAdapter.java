@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +42,11 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     private final CommentProvider commentProvider;
     private final LikeProvider likeProvider;
     private final AuthProvider authProvider;
+
+    private ListenerRegistration listenerRegistrationKomentarioa;
+    private ListenerRegistration listenerRegistrationLike;
+
+
     private TextView textView;
 
     public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
@@ -142,7 +148,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ArgitarapenBakarraActivity.class);
-                intent.putExtra("postId",post_id);
+                intent.putExtra("postId", post_id);
                 context.startActivity(intent);
             }
         });
@@ -162,19 +168,23 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     }
 
     private void getKomentarioKopurua(String postId, ViewHolder holder) {
-        commentProvider.getKomentarioakByArgitalpen(postId).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        listenerRegistrationKomentarioa = commentProvider.getKomentarioakByArgitalpen(postId).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                holder.textViewKomentarioa.setText(value.size() + "");
+                if (value != null) {
+                    holder.textViewKomentarioa.setText(value.size() + "");
+                }
             }
         });
     }
 
     private void getLikeKopurua(String post_id, ViewHolder holder) {
-        likeProvider.getLikesByArgitalpen(post_id).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        listenerRegistrationLike = likeProvider.getLikesByArgitalpen(post_id).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                holder.textViewLikeKopurua.setText(value.size() + "");
+                if (value != null) {
+                    holder.textViewLikeKopurua.setText(value.size() + "");
+                }
             }
         });
     }
@@ -210,6 +220,14 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
                 }
             }
         });
+    }
+
+    public ListenerRegistration getListenerRegistrationKomentarioa() {
+        return listenerRegistrationKomentarioa;
+    }
+
+    public ListenerRegistration getListenerRegistrationLike() {
+        return listenerRegistrationLike;
     }
 
     @NonNull

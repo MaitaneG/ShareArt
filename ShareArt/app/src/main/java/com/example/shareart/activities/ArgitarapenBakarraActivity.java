@@ -182,4 +182,13 @@ public class ArgitarapenBakarraActivity extends AppCompatActivity {
         super.onStop();
         postAdapter.stopListening();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (postAdapter != null) {
+            postAdapter.getListenerRegistrationLike().remove();
+            postAdapter.getListenerRegistrationKomentarioa().remove();
+        }
+    }
 }
