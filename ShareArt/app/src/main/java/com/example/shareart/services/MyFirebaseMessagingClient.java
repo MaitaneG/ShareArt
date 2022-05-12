@@ -8,6 +8,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
+import java.util.Random;
 
 public class MyFirebaseMessagingClient extends FirebaseMessagingService {
 
@@ -31,6 +32,8 @@ public class MyFirebaseMessagingClient extends FirebaseMessagingService {
     private void showNotification(String title, String body) {
         NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
         NotificationCompat.Builder builder = notificationHelper.getNotification(title, body);
-        notificationHelper.getManager().notify(1, builder.build());
+        Random random=new Random();
+        int n= random.nextInt(10000);
+        notificationHelper.getManager().notify(n, builder.build());
     }
 }
