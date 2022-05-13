@@ -18,7 +18,9 @@ import com.example.shareart.R;
 import com.example.shareart.activities.ArgitarapenBakarraActivity;
 import com.example.shareart.models.Argitalpena;
 import com.example.shareart.providers.AuthProvider;
+import com.example.shareart.providers.CommentProvider;
 import com.example.shareart.providers.ImageProvider;
+import com.example.shareart.providers.LikeProvider;
 import com.example.shareart.providers.PostProvider;
 import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -37,6 +39,8 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
     private final PostProvider postProvider;
     private final AuthProvider authProvider;
     private final ImageProvider imageProvider;
+    private final LikeProvider likeProvider;
+    private final CommentProvider commentProvider;
 
     public MyPostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
@@ -44,6 +48,8 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
         postProvider = new PostProvider();
         authProvider = new AuthProvider();
         imageProvider = new ImageProvider();
+        likeProvider = new LikeProvider();
+        commentProvider = new CommentProvider();
     }
 
     @Override
@@ -78,6 +84,8 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 postProvider.deleteArgitalpena(model.getId());
                                 imageProvider.deleteArgazkia(model.getUrl_argazkia());
+                                likeProvider.deleteLikeByArgitalpen(model.getId());
+                                commentProvider.deleteKomentarioaByArgitalpen(model.getId());
                             }
                         })
                         .setNegativeButton("Ez", null)
