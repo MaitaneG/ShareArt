@@ -7,7 +7,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -47,12 +49,13 @@ public class NotificationHelper extends ContextWrapper {
     public NotificationCompat.Builder getNotification(String title, String body) {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.logo_shareart)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo_shareart))
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
-                .setSmallIcon(R.drawable.logo_shareart)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(body).setBigContentTitle(title));
-
+        Log.d("ez dakit",notificationBuilder.getExtras().toString());
         Intent notficationIntent = new Intent(this, HomeActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notficationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
