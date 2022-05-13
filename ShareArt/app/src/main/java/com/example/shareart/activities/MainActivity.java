@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void konprobatuErabiltzaileaExistitzenDen(String id) {
-        userProvider.getErabiltzailea(id).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        userProvider.getErabiltzailea(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {

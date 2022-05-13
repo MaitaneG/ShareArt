@@ -74,7 +74,7 @@ public class ArgitarapenBakarraActivity extends AppCompatActivity {
         postProvider.getArgitalpenaById(post_id).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                userProvider.getErabiltzailea(documentSnapshot.getString("id_user")).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                userProvider.getErabiltzailea(documentSnapshot.getString("id_user")).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         erabiltzaile_izena = documentSnapshot.getString("erabiltzaile_izena");

@@ -122,7 +122,7 @@ public class ProfilaEguneratuActivity extends AppCompatActivity {
      * Momentuko erabiltzailearen informazioa lortu
      */
     private void erabiltzaileaLortu() {
-        userProvider.getErabiltzailea(authProvider.getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        userProvider.getErabiltzailea(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {

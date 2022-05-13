@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         // Provider
         AuthProvider authProvider = new AuthProvider();
         UserProvider userProvider = new UserProvider();
-        userProvider.getErabiltzailea(authProvider.getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        userProvider.getErabiltzailea(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.getString("erabiltzaile_izena").equals("")) {

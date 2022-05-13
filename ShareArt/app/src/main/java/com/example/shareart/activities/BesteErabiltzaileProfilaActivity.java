@@ -88,7 +88,7 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
     }
 
     private void getErabiltzailearenInformazioa() {
-        userProvider.getErabiltzailea(extraErabiltzaileId).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        userProvider.getErabiltzailea(extraErabiltzaileId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {

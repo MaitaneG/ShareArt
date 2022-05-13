@@ -101,7 +101,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
     }
 
     private void erabiltzaileaBistaratu(String erabiltzaileId, ViewHolder holder) {
-        userProvider.getErabiltzailea(erabiltzaileId).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        userProvider.getErabiltzailea(erabiltzaileId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
