@@ -59,6 +59,7 @@ public class KomentarioakActivity extends AppCompatActivity {
 
     private String extraPostId;
     private String komentatzailea;
+    private String postId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +95,7 @@ public class KomentarioakActivity extends AppCompatActivity {
         // OnClickListener
         komentatuBotoia.setOnClickListener(this::komentatu);
 
-        userProvider.getErabiltzailea(authProvider.getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        userProvider.getErabiltzailea(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -162,6 +163,7 @@ public class KomentarioakActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.getString("id_user") != null) {
+                    postId = documentSnapshot.getString("id");
                     tokenProvider.getToken(documentSnapshot.getString("id_user")).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -170,6 +172,7 @@ public class KomentarioakActivity extends AppCompatActivity {
                                 Map<String, String> data = new HashMap<>();
                                 data.put("title", "Komentario berria (" + komentatzailea + ")");
                                 data.put("body", mezua);
+                                data.put("postId", postId);
                                 FCMBody body = new FCMBody(token, "high", "4500s", data);
                                 notificationProvider.sendNotification(body).enqueue(new Callback<FCMResponse>() {
                                     @Override
@@ -220,7 +223,7 @@ public class KomentarioakActivity extends AppCompatActivity {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
-                recyclerView.scrollToPosition(itemCount-1);
+                recyclerView.scrollToPosition(itemCount - 1);
             }
         });
     }

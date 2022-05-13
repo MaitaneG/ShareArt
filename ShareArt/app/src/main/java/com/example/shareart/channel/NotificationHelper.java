@@ -14,6 +14,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.example.shareart.R;
+import com.example.shareart.activities.ArgitarapenBakarraActivity;
 import com.example.shareart.activities.HomeActivity;
 import com.example.shareart.activities.KomentarioakActivity;
 import com.example.shareart.providers.NotificationProvider;
@@ -46,7 +47,7 @@ public class NotificationHelper extends ContextWrapper {
         return manager;
     }
 
-    public NotificationCompat.Builder getNotification(String title, String body) {
+    public NotificationCompat.Builder getNotification(String title, String body, String postId) {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo_shareart)
@@ -55,8 +56,9 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(body).setBigContentTitle(title));
-        Log.d("ez dakit",notificationBuilder.getExtras().toString());
-        Intent notficationIntent = new Intent(this, HomeActivity.class);
+        Log.d("a", notificationBuilder.getExtras().toString());
+        Intent notficationIntent = new Intent(this, ArgitarapenBakarraActivity.class);
+        notficationIntent.putExtra("postId", postId);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notficationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
         return notificationBuilder;

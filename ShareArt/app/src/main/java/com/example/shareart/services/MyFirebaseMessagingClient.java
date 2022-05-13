@@ -23,17 +23,18 @@ public class MyFirebaseMessagingClient extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
         String title = data.get("title");
         String body = data.get("body");
+        String postId = data.get("postId");
 
         if (title != null) {
-            showNotification(title, body);
+            showNotification(title, body, postId);
         }
     }
 
-    private void showNotification(String title, String body) {
+    private void showNotification(String title, String body, String postId) {
         NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
-        NotificationCompat.Builder builder = notificationHelper.getNotification(title, body);
-        Random random=new Random();
-        int n= random.nextInt(10000);
+        NotificationCompat.Builder builder = notificationHelper.getNotification(title, body, postId);
+        Random random = new Random();
+        int n = random.nextInt(10000);
         notificationHelper.getManager().notify(n, builder.build());
     }
 }
