@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -147,9 +148,7 @@ public class ErregistroActivity extends AppCompatActivity {
                     userProvider.createErabiltzailea(erabiltzailea);
                     Toast.makeText(ErregistroActivity.this, "Erabiltzailea ondo sortu da", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(ErregistroActivity.this, HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    egiaztatzekoMezua();
                 } else {
                     Toast.makeText(ErregistroActivity.this, "Arazo bat egon da erabiltzailea sortzean", Toast.LENGTH_SHORT).show();
                 }
@@ -157,6 +156,29 @@ public class ErregistroActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    private void egiaztatzekoMezua() {
+        new AlertDialog.Builder(this)
+                .setMessage(Html.fromHtml("Zure korreoa egiaztatu nahi duzu?<br><br><i>Ez baduzu orain egiten geroago egin ahal dezakezu konfigurazio pantailan</i>"))
+                .setPositiveButton("Ongi", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(ErregistroActivity.this, KonfigurazioaActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Orain ez", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(ErregistroActivity.this, HomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 
     /**
@@ -173,11 +195,13 @@ public class ErregistroActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton("Ez", null)
+                .setCancelable(false)
                 .show();
     }
 
     /**
      * Hasierako menura joateko botoia klikatzean
+     *
      * @param item
      * @return
      */
