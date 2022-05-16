@@ -174,5 +174,4 @@ public class KonfigurazioaActivity extends AppCompatActivity {
         }
         return true;
     }
-
 }

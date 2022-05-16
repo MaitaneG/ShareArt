@@ -15,6 +15,9 @@ public class FCMBody {
         this.data = data;
     }
 
+    public FCMBody() {
+    }
+
     public String getTo() {
         return to;
     }

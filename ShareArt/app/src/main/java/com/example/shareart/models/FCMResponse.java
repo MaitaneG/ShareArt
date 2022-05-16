@@ -8,7 +8,7 @@ public class FCMResponse {
     private int success;
     private int failure;
     private int canonicals_ids;
-    ArrayList<Object> results = new ArrayList<>();
+    private ArrayList<Object> results = new ArrayList<>();
 
     public FCMResponse(long multicast_id, int success, int failure, int canonicals_ids, ArrayList<Object> results) {
         this.multicast_id = multicast_id;
@@ -16,6 +16,9 @@ public class FCMResponse {
         this.failure = failure;
         this.canonicals_ids = canonicals_ids;
         this.results = results;
+    }
+
+    public FCMResponse() {
     }
 
     public long getMulticast_id() {

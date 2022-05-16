@@ -51,6 +51,11 @@ public class ArgitarapenBakarraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_argitarapen_bakarra);
 
+        hasieratu();
+        kargatuInformazioa();
+    }
+
+    private void hasieratu() {
         post_id = getIntent().getStringExtra("postId");
 
         // Tresna barra
@@ -67,7 +72,6 @@ public class ArgitarapenBakarraActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-        kargatuInformazioa();
     }
 
     private void kargatuInformazioa() {
