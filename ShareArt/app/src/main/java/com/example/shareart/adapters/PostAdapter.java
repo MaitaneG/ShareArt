@@ -18,10 +18,15 @@ import com.example.shareart.activities.ArgitarapenBakarraActivity;
 import com.example.shareart.activities.BesteErabiltzaileProfilaActivity;
 import com.example.shareart.activities.KomentarioakActivity;
 import com.example.shareart.models.Argitalpena;
+import com.example.shareart.models.FCMBody;
+import com.example.shareart.models.FCMResponse;
 import com.example.shareart.models.Like;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.CommentProvider;
 import com.example.shareart.providers.LikeProvider;
+import com.example.shareart.providers.NotificationProvider;
+import com.example.shareart.providers.PostProvider;
+import com.example.shareart.providers.TokenProvider;
 import com.example.shareart.providers.UserProvider;
 import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -36,6 +41,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapter.ViewHolder> {
     private final Context context;
@@ -43,12 +54,16 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     private final CommentProvider commentProvider;
     private final LikeProvider likeProvider;
     private final AuthProvider authProvider;
+    private final PostProvider postProvider;
+    private final TokenProvider tokenProvider;
+    private final NotificationProvider notificationProvider;
 
     private ListenerRegistration listenerRegistrationKomentarioa;
     private ListenerRegistration listenerRegistrationLike;
 
 
     private TextView textView;
+    private String komentatzailea;
 
     public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context) {
         super(options);
@@ -57,6 +72,9 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         commentProvider = new CommentProvider();
         likeProvider = new LikeProvider();
         authProvider = new AuthProvider();
+        postProvider = new PostProvider();
+        tokenProvider = new TokenProvider();
+        notificationProvider = new NotificationProvider();
     }
 
     public PostAdapter(@NonNull FirestoreRecyclerOptions<Argitalpena> options, Context context, TextView textView) {
@@ -66,6 +84,9 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         commentProvider = new CommentProvider();
         likeProvider = new LikeProvider();
         authProvider = new AuthProvider();
+        postProvider = new PostProvider();
+        tokenProvider = new TokenProvider();
+        notificationProvider = new NotificationProvider();
         this.textView = textView;
     }
 
@@ -164,7 +185,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
                 if (value != null) {
                     if (value.contains("egiaztatua") && value.getBoolean("egiaztatua") != null && value.getBoolean("egiaztatua")) {
                         holder.imageViewEgiaztatua.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         holder.imageViewEgiaztatua.setVisibility(View.GONE);
                     }
                 }
@@ -221,7 +242,54 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
                     likeProvider.createLike(like);
                     holder.imageViewLike.setImageResource(R.drawable.like_ikono_azul);
                     getLikeKopurua(like.getId_argitalpen(), holder);
+                    notifikazioBatBidali(like.getId_argitalpen());
                 }
+            }
+        });
+    }
+
+    private void notifikazioBatBidali(String id_argitalpen) {
+        postProvider.getArgitalpenaById(id_argitalpen).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                userProvider.getErabiltzailea(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                        komentatzailea = documentSnapshot.getString("erabiltzaile_izena");
+                    }
+                });
+
+                tokenProvider.getToken(documentSnapshot.getString("id_user")).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.contains("token")) {
+                            String token = documentSnapshot.getString("token");
+                            Map<String, String> data = new HashMap<>();
+                            data.put("title", "Like berri bat daukazu");
+                            data.put("body", komentatzailea + " like bat eman dizu");
+                            data.put("postId", id_argitalpen);
+                            FCMBody body = new FCMBody(token, "high", "4500s", data);
+                            notificationProvider.sendNotification(body).enqueue(new Callback<FCMResponse>() {
+                                @Override
+                                public void onResponse(Call<FCMResponse> call, Response<FCMResponse> response) {
+                                    if (response.body() != null) {
+                                        if (response.body().getSuccess() == 1) {
+                                            Toast.makeText(context, "SE HA ENVIADO EL MENSAJE", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<FCMResponse> call, Throwable t) {
+
+                                }
+                            });
+                        } else {
+                            Toast.makeText(context, "NO HAY TOKEN", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
     }
