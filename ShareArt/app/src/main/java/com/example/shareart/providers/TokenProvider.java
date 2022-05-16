@@ -13,7 +13,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class TokenProvider {
 
-    CollectionReference collectionReference;
+    private CollectionReference collectionReference;
 
     public TokenProvider() {
         collectionReference = FirebaseFirestore.getInstance().collection("Tokens");

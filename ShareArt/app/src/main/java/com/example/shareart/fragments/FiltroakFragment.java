@@ -34,8 +34,6 @@ public class FiltroakFragment extends Fragment {
     private ImageView imageViewAbstraktua;
     private Toolbar toolbar;
 
-    private AuthProvider authProvider;
-
     public FiltroakFragment() {
         // Required empty public constructor
     }
@@ -69,8 +67,7 @@ public class FiltroakFragment extends Fragment {
         imageViewKarikatura.setOnClickListener(this::filtratu);
         imageViewNaturaHila.setOnClickListener(this::filtratu);
         imageViewAbstraktua.setOnClickListener(this::filtratu);
-        // Sesioak kudeatzeko
-        authProvider = new AuthProvider();
+
         return view;
     }
 

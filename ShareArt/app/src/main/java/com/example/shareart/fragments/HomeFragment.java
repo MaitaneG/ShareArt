@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
 
-    private AuthProvider authProvider;
     private PostProvider postProvider;
     private PostAdapter postAdapter;
     private UserProvider userProvider;
@@ -66,11 +65,10 @@ public class HomeFragment extends Fragment {
         // Argitalpen bat egiteko botoia
         floatingActionButton = view.findViewById(R.id.floatingButtonArgitalpen);
         // Tresna-barra
-        toolbar = (Toolbar) view.findViewById(R.id.ToolBar);
+        toolbar = view.findViewById(R.id.ToolBar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
         // Providerrak
-        authProvider = new AuthProvider();
         postProvider = new PostProvider();
         userProvider = new UserProvider();
         // RecyclerView

@@ -67,5 +67,4 @@ public class UserProvider {
         map.put("egiaztatua",erabiltzailea.isEgiaztatua());
         return collectionReference.document(erabiltzailea.getId()).update(map);
     }
-
 }
