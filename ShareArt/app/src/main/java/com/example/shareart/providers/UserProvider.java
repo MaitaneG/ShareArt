@@ -3,7 +3,7 @@ package com.example.shareart.providers;
 import com.example.shareart.models.Erabiltzailea;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -27,11 +27,11 @@ public class UserProvider {
      * @param id
      * @return
      */
-    public Task<DocumentSnapshot> getErabiltzailea(String id) {
-        return collectionReference.document(id).get();
+    public DocumentReference getErabiltzailea(String id) {
+        return collectionReference.document(id);
     }
 
-    public Task<QuerySnapshot> getErabiltzaileaByErabiltzaileIzena(String izena){
+    public Task<QuerySnapshot> getErabiltzaileaByErabiltzaileIzena(String izena) {
         return collectionReference.orderBy("erabiltzaile_izena").startAt(izena.toUpperCase()).endAt(izena + "\uf8ff").get();
 
     }
@@ -57,8 +57,15 @@ public class UserProvider {
         Map<String, Object> map = new HashMap<>();
         map.put("erabiltzaile_izena", erabiltzailea.getErabiltzaile_izena());
         map.put("argazkia_profila_url", erabiltzailea.getArgazkia_profila_url());
-        map.put("deskribapena",erabiltzailea.getDeskribapena());
+        map.put("deskribapena", erabiltzailea.getDeskribapena());
 
         return collectionReference.document(erabiltzailea.getId()).update(map);
     }
+
+    public Task<Void> setEgiaztatua(Erabiltzailea erabiltzailea) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("egiaztatua",erabiltzailea.isEgiaztatua());
+        return collectionReference.document(erabiltzailea.getId()).update(map);
+    }
+
 }

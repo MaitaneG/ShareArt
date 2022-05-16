@@ -26,6 +26,7 @@ import com.example.shareart.providers.UserProvider;
 import com.example.shareart.utils.RelativeTime;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.common.images.ImageManager;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -100,6 +101,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         // Like botoia hasieratu
         getLike(post_id, authProvider.getUid(), holder);
 
+        isVerified(user_id, holder);
+
         // Argitalpen kopurua
         if (textView != null) {
             int zenbakia = getSnapshots().size();
@@ -154,8 +157,23 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         });
     }
 
+    private void isVerified(String user_id, ViewHolder holder) {
+        userProvider.getErabiltzailea(user_id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value != null) {
+                    if (value.contains("egiaztatua") && value.getBoolean("egiaztatua") != null && value.getBoolean("egiaztatua")) {
+                        holder.imageViewEgiaztatua.setVisibility(View.VISIBLE);
+                    }else{
+                        holder.imageViewEgiaztatua.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+    }
+
     private void erabiltzaileaBistaratu(String userId, ViewHolder holder) {
-        userProvider.getErabiltzailea(userId).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        userProvider.getErabiltzailea(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
@@ -248,6 +266,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         ImageView imageViewArgitarapena;
         ImageView imageViewLike;
         ImageView imageViewKomentatu;
+        ImageView imageViewEgiaztatua;
 
 
         public ViewHolder(View view) {
@@ -261,6 +280,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
             imageViewArgitarapena = view.findViewById(R.id.imageViewArgitarapenaCard);
             imageViewLike = view.findViewById(R.id.imageViewLike);
             imageViewKomentatu = view.findViewById(R.id.imageViewKomentatu);
+            imageViewEgiaztatua = view.findViewById(R.id.egiaztatuaCardView);
         }
     }
 }

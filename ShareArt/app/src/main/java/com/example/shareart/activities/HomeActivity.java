@@ -13,6 +13,7 @@ import com.example.shareart.R;
 import com.example.shareart.fragments.FiltroakFragment;
 import com.example.shareart.fragments.HomeFragment;
 import com.example.shareart.fragments.ProfilaFragment;
+import com.example.shareart.models.Erabiltzailea;
 import com.example.shareart.providers.AuthProvider;
 import com.example.shareart.providers.TokenProvider;
 import com.example.shareart.providers.UserProvider;
@@ -29,6 +30,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private TokenProvider tokenProvider;
     private AuthProvider authProvider;
+    private UserProvider userProvider;
 
     /**
      * HomeActivity-a sortzen denean
@@ -42,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
 
         hasieratu();
         createToken();
+        konprobatuEgiaztatutaDagoen();
     }
 
     /**
@@ -53,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         // Providers
         tokenProvider = new TokenProvider();
         authProvider = new AuthProvider();
+        userProvider = new UserProvider();
         // OnItemSelectedListener
         bottomNavigation.setOnItemSelectedListener(this::nabigatu);
         // Fragmentu lehenetsia
@@ -97,6 +101,22 @@ public class HomeActivity extends AppCompatActivity {
 
     private void createToken() {
         tokenProvider.createToken(authProvider.getUid());
+    }
+
+    private void konprobatuEgiaztatutaDagoen() {
+        userProvider.getErabiltzailea(authProvider.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.getBoolean("egiaztatua") == false) {
+                    if (authProvider.korreoaEgiaztatuta()) {
+                        Erabiltzailea erabiltzailea = new Erabiltzailea();
+                        erabiltzailea.setEgiaztatua(true);
+                        erabiltzailea.setId(authProvider.getUid());
+                        userProvider.setEgiaztatua(erabiltzailea);
+                    }
+                }
+            }
+        });
     }
 
     /**
