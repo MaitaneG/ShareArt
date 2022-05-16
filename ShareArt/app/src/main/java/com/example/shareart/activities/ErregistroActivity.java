@@ -195,7 +195,6 @@ public class ErregistroActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton("Ez", null)
-                .setCancelable(false)
                 .show();
     }
 
