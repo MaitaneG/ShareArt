@@ -42,6 +42,7 @@ public class ProfilaFragment extends Fragment {
     private View view;
     private ImageView perfilaEguneratuLinka;
     private ImageView konfigurazioLinka;
+    private ImageView egiaztatuaImageView;
     private TextView erabiltzaileIzenaTextView;
     private TextView korreoaTextView;
     private TextView argitalpenKopuruaTextView;
@@ -75,6 +76,7 @@ public class ProfilaFragment extends Fragment {
         dataTextView = view.findViewById(R.id.textViewData);
         argitalpenTexView = view.findViewById(R.id.textViewArgitalpen);
         deskribapenaTextView = view.findViewById(R.id.textViewDeskribapena);
+        egiaztatuaImageView = view.findViewById(R.id.imageViewEgiaztatua);
         // ImageView
         perfilaEguneratuLinka = view.findViewById(R.id.perfilaEditatuLink);
         konfigurazioLinka = view.findViewById(R.id.konfigurazioauLink);
@@ -84,7 +86,7 @@ public class ProfilaFragment extends Fragment {
         perfilaEguneratuLinka.setOnClickListener(this::perfilaEditaturaJoan);
         konfigurazioLinka.setOnClickListener(this::konfigurazioraJoan);
         // Toolbar
-        toolbar = (Toolbar) view.findViewById(R.id.toolbarProfila);
+        toolbar = view.findViewById(R.id.toolbarProfila);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
         // Providers
@@ -125,7 +127,6 @@ public class ProfilaFragment extends Fragment {
                         } else {
                             deskribapenaTextView.setText("Ez daukazu deskribapenik, aldatu zure deskripzioa.");
                         }
-
                     }
 
                     if (documentSnapshot.contains("argazkia_profila_url")) {
@@ -141,6 +142,21 @@ public class ProfilaFragment extends Fragment {
                     if (documentSnapshot.contains("sortze_data")) {
                         String relativeTime = RelativeTime.timeFormatAMPM(documentSnapshot.getLong("sortze_data"));
                         dataTextView.setText(relativeTime + "-an sartu zinen");
+                    }
+
+                    if (documentSnapshot.contains("egiaztatua")){
+                        userProvider.getErabiltzailea(authProvider.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if (value != null) {
+                                    if (value.contains("egiaztatua") && value.getBoolean("egiaztatua") != null && value.getBoolean("egiaztatua")) {
+                                        egiaztatuaImageView.setVisibility(View.VISIBLE);
+                                    }else{
+                                        egiaztatuaImageView.setVisibility(View.GONE);
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
             }
@@ -191,7 +207,7 @@ public class ProfilaFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (postAdapter!=null){
+        if (postAdapter != null) {
             listenerRegistration.remove();
         }
     }

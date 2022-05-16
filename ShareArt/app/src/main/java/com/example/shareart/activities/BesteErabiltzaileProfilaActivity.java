@@ -2,6 +2,8 @@ package com.example.shareart.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,7 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
     private TextView dataTextView;
     private TextView deskribapenaTextView;
     private TextView argitalpenTexView;
+    private ImageView egiaztatuaImageView;
     private CircleImageView perfilekoArgazkia;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
@@ -71,6 +74,8 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
         dataTextView = findViewById(R.id.textViewDataBesteErabiltzaile);
         argitalpenTexView = findViewById(R.id.textViewArgitalpenBesteErabiltzaile);
         deskribapenaTextView = findViewById(R.id.textViewDeskribapenaBesteErabiltzaile);
+        // ImageView
+        egiaztatuaImageView = findViewById(R.id.imageViewEgiaztatuaBesteErabiltzaile);
         // CircleImageView
         perfilekoArgazkia = findViewById(R.id.perfilaArgazkiaBesteErabiltzaile);
         // Providers
@@ -127,6 +132,21 @@ public class BesteErabiltzaileProfilaActivity extends AppCompatActivity {
                     if (documentSnapshot.contains("sortze_data")) {
                         String relativeTime = RelativeTime.timeFormatAMPM(documentSnapshot.getLong("sortze_data"));
                         dataTextView.setText(relativeTime + "-an sartu zen");
+                    }
+
+                    if (documentSnapshot.contains("egiaztatua")){
+                        userProvider.getErabiltzailea(extraErabiltzaileId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if (value != null) {
+                                    if (value.contains("egiaztatua") && value.getBoolean("egiaztatua") != null && value.getBoolean("egiaztatua")) {
+                                        egiaztatuaImageView.setVisibility(View.VISIBLE);
+                                    }else{
+                                        egiaztatuaImageView.setVisibility(View.GONE);
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
             }
