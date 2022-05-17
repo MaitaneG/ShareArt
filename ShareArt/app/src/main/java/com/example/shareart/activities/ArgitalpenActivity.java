@@ -256,7 +256,6 @@ public class ArgitalpenActivity extends AppCompatActivity {
                             if (imageUri != null) {
                                 argazkiaFitxeroa = FileUtil.from(ArgitalpenActivity.this, imageUri);
                                 argazkiaIgoBotoia.setImageBitmap(BitmapFactory.decodeFile(argazkiaFitxeroa.getAbsolutePath()));
-                                argazkiaIgoBotoia.setBackgroundColor(getResources().getColor(R.color.white));
                             }
 
                         } catch (IOException e) {
