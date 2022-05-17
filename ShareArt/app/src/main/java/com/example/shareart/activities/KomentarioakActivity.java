@@ -150,7 +150,6 @@ public class KomentarioakActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     abisuaBidali(mezua);
-                    Toast.makeText(KomentarioakActivity.this, "Komentarioa ondo gorde da", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(KomentarioakActivity.this, "Errore bat egon da komentarioa gordetzean", Toast.LENGTH_SHORT).show();
                 }
@@ -179,7 +178,7 @@ public class KomentarioakActivity extends AppCompatActivity {
                                     public void onResponse(Call<FCMResponse> call, Response<FCMResponse> response) {
                                         if (response.body() != null) {
                                             if (response.body().getSuccess() == 1) {
-                                                Toast.makeText(KomentarioakActivity.this, "SE HA ENVIADO EL MENSAJE", Toast.LENGTH_SHORT).show();
+
                                             }
                                         }
                                     }
@@ -190,7 +189,7 @@ public class KomentarioakActivity extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                Toast.makeText(KomentarioakActivity.this, "NO HAY TOKEN", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(KomentarioakActivity.this, "Errore bat egon da tokenarekin", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

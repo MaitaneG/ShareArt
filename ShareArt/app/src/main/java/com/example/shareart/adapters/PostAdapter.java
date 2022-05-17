@@ -275,7 +275,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
                                 public void onResponse(Call<FCMResponse> call, Response<FCMResponse> response) {
                                     if (response.body() != null) {
                                         if (response.body().getSuccess() == 1) {
-                                            Toast.makeText(context, "SE HA ENVIADO EL MENSAJE", Toast.LENGTH_SHORT).show();
+
                                         }
                                     }
                                 }
@@ -286,7 +286,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
                                 }
                             });
                         } else {
-                            Toast.makeText(context, "NO HAY TOKEN", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Errore bat egon da tokenarekin", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
