@@ -28,7 +28,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, CommentAdapter.ViewHolder> {
+public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, CommentAdapter.ViewHolderComment> {
     private final Context context;
     private final UserProvider userProvider;
     private final CommentProvider commentProvider;
@@ -43,7 +43,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Komentarioa model) {
+    protected void onBindViewHolder(@NonNull ViewHolderComment holder, int position, @NonNull Komentarioa model) {
         // Momentuko dokumentua
         DocumentSnapshot document = getSnapshots().getSnapshot(position);
         String comment_id = document.getId();
@@ -100,7 +100,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
         }
     }
 
-    private void erabiltzaileaBistaratu(String erabiltzaileId, ViewHolder holder) {
+    private void erabiltzaileaBistaratu(String erabiltzaileId, ViewHolderComment holder) {
         userProvider.getErabiltzailea(erabiltzaileId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -129,12 +129,12 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderComment onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_komentarioa, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolderComment(view);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolderComment extends RecyclerView.ViewHolder {
 
         private final TextView textViewErabiltzaileIzena;
         private final TextView textViewKomentarioa;
@@ -142,7 +142,7 @@ public class CommentAdapter extends FirestoreRecyclerAdapter<Komentarioa, Commen
         private final ImageView imageViewProfilekoArgakia;
         private final CardView cardViewKomentarioa;
 
-        public ViewHolder(View view) {
+        public ViewHolderComment(View view) {
             super(view);
 
             textViewErabiltzaileIzena = view.findViewById(R.id.textViewErabiltzaileIzenaKomentarioa);

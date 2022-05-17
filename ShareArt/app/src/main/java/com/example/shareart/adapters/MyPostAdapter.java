@@ -34,7 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostAdapter.ViewHolder> {
+public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostAdapter.ViewHolderMyPostAdapter> {
     private final Context context;
     private final PostProvider postProvider;
     private final AuthProvider authProvider;
@@ -53,7 +53,7 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Argitalpena model) {
+    protected void onBindViewHolder(@NonNull ViewHolderMyPostAdapter holder, int position, @NonNull Argitalpena model) {
         DocumentSnapshot document = getSnapshots().getSnapshot(position);
         String post_id = document.getId();
 
@@ -105,19 +105,19 @@ public class MyPostAdapter extends FirestoreRecyclerAdapter<Argitalpena, MyPostA
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderMyPostAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_nire_argitalpenak, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolderMyPostAdapter(view);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolderMyPostAdapter extends RecyclerView.ViewHolder {
         private final CircleImageView imageViewArgitalpena;
         private final ImageView imageViewEzabatuArgitalpena;
         private final TextView textViewDeskribapena;
         private final TextView textViewKategoria;
         private final TextView textViewData;
 
-        public ViewHolder(View view) {
+        public ViewHolderMyPostAdapter(View view) {
             super(view);
 
             imageViewArgitalpena = view.findViewById(R.id.imageViewNireArgitalpena);

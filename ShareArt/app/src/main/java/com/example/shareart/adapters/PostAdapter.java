@@ -48,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapter.ViewHolder> {
+public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapter.ViewHolderPost> {
     private final Context context;
     private final UserProvider userProvider;
     private final CommentProvider commentProvider;
@@ -91,7 +91,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Argitalpena model) {
+    protected void onBindViewHolder(@NonNull ViewHolderPost holder, int position, @NonNull Argitalpena model) {
         // Deskripzioa bistaratu
         holder.textViewDeskribapena.setText(model.getDeskribapena());
         // Kategoria
@@ -178,7 +178,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         });
     }
 
-    private void isVerified(String user_id, ViewHolder holder) {
+    private void isVerified(String user_id, ViewHolderPost holder) {
         userProvider.getErabiltzailea(user_id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -193,7 +193,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         });
     }
 
-    private void erabiltzaileaBistaratu(String userId, ViewHolder holder) {
+    private void erabiltzaileaBistaratu(String userId, ViewHolderPost holder) {
         userProvider.getErabiltzailea(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -206,7 +206,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         });
     }
 
-    private void getKomentarioKopurua(String postId, ViewHolder holder) {
+    private void getKomentarioKopurua(String postId, ViewHolderPost holder) {
         listenerRegistrationKomentarioa = commentProvider.getKomentarioakByArgitalpen(postId).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -217,7 +217,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         });
     }
 
-    private void getLikeKopurua(String post_id, ViewHolder holder) {
+    private void getLikeKopurua(String post_id, ViewHolderPost holder) {
         listenerRegistrationLike = likeProvider.getLikesByArgitalpen(post_id).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -228,7 +228,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         });
     }
 
-    private void likeBatEman(Like like, ViewHolder holder) {
+    private void likeBatEman(Like like, ViewHolderPost holder) {
         likeProvider.getLikeByArgitalpenAndErabiltzaile(like.getId_argitalpen(), like.getId_erabiltzaile()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -294,7 +294,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
         });
     }
 
-    private void getLike(String post_id, String user_id, ViewHolder holder) {
+    private void getLike(String post_id, String user_id, ViewHolderPost holder) {
         likeProvider.getLikeByArgitalpenAndErabiltzaile(post_id, user_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -318,26 +318,26 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Argitalpena, PostAdapt
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderPost onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_argitalpena, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolderPost(view);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolderPost extends RecyclerView.ViewHolder {
 
-        TextView textViewDeskribapena;
-        TextView textViewErabiltzaileIzena;
-        TextView textViewLikeKopurua;
-        TextView textViewKategoria;
-        TextView textViewKomentarioa;
-        TextView textViewData;
-        ImageView imageViewArgitarapena;
-        ImageView imageViewLike;
-        ImageView imageViewKomentatu;
-        ImageView imageViewEgiaztatua;
+        private final TextView textViewDeskribapena;
+        private final TextView textViewErabiltzaileIzena;
+        private final TextView textViewLikeKopurua;
+        private final TextView textViewKategoria;
+        private final TextView textViewKomentarioa;
+        private final TextView textViewData;
+        private final ImageView imageViewArgitarapena;
+        private final ImageView imageViewLike;
+        private final ImageView imageViewKomentatu;
+        private final ImageView imageViewEgiaztatua;
 
 
-        public ViewHolder(View view) {
+        public ViewHolderPost(View view) {
             super(view);
             textViewDeskribapena = view.findViewById(R.id.textViewDeskriptionCard);
             textViewErabiltzaileIzena = view.findViewById(R.id.textViewErabiltzaileIzenaCard);
