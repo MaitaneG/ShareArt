@@ -82,7 +82,7 @@ public class FiltratutakoaActivity extends AppCompatActivity {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
 
-                    Query query = postProvider.getArgitalpenByUserAndKategoria(queryDocumentSnapshots.getDocuments().get(i).getId(),extraKategoria);
+                    Query query = postProvider.getArgitalpenByUserAndKategoria(queryDocumentSnapshots.getDocuments().get(i).getId(), extraKategoria);
                     FirestoreRecyclerOptions<Argitalpena> options =
                             new FirestoreRecyclerOptions.Builder<Argitalpena>()
                                     .setQuery(query, Argitalpena.class)
@@ -156,8 +156,10 @@ public class FiltratutakoaActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         if (postAdapter != null) {
-            postAdapter.getListenerRegistrationLike().remove();
-            postAdapter.getListenerRegistrationKomentarioa().remove();
+            if (postAdapter.getListenerRegistrationLike() != null && postAdapter.getListenerRegistrationKomentarioa() != null) {
+                postAdapter.getListenerRegistrationLike().remove();
+                postAdapter.getListenerRegistrationKomentarioa().remove();
+            }
         }
     }
 }
